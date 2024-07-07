@@ -1,5 +1,7 @@
 # Team Lightyear
 
+Project Proposal Google Doc
+
 Run React app with command "npm run dev"
 
 Connect to database schema well-coffee
