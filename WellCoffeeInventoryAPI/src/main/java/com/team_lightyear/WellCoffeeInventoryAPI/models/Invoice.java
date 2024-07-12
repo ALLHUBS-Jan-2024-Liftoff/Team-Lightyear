@@ -1,9 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -23,6 +20,9 @@ public class Invoice {
     
 //    @ManyToMany
     private List<Item> itemList = new ArrayList<>();
+    
+//    @ManyToOne
+//    private User user;
     
     private Date invoiceDate;
     
