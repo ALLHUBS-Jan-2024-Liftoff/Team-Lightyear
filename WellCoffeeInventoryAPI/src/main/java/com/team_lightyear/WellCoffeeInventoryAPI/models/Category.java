@@ -11,6 +11,7 @@ import java.util.Objects;
 /**
  * Created by Deanne Chae
  */
+
 @Entity
 public class Category {
 

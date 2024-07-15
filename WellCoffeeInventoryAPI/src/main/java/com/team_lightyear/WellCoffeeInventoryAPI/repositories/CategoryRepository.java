@@ -1,6 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.repositories;
 
-import com.team_lightyear.WellCoffeeInventoryAPI.models.Item;
+import com.team_lightyear.WellCoffeeInventoryAPI.models.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Integer> {
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
 }
