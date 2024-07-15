@@ -20,11 +20,11 @@ public class Invoice {
     @GeneratedValue
     private int id;
     
-    //TODO implement once Item entity is available
+    //TODO - Trevor - implement once Item entity is available
 //    @ManyToMany
 //    private List<Item> itemList = new ArrayList<>();
     
-    //TODO implement once authentication/authorization service is running
+    //TODO - Trevor - implement once authentication/authorization service is running
 //    @ManyToOne
 //    private Account account;
     
