@@ -1,11 +1,12 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -19,7 +20,14 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 50, message = "Must be between 3 and 50 characters")
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL) // This makes sure operations like saving or deleting a category will also affect associated items
+    @JoinColumn(name = "category_id")
+    private List<Item> items = new ArrayList<>();
+
     private LocalDateTime dateCreated;
 
     // Constructors

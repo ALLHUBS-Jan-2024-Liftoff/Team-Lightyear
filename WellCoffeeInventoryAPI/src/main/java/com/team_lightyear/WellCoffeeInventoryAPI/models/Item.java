@@ -1,9 +1,8 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
@@ -19,11 +18,15 @@ public class Item {
     private int id;
     // Specifying the strategy ensures the JPA will consistently and reliably generate unique primary keys
 
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 50, message = "Must be between 3 and 15 characters")
     private String name;
     private Integer quantity;
     private Double price;
     private String location;
     private String description;
+
+    @ManyToOne
     private Category category;
 
     // No-argument constructor, required by JPA
