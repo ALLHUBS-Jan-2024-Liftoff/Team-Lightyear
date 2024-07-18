@@ -26,7 +26,7 @@ public class Category {
 
     @OneToMany(cascade = CascadeType.ALL) // This makes sure operations like saving or deleting a category will also affect associated items
     @JoinColumn(name = "category_id")
-    private List<Item> items = new ArrayList<>();
+    private final List<Item> items = new ArrayList<>();
 
     private LocalDateTime dateCreated;
 
@@ -36,6 +36,7 @@ public class Category {
 
     public Category(String name) {
         this.name = name;
+        this.dateCreated = LocalDateTime.now();
     }
 
     // Getters and setters
@@ -53,6 +54,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+    public void addItem(Item item) {
+        items.add(item);
     }
 
     // toString() method
