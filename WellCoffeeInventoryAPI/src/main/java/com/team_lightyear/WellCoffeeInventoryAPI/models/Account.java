@@ -34,6 +34,12 @@ public class Account {
 //    @JoinColumn(name = "Account_id")
 //    private Invoice invoice;
 
+
+    // No Arg Constructor for JPA
+    public Account() {
+    }
+
+    // Constructor
     public Account(int id, String name, String email, String password, Boolean manager) {
         this.id = id;
         this.name = name;
@@ -42,7 +48,7 @@ public class Account {
         this.manager = manager;
     }
 
-    // No Setter for ID
+    // Getters and Setters - No Setter for ID
     public int getId() {
         return id;
     }
@@ -80,6 +86,7 @@ public class Account {
         this.manager = manager;
     }
 
+    // Equals and HashCode method - id and email
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,6 +100,7 @@ public class Account {
         return Objects.hash(id, email);
     }
 
+    // toString method
     @Override
     public String toString() {
         return "Account{" +
