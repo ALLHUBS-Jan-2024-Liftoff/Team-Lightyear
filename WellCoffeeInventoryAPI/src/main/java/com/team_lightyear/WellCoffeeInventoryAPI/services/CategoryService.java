@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Deanne Chae
  */
+
 @Service
-public class ItemService {
+public class CategoryService {
 }
