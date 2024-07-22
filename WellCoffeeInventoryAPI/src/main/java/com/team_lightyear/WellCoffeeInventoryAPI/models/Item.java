@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -28,6 +30,9 @@ public class Item {
 
     @ManyToOne
     private Category category;
+    
+    @ManyToMany
+    private final List<Invoice> invoiceList = new ArrayList<>();
 
     // No-argument constructor, required by JPA
     public Item() {
@@ -95,7 +100,11 @@ public class Item {
     public void setCategory(Category category) {
         this.category = category;
     }
-
+    
+    public List<Invoice> getInvoiceList() {
+        return invoiceList;
+    }
+    
     // toString() method
     @Override
     public String toString() {

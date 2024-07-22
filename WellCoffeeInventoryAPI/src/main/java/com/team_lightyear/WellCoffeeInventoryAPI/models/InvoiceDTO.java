@@ -11,20 +11,12 @@ import java.util.Objects;
  * Created by Trevor Gruber
  */
 
-@Entity
-public class Invoice {
+public class InvoiceDTO {
     
     /* fields */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    // DTO list of Item ID integers to send to InvoiceService for processing by ItemRepository
+    private final List<Integer> itemList = new ArrayList<>();
     
-    //TODO - Trevor - implement once Item entity is available
-    @ManyToMany(mappedBy = "invoiceList")
-    private final List<Item> itemList = new ArrayList<>();
-    
-//    TODO - Trevor - implement once authentication/authorization service is running
-//    @ManyToOne
 //    private Account account;
     
     //LocalDate is stored as 2010-12-03
@@ -32,17 +24,16 @@ public class Invoice {
     
     private String vendor;
     
-    @Column(unique = true)
     private String invoiceNumber;
     
     
     
     /* Constructor(s) */
     
-    public Invoice() {
+    public InvoiceDTO() {
     }
     
-    public Invoice(LocalDate invoiceDate, String vendor, String invoiceNumber) {
+    public InvoiceDTO(LocalDate invoiceDate, String vendor, String invoiceNumber) {
         this.invoiceDate = invoiceDate;
         this.vendor = vendor;
         this.invoiceNumber = invoiceNumber;
@@ -50,14 +41,18 @@ public class Invoice {
     
     /* Custom methods */
     
-    public void addItems(Item item){
-        itemList.add(item);
-    }
-    
     /* Getters and Setters */
     
-    public long getId() {
-        return id;
+    public List<Integer> getItemList() {
+        return itemList;
+    }
+    
+    public LocalDate getInvoiceDate() {
+        return invoiceDate;
+    }
+    
+    public void setInvoiceDate(LocalDate invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
     
     public String getVendor() {
@@ -75,21 +70,11 @@ public class Invoice {
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
-    
-    public LocalDate getInvoiceDate() {
-        return invoiceDate;
-    }
-    
-    public void setInvoiceDate(LocalDate invoiceDate) {
-        this.invoiceDate = invoiceDate;
-    }
-    
     /* toString */
     
     @Override
     public String toString() {
         return "Invoice{" +
-                "id=" + id +
                 ", invoiceDate=" + invoiceDate +
                 ", vendor='" + vendor + '\'' +
                 ", invoiceNumber='" + invoiceNumber + '\'' +
@@ -102,12 +87,12 @@ public class Invoice {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Invoice invoice = (Invoice) o;
-        return id == invoice.id;
+        InvoiceDTO that = (InvoiceDTO) o;
+        return Objects.equals(itemList, that.itemList) && Objects.equals(invoiceDate, that.invoiceDate) && Objects.equals(vendor, that.vendor) && Objects.equals(invoiceNumber, that.invoiceNumber);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(itemList, invoiceDate, vendor, invoiceNumber);
     }
 }
