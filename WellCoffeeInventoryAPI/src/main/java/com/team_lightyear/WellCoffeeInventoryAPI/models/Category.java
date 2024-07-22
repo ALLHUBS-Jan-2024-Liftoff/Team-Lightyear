@@ -47,6 +47,10 @@ public class Category {
         return dateCreated;
     }
 
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
     public String getName() {
         return name;
     }
