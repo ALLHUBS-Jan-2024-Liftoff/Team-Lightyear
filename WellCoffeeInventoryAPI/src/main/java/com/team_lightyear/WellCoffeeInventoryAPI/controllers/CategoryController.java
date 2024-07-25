@@ -31,18 +31,18 @@ public class CategoryController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable int id) {
         Optional<Category> category = categoryService.getCategoryById(id);
-        if (category == null) {
-            return ResponseEntity.notFound().build();
+        if (category.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category with ID " + id + " not found");
         }
         return ResponseEntity.ok(category);
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateCategory(@PathVariable int id, @RequestBody Category category) {
-        Category updatedCategory = categoryService.updateCategory(id, category);
+        Optional<Category> updatedCategory = categoryService.updateCategory(id, category);
 
-        if (updatedCategory == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        if (updatedCategory.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category with ID " + id + " not found");
         }
         return ResponseEntity.ok(updatedCategory);
     }
@@ -51,9 +51,10 @@ public class CategoryController {
     public ResponseEntity<?> deleteCategory(@PathVariable int id) {
         try {
             categoryService.deleteCategory(id);
-            return new ResponseEntity<>("Category with ID " + id + " deleted successfully", HttpStatus.OK);
+            return ResponseEntity.ok("Category with ID " + id + " deleted successfully");
         } catch (EntityNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
 }

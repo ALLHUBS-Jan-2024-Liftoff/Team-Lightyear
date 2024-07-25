@@ -33,16 +33,12 @@ public class CategoryService {
         return categoryRepository.findById(id);
     }
 
-    public Category updateCategory(int id, Category category) {
-        Optional<Category> optionalCategory = categoryRepository.findById(id);
-        if (optionalCategory.isPresent()) {
-            Category existingCategory = optionalCategory.get();
-
-            existingCategory.setName(category.getName());
-
+    public Optional<Category> updateCategory(int id, Category newCategory) {
+        return categoryRepository.findById(id).map(existingCategory -> {
+            existingCategory.setName(newCategory.getName());
+            existingCategory.setDateCreated(LocalDateTime.now());
             return categoryRepository.save(existingCategory);
-        }
-        return null;
+        });
     }
 
     public void deleteCategory(int id) {
