@@ -121,7 +121,7 @@ const CategoryDisplay = () => {
         </Accordion>
       </Container>
     </>
-  )
+  );
 }
 
-export default CategoryDisplay
+export default CategoryDisplay;
