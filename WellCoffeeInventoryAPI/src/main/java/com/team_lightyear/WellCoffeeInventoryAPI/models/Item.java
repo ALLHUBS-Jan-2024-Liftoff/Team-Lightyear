@@ -27,6 +27,7 @@ public class Item {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     // No-argument constructor, required by JPA
