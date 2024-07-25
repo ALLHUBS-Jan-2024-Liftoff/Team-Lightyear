@@ -40,8 +40,9 @@ public class Account {
     }
 
     // Constructor
-    public Account(int id, String name, String email, String password, Boolean manager) {
-        this.id = id;
+
+
+    public Account(String name, String email, String password, Boolean manager) {
         this.name = name;
         this.email = email;
         this.password = password;
