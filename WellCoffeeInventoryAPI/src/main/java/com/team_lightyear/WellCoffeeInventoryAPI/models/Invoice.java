@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class Invoice {
     
     //TODO - Trevor - implement once Item entity is available
     @ManyToMany(mappedBy = "invoiceList")
-    private final List<Item> itemList = new ArrayList<>();
+    private final HashMap<Item, Long> itemLongQuantityOrderedHashMap = new HashMap<>();
     
 //    TODO - Trevor - implement once authentication/authorization service is running
 //    @ManyToOne
@@ -50,8 +51,8 @@ public class Invoice {
     
     /* Custom methods */
     
-    public void addItems(Item item){
-        itemList.add(item);
+    public void addItem(Item item, Long quantity){
+        itemLongQuantityOrderedHashMap.put(item, quantity);
     }
     
     /* Getters and Setters */
