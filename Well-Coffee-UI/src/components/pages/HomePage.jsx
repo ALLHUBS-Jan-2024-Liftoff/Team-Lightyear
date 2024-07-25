@@ -1,8 +1,11 @@
 import React from 'react'
+import CategoryDisplay from '../home/CategoryDisplay'
 
 const HomePage = () => {
   return (
-    <h1>HomePage</h1>
+    <>
+      <CategoryDisplay />
+    </>
   )
 }
 
