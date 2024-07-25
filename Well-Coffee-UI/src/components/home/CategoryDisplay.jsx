@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Accordion, Container, Table, Button } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
+import UpdateItemModal from "./UpdateItemModal";
 
 const CategoryDisplay = () => {
   // Sample data for testing purposes:
@@ -111,6 +112,7 @@ const CategoryDisplay = () => {
                         <td>{item.cost}</td>
                         <td>
                           <ItemCardModal />{' '}
+                          <UpdateItemModal />{' '}
                           <Button variant='outline-danger'>Delete</Button>
                         </td>
                       </tr>
