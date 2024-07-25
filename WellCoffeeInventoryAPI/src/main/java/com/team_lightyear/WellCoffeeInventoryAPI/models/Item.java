@@ -29,6 +29,7 @@ public class Item {
     private String description;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
     
     @ManyToMany
