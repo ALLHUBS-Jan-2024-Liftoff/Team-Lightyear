@@ -25,7 +25,7 @@ const AddCategoryModal = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="categoryName">
               <Form.Label>Category Name</Form.Label>
               <Form.Control
                 type="text"

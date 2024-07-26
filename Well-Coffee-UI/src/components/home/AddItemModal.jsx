@@ -26,12 +26,12 @@ const AddItemModal = () => {
         <Modal.Body>
           <Form>
             <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridName">
+              <Form.Group as={Col} controlId="itemName">
                 <Form.Label>Item Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter name" />
               </Form.Group>
 
-              <Form.Group as={Col} controlId="formGridCategory">
+              <Form.Group as={Col} controlId="itemCategory">
                 <Form.Label>Category</Form.Label>
                 <Form.Select defaultValue="Select...">
                   <option>Select...</option>
@@ -40,29 +40,29 @@ const AddItemModal = () => {
               </Form.Group>
             </Row>
             <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridQuantity">
+              <Form.Group as={Col} controlId="itemQuantity">
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control type="text" placeholder="Enter quantity" />
               </Form.Group>
 
-              <Form.Group as={Col} controlId="formGridPrice">
+              <Form.Group as={Col} controlId="itemPrice">
                 <Form.Label>Price</Form.Label>
                 <Form.Control type="text" placeholder="Enter price" />
               </Form.Group>
             </Row>
             <Row className="mb-3">
-              <Form.Group as={Col} controlId="formGridLocation">
+              <Form.Group as={Col} controlId="itemLocation">
                 <Form.Label>Location</Form.Label>
                 <Form.Control type="text" placeholder="Enter location" />
               </Form.Group>
               
-              <Form.Group as={Col} controlId="formFile" className="mb-3">
+              <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
                 <Form.Label>Photo</Form.Label>
                 <Form.Control type="file" />
               </Form.Group>
             </Row>
 
-            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Group className="mb-3" controlId="itemDescription">
               <Form.Label>Description</Form.Label>
               <Form.Control as="textarea" rows={2} placeholder="Enter description"/>
             </Form.Group>
