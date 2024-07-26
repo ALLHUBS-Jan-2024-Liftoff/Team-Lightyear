@@ -11,6 +11,7 @@ export const OrderFormItemRow = ({ item, itemsInOrder }) => {
   const handleChange = (e) => {
     if (e.target.value < 0) {
       // throw error and reset value to 0
+      
     } else if (e.target.value == 0) {
       itemsInOrder.delete(e.target.id);
     } else if (e.target.value > 0) {

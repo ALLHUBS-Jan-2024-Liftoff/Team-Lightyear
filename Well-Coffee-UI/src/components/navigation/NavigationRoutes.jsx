@@ -6,13 +6,14 @@ import DailyReport from '../pages/DailyReport';
 import Tutorial from '../pages/Tutorial';
 import AccountPage from '../pages/AccountPage';
 import LogoutPage from '../pages/LogoutPage';
+import DisplayItems from '../orderForm/orderFormPage';
 
 const NavigationRoutes = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/order" element={<OrderPage />} />
+        <Route path="/order" element={<DisplayItems />} />
         <Route path="/manage" element={<ManageEmployees />} />
         <Route path="/report" element={<DailyReport />} />
         <Route path="/tutorial" element={<Tutorial />} />

@@ -5,18 +5,18 @@ import { fetchCategories } from "../../services/CategoryService";
 import { OrderFormTable } from "./orderFormTable.jsx";
 import Accordion from "react-bootstrap/Accordion";
 
-const displayItems = () => {
+const DisplayItems = () => {
   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
-  const itemsInOrder= new Map();
+  const itemsInOrder = new Map();
 
-//   const addItem = (itemId, quantity) => {
-//     itemsInOrder.set(itemId, quantity);    
-// }
+  //   const addItem = (itemId, quantity) => {
+  //     itemsInOrder.set(itemId, quantity);
+  // }
 
-//     const deleteItem = (itemId) => {
-//         itemsInOrder.delete(itemId);
-//     }
+  //     const deleteItem = (itemId) => {
+  //         itemsInOrder.delete(itemId);
+  //     }
 
   useEffect(() => {
     // Fetch all items when the component mounts
@@ -36,11 +36,26 @@ const displayItems = () => {
       });
   }, []);
 
+  const filterItems = (category, items) => {
+    let filteredItems = [];
+    items.map(item => {
+      if (item.category == category) {
+        filteredItems.push(item);
+      }
+    });
+    return filteredItems;
+  };
+
   return (
     <Form>
       <Accordion defaultActiveKey="0">
         {categories.map(category => (
-          <OrderFormTable key={category.id} category={category} items={items} itemsInOrder={itemsInOrder} />
+          <OrderFormTable
+            key={category.id}
+            category={category}
+            items={filterItems(category, items)}
+            itemsInOrder={itemsInOrder}
+          />
         ))}
       </Accordion>
     </Form>
