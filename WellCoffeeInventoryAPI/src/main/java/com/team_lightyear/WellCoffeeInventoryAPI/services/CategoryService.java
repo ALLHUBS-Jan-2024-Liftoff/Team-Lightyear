@@ -33,12 +33,13 @@ public class CategoryService {
         return categoryRepository.findById(id);
     }
 
-    public Optional<Category> updateCategory(int id, Category newCategory) {
-        return categoryRepository.findById(id).map(existingCategory -> {
-            existingCategory.setName(newCategory.getName());
-            existingCategory.setDateCreated(LocalDateTime.now());
-            return categoryRepository.save(existingCategory);
-        });
+    public Category updateCategory(int id, Category categoryDetails) {
+        Category existingCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Category with ID " + id + " not found"));
+
+        existingCategory.setName(categoryDetails.getName());
+        existingCategory.setDateCreated(LocalDateTime.now());
+        return categoryRepository.save(existingCategory);
     }
 
     public void deleteCategory(int id) {
