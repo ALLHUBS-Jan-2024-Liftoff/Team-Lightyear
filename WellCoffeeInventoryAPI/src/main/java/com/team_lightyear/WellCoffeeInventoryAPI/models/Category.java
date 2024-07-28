@@ -24,8 +24,7 @@ public class Category {
     @Size(min = 3, max = 50, message = "Must be between 3 and 50 characters")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL) // This makes sure operations like saving or deleting a category will also affect associated items
-    @JoinColumn(name = "category_id")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL) // This makes sure operations like saving or deleting a category will also affect associated items
     private final List<Item> items = new ArrayList<>();
 
     private LocalDateTime dateCreated;
@@ -46,6 +45,10 @@ public class Category {
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public String getName() {

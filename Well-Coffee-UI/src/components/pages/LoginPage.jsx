@@ -16,12 +16,12 @@ const LoginPage = () => {
     
     <div className='loginForm'>
       {/* Your form inputs */}
-      <form action='/order' autoComplete='off' method='POST'>
+      <form action='/account' autoComplete='off' method='post'>
         <div className='inputContainer'>
           <label htmlFor='email'>Email:</label>
-          <input type='email' placeholder='Email' />
+          <input type='email' id='email' placeholder='Email' />
           <label htmlFor='password'>Password:</label>
-          <input type='password' placeholder='Password' />
+          <input type='password' id='password' placeholder='Password' />
         </div>
         
         {/* Will add forgot password later */}
