@@ -38,13 +38,13 @@ public class CategoryController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateCategory(@PathVariable int id, @RequestBody Category category) {
-        Optional<Category> updatedCategory = categoryService.updateCategory(id, category);
-
-        if (updatedCategory.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category with ID " + id + " not found");
+    public ResponseEntity<?> updateCategory(@PathVariable int id, @RequestBody Category categoryDetails) {
+        try {
+            Category updatedCategory = categoryService.updateCategory(id, categoryDetails);
+            return ResponseEntity.ok(updatedCategory);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return ResponseEntity.ok(updatedCategory);
     }
 
     @DeleteMapping("/{id}")

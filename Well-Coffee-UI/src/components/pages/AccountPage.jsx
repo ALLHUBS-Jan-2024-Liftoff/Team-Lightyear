@@ -1,11 +1,13 @@
 import React from 'react'
+import { useState } from 'react'
 
 const AccountPage = () => {
   return (
     <div className='account-page'>
-    <h1>AccountPage</h1>
+    <h1 className='text-center'>Manage Your Account</h1>
     
-    {/* UserAccount table */}
+    
+
     <table class='account-table'>
       <thead>
         <tr>

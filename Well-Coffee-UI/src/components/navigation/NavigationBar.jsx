@@ -13,6 +13,7 @@ const NavigationBar = () => {
           <Navbar.Toggle />
           <Navbar.Collapse>
             <Nav className='ml-auto nav-links'>
+              <Nav.Link as={Link} to={"/home"}>Home</Nav.Link>
               <Nav.Link as={Link} to={"/order"}>Make an Order</Nav.Link>
               <Nav.Link as={Link} to={"/manage"}>Manage Employees</Nav.Link>
               <Nav.Link as={Link} to={"/report"}>Daily Report</Nav.Link>
