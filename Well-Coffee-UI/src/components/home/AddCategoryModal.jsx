@@ -1,11 +1,25 @@
 import { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
+import { createCategory } from '../../services/CategoryService';
 
 const AddCategoryModal = () => {
   const [show, setShow] = useState(false);
+  const [categoryName, setCategoryName] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await createCategory(categoryName);
+      setCategoryName('');
+      setShow(false); // Closes the form upon submission
+    } catch (error) {
+      // Error handling already present in 'createCategory'
+    }
+  }
 
   return (
     <>
@@ -16,7 +30,7 @@ const AddCategoryModal = () => {
       <Modal 
         show={show} 
         onHide={handleClose}
-        size="med"
+        size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
@@ -24,12 +38,15 @@ const AddCategoryModal = () => {
           <Modal.Title>Add Category</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="categoryName">
               <Form.Label>Category Name</Form.Label>
               <Form.Control
                 type="text"
+                name="name"
                 placeholder="Enter text here"
+                value={categoryName}
+                onChange={(e) => setCategoryName(e.target.value)}
                 autoFocus
               />
             </Form.Group>
@@ -39,7 +56,7 @@ const AddCategoryModal = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button type="submit" variant="primary" onClick={handleSubmit}>
             Submit
           </Button>
         </Modal.Footer>
