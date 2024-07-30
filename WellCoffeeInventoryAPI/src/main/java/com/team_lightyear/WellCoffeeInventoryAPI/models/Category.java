@@ -1,5 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -24,7 +25,8 @@ public class Category {
     @Size(min = 3, max = 50, message = "Must be between 3 and 50 characters")
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL) // This makes sure operations like saving or deleting a category will also affect associated items
+    @OneToMany(mappedBy = "category")
+    @JsonManagedReference // Prevents infinite recursion
     private final List<Item> items = new ArrayList<>();
 
     private LocalDateTime dateCreated;
