@@ -55,7 +55,6 @@ const AddCategoryModal = () => {
               <Form.Label>Category Name</Form.Label>
               <Form.Control
                 type="text"
-                name="name"
                 placeholder="Enter text here"
                 value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}
