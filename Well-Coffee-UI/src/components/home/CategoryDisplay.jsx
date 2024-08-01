@@ -3,7 +3,7 @@ import { Accordion, Container, Table, Button } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
 
-const CategoryDisplay = () => {
+const CategoryDisplay = ({ categories }) => {
 
   return (
     <>
