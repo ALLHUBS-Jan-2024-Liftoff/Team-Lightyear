@@ -95,18 +95,6 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
                   required
                 />
               </Form.Group>
-
-              <Form.Group as={Col} controlId="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Enter password"
-                  required
-                />
-              </Form.Group>
             </Row>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="role">
