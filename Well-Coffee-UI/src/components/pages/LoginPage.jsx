@@ -12,10 +12,10 @@ const LoginPage = () => {
         <h1>Log In</h1>
       </div>
     
-    {/* Add your login form here */}
+    {/* Login form here */}
     
     <div className='loginForm'>
-      {/* Your form inputs */}
+      {/* Form inputs */}
       <form action='/account' autoComplete='off' method='post'>
         <div className='inputContainer'>
           <label htmlFor='email'>Email:</label>

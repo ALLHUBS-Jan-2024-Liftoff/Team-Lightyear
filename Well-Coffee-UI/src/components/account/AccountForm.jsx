@@ -103,34 +103,13 @@ const AddAccountModal = () => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="">Select...</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
-                  <option value="manager">Manager</option>
+                  <option value="1">Admin</option>
+                  <option value="2">Employee</option>
+                  <option value="3">Manager</option>
                 </Form.Select>
               </Form.Group>
             </Row>
 
-            <Form.Group className="mb-3" controlId="description">
-              <Form.Label>Description</Form.Label>
-              <Form.Control 
-                as="textarea" 
-                rows={2} 
-                name="description"
-                value={formData.description || ''}
-                onChange={handleChange}
-                placeholder="Enter description (optional)"
-              />
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="photo">
-              <Form.Label>Photo</Form.Label>
-              <Form.Control 
-                type="file" 
-                name="photo"
-                onChange={(e) => setFormData({ ...formData, photo: e.target.files[0] })}
-              />
-            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>

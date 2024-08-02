@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Accordion, Container, Table, Button } from 'react-bootstrap';
 import AddAccountModal from './AddAccountModal'; 
 import UpdateAccountModal from './UpdateAccountModal';
+
 const AccountsDisplay = () => {
   // Sample data for testing purposes:
   const [accounts, setAccounts] = useState([
@@ -28,6 +29,7 @@ const AccountsDisplay = () => {
     },
   ]);
 
+  // This will need to be updated to use an axios call once connected to Java API.
   const handleDelete = (id) => {
     // Logic to handle account deletion
     setAccounts(accounts.filter(account => account.id !== id));
