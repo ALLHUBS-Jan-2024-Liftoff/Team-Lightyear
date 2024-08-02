@@ -39,10 +39,6 @@ const AccountsDisplay = () => {
     <>
       <Container className='mt-5'>
         <h1 className='text-center'>Accounts</h1>
-        <Accordion alwaysOpen className='mt-4'>
-          <Accordion.Item eventKey="0">
-            <Accordion.Header>Account List</Accordion.Header>
-            <Accordion.Body>
               <Table striped bordered hover responsive>
                 <thead>
                   <tr>
@@ -75,10 +71,6 @@ const AccountsDisplay = () => {
                   ))}
                 </tbody>
               </Table>
-              <AddAccountModal />
-            </Accordion.Body>
-          </Accordion.Item>
-        </Accordion>
       </Container>
     </>
   );

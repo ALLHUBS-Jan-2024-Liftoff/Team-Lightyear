@@ -6,7 +6,6 @@ import UpdateAccountModal from '../account/UpdateAccountModal'
 const ManageEmployees = () => {
   return (
     <>
-    <h1 className='text-center'>Manage Employees</h1>
     <AccountsDisplay />
     </>
 

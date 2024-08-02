@@ -23,20 +23,21 @@ const AddAccountModal = ({ onAdd }) => {
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-    await createAccout(accountName);
-    setSuccess(true); // Sets success state to true and displays a message to the user
-    setTimeout(() => {
-      handleClose();
-      onAdd(); // Calls the provided onAdd function to update the account list
-    }, 1500); // Closes the modal after 1.5 seconds
+      await createAccount(account);
+      setSuccess(true); // Sets success state to true and displays a message to the user
+      setTimeout(() => {
+        handleClose();
+      }, 1500); // Closes the modal after 1.5 seconds
+
     } catch (error) {
-      // Error message will be displayed to the user if the account cannot be created
-      setError("There was an error creating the account. Please try again.");
+      // Error message will be displayed to the user if the category cannot be created
+      setError("There was an error creating the category. Please try again.");
     }
-
-
-  };
+  }
 
   return (
     <>
@@ -55,9 +56,10 @@ const AddAccountModal = ({ onAdd }) => {
           <Modal.Title>Add New Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* {isLoading && <p>Loading...</p>}
-          {error && <p style={{ color: 'red' }}>{error}</p>} */}
+          {isLoading && <p>Loading...</p>}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
           <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="account">
             <Row className="mb-3">
               <Form.Group as={Col} controlId="firstName">
                 <Form.Label>First Name</Form.Label>
@@ -130,6 +132,7 @@ const AddAccountModal = ({ onAdd }) => {
             <Button variant="primary" type="submit" disabled={isLoading}>
               Add Account
             </Button>
+            </Form.Group>
           </Form>
         </Modal.Body>
       </Modal>
