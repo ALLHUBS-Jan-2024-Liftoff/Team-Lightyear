@@ -28,19 +28,12 @@ public class AccountController {
         return accountService.getAllAccounts();
     }
 
-//    @PostMapping("/new")
-//    public Account createAccount(@RequestBody Account account) {
-//        return accountService.createAccount(account);
-//    }
-
     @PostMapping("/new")
-    public Account createAccount(@RequestParam String firstName,
-                                 @RequestParam String lastName,
-                                 @RequestParam String email,
-                                 @RequestParam String password,
-                                 @RequestParam Boolean manager) {
-        return accountService.createAccount(firstName, lastName, email, password, manager);
+    public Account createAccount(@RequestBody Account account) {
+        return accountService.createAccount(account);
     }
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getAccountById(@PathVariable int id) {

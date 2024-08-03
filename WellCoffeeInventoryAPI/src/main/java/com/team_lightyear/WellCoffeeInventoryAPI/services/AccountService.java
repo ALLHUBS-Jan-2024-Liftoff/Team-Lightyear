@@ -22,9 +22,8 @@ public class AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-    public Account createAccount(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String email, @RequestParam String password, @RequestParam Boolean manager) {
-        Account newAccount = new Account(firstName, lastName, email, password, manager);
-        return accountRepository.save(newAccount);
+    public Account createAccount(Account account) {
+        return accountRepository.save(account);
     }
 
     public List<Account> getAllAccounts() {
