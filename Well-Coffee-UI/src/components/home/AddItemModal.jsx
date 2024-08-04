@@ -3,6 +3,13 @@ import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 
 const AddItemModal = () => {
   const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    quantity: "",
+    price: "",
+    location: "",
+    description: ""
+  });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);

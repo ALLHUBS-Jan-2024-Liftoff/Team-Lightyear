@@ -4,6 +4,7 @@ import { Container } from 'react-bootstrap';
 import AddCategoryModal from '../home/AddCategoryModal';
 import AddItemModal from '../home/AddItemModal';
 import { createCategory, getAllCategories } from '../../services/CategoryService';
+import { createItem } from '../../services/ItemService';
 
 const HomePage = () => {
   const [categories, setCategories] = useState([]);
@@ -35,6 +36,19 @@ const HomePage = () => {
     } catch (error) {
       // Error message will be displayed to the user if the category cannot be created
       setError("There was an error creating the category. Please try again.");
+      setSuccess(false);
+    }
+  };
+
+  //This function handles the process of adding a new item
+  const handleAddItem = async (newItem) => {
+    setSuccess(false);
+    setError(null);
+    try {
+      await createItem(newItem);
+      setSuccess(true);
+    } catch (error) {
+      setError("There was an error creating the item. Please try again.");
       setSuccess(false);
     }
   };
