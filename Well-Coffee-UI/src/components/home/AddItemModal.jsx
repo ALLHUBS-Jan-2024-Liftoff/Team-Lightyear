@@ -1,14 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 
-const AddItemModal = ({ onAddItem, resetMessages, error, success }) => {
+const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     quantity: "",
     price: "",
     location: "",
-    description: ""
+    description: "",
+    categoryId: ""
   });
 
   const handleClose = () => {
@@ -18,7 +19,8 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success }) => {
       quantity: "",
       price: "",
       location: "",
-      description: ""
+      description: "",
+      categoryId: ""
     });
     resetMessages();
   };
@@ -83,9 +85,17 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success }) => {
 
               <Form.Group as={Col} controlId="itemCategory">
                 <Form.Label>Category</Form.Label>
-                <Form.Select defaultValue="Select...">
-                  <option>Select...</option>
-                  <option>...</option>
+                <Form.Select 
+                  name="categoryId"
+                  value={formData.categoryId}
+                  onChange={handleChange}
+                >
+                  <option value="">Select...</option>
+                  {categories.map(category => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
                 </Form.Select>
               </Form.Group>
             </Row>
@@ -141,13 +151,15 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success }) => {
                 onChange={handleChange}
               />
             </Form.Group>
+            {error && <div className='alert alert-danger'>{error}</div>}
+            {success && <div className='alert alert-success'>Category created successfully!</div>}
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" type="submit" form="addItemForm">
             Submit
           </Button>
         </Modal.Footer>

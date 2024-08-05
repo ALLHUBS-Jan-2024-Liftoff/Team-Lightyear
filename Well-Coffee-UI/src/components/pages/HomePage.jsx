@@ -69,10 +69,16 @@ const HomePage = () => {
           error={error} 
           success={success} 
         />{' '}
-        <AddItemModal />
+        <AddItemModal 
+          onAddItem={handleAddItem}
+          resetMessages={resetMessages}
+          error={error}
+          success={success}
+          categories={categories}
+        />
       </Container>
     </>
   );
 }
 
-export default HomePage
+export default HomePage;
