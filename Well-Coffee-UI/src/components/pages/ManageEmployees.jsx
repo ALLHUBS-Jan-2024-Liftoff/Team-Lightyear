@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Accordion, Container, Table, Button } from "react-bootstrap";
+import { Accordion, Container, Table, Button, Dropdown } from "react-bootstrap";
 import ItemCardModal from "../home/ItemCardModal";
 import UpdateItemModal from "../home/UpdateItemModal";
 
 const ManageEmployees = () => {
-  // Sample data for testing purposes:
+
   const [invoices] = useState([
     {
       accountId: 1562,
@@ -53,41 +53,41 @@ const ManageEmployees = () => {
     }
   ]);
 
+  const vendorJavaTime = invoices.filter(singleVendor =>
+    singleVendor.vendor === 'Java Time'
+  )
+
   return (
     <>
     <h1>Manage Employees</h1>
-      <Container className='mt-5'>
-        <h1 className='text-center'>Order History</h1>
-        <Accordion alwaysOpen className='mt-4'>
-          {invoices.map((invoice) => (
-            <Accordion.Item key={invoice.accountId} eventKey={invoice.accountId.toString()}>
-              <Accordion.Header>Employee ID {invoice.accountId}</Accordion.Header>
-              <Accordion.Body>
-                <Table striped bordered hover responsive>
-                  <thead>
-                    <tr>
-                      <th>Invoice Number</th>
-                      <th>Invoice Date</th>
-                      <th>Vendor</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {invoice.items.map((item, index) => (
-                      <tr key={index}>
-                        <td>{item.invoiceNumber}</td>
-                        <td>{item.invoiceDate}</td>
-                        <td>{item.vendor}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              </Accordion.Body>
-            </Accordion.Item>
-          ))}
-        </Accordion>
-      </Container>
+    <h1 className='text-center'>Order History</h1>
+    <Container className='mt-5' 
+      style={{
+        display : 'flex', 
+        flex : '1',
+        flexDirection: 'row',
+        alignItems : 'center', 
+        justifyContent : 'center',
+        height: '40px',
+      }}  >
+    <Button onClick={() => {
+      alert('View All coming soon!')
+    }}>View All</Button>
+    <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+            View By Employee
+      </Dropdown.Toggle>
+        <Dropdown.Menu>
+        {invoices.map((invoice) => (
+          <Dropdown.Item key={invoice.accountId} eventKey={invoice.accountId.toString()} onClick={() => {
+            alert('View By Employee coming soon!')
+          }}>{invoice.accountId}</Dropdown.Item>
+        ))}
+      </Dropdown.Menu>
+    </Dropdown>
+    </Container>
     </>
-  );
+  )
 }
 
 export default ManageEmployees;
