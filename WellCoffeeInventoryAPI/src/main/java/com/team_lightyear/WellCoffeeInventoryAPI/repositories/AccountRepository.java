@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by Dominique Gould
  */
+
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
+
 }

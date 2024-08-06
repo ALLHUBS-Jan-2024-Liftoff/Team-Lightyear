@@ -1,37 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { createCategory } from '../../services/CategoryService';
 
-const AddCategoryModal = () => {
+const AddCategoryModal = ({ onAddCategory, resetMessages, error, success }) => {
   const [show, setShow] = useState(false);
   const [categoryName, setCategoryName] = useState('');
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
 
   const handleClose = () => {
     setShow(false);
     setCategoryName(''); // Resets the category name field when modal is closed
-    setError(null); // Resets any errors
-    setSuccess(false); // Resets the success message
+    resetMessages();
   };
 
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+  }; 
   
+  // This function handles form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Uses the prop function passed from 'HomePage'
+    await onAddCategory(categoryName);
+  };
 
-    try {
-      await createCategory(categoryName);
-      setSuccess(true); // Sets success state to true and displays a message to the user
+  useEffect(() => {
+    if (success) {
       setTimeout(() => {
         handleClose();
-      }, 1500); // Closes the modal after 1.5 seconds
-
-    } catch (error) {
-      // Error message will be displayed to the user if the category cannot be created
-      setError("There was an error creating the category. Please try again.");
+      }, 1000); // Closes the modal after 1 second
     }
-  }
+  }, [success]); 
 
   return (
     <>
@@ -55,7 +53,6 @@ const AddCategoryModal = () => {
               <Form.Label>Category Name</Form.Label>
               <Form.Control
                 type="text"
-                name="name"
                 placeholder="Enter text here"
                 value={categoryName}
                 onChange={(e) => setCategoryName(e.target.value)}

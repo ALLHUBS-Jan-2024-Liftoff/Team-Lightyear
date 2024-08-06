@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import { useState } from "react";
 import { Accordion, Container, Table, Button, Dropdown } from "react-bootstrap";
 import ItemCardModal from "../home/ItemCardModal";
 import UpdateItemModal from "../home/UpdateItemModal";
+=======
+import React from 'react'
+import AccountForm from '../account/AccountForm'
+import AccountsDisplay from '../account/AccountsDisplay'
+import UpdateAccountModal from '../account/UpdateAccountModal'
+>>>>>>> origin
 
 const ManageEmployees = () => {
 
@@ -59,6 +66,7 @@ const ManageEmployees = () => {
 
   return (
     <>
+<<<<<<< HEAD
     <h1>Manage Employees</h1>
     <h1 className='text-center'>Order History</h1>
     <Container className='mt-5' 
@@ -87,6 +95,11 @@ const ManageEmployees = () => {
     </Dropdown>
     </Container>
     </>
+=======
+    <AccountsDisplay />
+    </>
+
+>>>>>>> origin
   )
 }
 
