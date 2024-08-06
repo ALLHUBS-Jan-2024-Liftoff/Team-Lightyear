@@ -1,5 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.ItemDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Item;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.CategoryService;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.ItemService;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/item")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ItemController {
 
     @Autowired
@@ -23,9 +25,22 @@ public class ItemController {
     private CategoryService categoryService;
 
     @PostMapping("/new")
-    public ResponseEntity<?> createItem(@RequestParam int categoryId, @RequestBody Item item) {
+    public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO) {
         try {
+            // This converts the DTO into an Item entity
+            Item item = new Item();
+            item.setName(itemDTO.getName());
+            item.setQuantity(itemDTO.getQuantity());
+            item.setPrice(itemDTO.getPrice());
+            item.setLocation(itemDTO.getLocation());
+            item.setDescription(itemDTO.getDescription());
+
+            // This retrieves the categoryId from the DTO
+            int categoryId = itemDTO.getCategoryId();
+
+            // Creates the new Item and saves it to the database
             Item createdItem = itemService.createItem(categoryId, item);
+
             return ResponseEntity.status(HttpStatus.CREATED).body(createdItem);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());

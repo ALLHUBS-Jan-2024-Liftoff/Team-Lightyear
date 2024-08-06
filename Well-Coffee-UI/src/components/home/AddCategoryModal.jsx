@@ -14,7 +14,7 @@ const AddCategoryModal = ({ onAddCategory, resetMessages, error, success }) => {
 
   const handleShow = () => {
     setShow(true);
-  } 
+  }; 
   
   // This function handles form submission
   const handleSubmit = async (e) => {

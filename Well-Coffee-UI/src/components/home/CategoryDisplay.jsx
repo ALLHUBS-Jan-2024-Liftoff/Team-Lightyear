@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Accordion, Container, Table, Button } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
@@ -45,7 +44,7 @@ const CategoryDisplay = ({ categories }) => {
                             <td>{item.description}</td>
                             <td>{item.location}</td>
                             <td>{item.quantity}</td>
-                            <td>{item.cost}</td>
+                            <td>{item.price}</td>
                             <td>
                               <ItemCardModal />{' '}
                               <UpdateItemModal />{' '}

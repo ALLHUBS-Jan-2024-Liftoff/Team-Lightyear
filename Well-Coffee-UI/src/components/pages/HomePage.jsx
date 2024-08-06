@@ -4,13 +4,14 @@ import { Container } from 'react-bootstrap';
 import AddCategoryModal from '../home/AddCategoryModal';
 import AddItemModal from '../home/AddItemModal';
 import { createCategory, getAllCategories } from '../../services/CategoryService';
+import { createItem } from '../../services/ItemService';
 
 const HomePage = () => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  // This hook calls fetchCategories to retrieve and display the category data
+  // This hook calls fetchCategories to retrieve and display initial data
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -39,7 +40,21 @@ const HomePage = () => {
     }
   };
 
-  // This function resets all messages and passes it to the child component 'AddCategoryModal'
+  //This function handles the process of adding a new item
+  const handleAddItem = async (newItem) => {
+    setSuccess(false);
+    setError(null);
+    try {
+      await createItem(newItem);
+      setSuccess(true);
+      fetchCategories(); // Re-fetches the categories to display the updated data
+    } catch (error) {
+      setError("There was an error creating the item. Please try again.");
+      setSuccess(false);
+    }
+  };
+
+  // This function resets all messages and passes it to the child components
   const resetMessages = () => {
     setError(null);
     setSuccess(false);
@@ -55,10 +70,16 @@ const HomePage = () => {
           error={error} 
           success={success} 
         />{' '}
-        <AddItemModal />
+        <AddItemModal 
+          onAddItem={handleAddItem}
+          resetMessages={resetMessages}
+          error={error}
+          success={success}
+          categories={categories}
+        />
       </Container>
     </>
   );
 }
 
-export default HomePage
+export default HomePage;
