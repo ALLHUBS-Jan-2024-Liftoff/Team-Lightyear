@@ -41,8 +41,17 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
   // This function handles form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Uses the prop function passed from 'HomePage'
-    await onAddItem(formData);
+
+      const itemData = {
+        categoryId: formData.categoryId,
+        name: formData.name,
+        quantity: formData.quantity,
+        price: formData.price,
+        location: formData.location,
+        description: formData.description
+      };
+      // Uses the prop function passed from 'HomePage'
+      await onAddItem(itemData);
   };
   
   useEffect(() => {
