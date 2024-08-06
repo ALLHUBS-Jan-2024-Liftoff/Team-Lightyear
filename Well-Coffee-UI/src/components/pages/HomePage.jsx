@@ -11,7 +11,7 @@ const HomePage = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  // This hook calls fetchCategories to retrieve and display the category data
+  // This hook calls fetchCategories to retrieve and display initial data
   useEffect(() => {
     fetchCategories();
   }, []);
@@ -47,13 +47,14 @@ const HomePage = () => {
     try {
       await createItem(newItem);
       setSuccess(true);
+      fetchCategories(); // Re-fetches the categories to display the updated data
     } catch (error) {
       setError("There was an error creating the item. Please try again.");
       setSuccess(false);
     }
   };
 
-  // This function resets all messages and passes it to the child component 'AddCategoryModal'
+  // This function resets all messages and passes it to the child components
   const resetMessages = () => {
     setError(null);
     setSuccess(false);
