@@ -44,9 +44,9 @@ const CategoryDisplay = ({ categories }) => {
                             <td>{item.description}</td>
                             <td>{item.location}</td>
                             <td>{item.quantity}</td>
-                            <td>{item.price}</td>
+                            <td>${item.price}</td>
                             <td>
-                              <ItemCardModal />{' '}
+                              <ItemCardModal item={item} />{' '}
                               <UpdateItemModal />{' '}
                               <Button variant='outline-danger'>Delete</Button>
                             </td>
