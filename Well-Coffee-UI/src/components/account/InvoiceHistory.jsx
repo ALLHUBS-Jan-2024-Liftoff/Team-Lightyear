@@ -12,7 +12,7 @@ const InvoiceHistory = () => {
 
   const [invoices] = useState([
     {
-      id: 1562,
+      id: 1,
       items: [
         {
           invoiceNumber: 12012,
@@ -26,36 +26,36 @@ const InvoiceHistory = () => {
         }
       ]
     },
-//     {
-//       id: 1648,
-//       items: [
-//         {
-//           invoiceNumber: 16489,
-//           invoiceDate: 20110615,
-//           vendor: 'The Coffee Fiend',
-//         },
-//         {
-//           invoiceNumber: 18499,
-//           invoiceDate: 20110602,
-//           vendor: 'Java Time',
-//         }
-//       ]
-//     },
-//     {
-//       id: 4987,
-//       items: [
-//         {
-//           invoiceNumber: 1546,
-//           invoiceDate: 20121204,
-//           vendor: 'Coffee Spot',
-//         },
-//         {
-//           invoiceNumber: 1894,
-//           invoiceDate: 20130606,
-//           vendor: 'The Coffee Fiend',
-//         }
-//       ]
-//     }
+    {
+      id: 2,
+      items: [
+        {
+          invoiceNumber: 16489,
+          invoiceDate: 20110615,
+          vendor: 'The Coffee Fiend',
+        },
+        {
+          invoiceNumber: 18499,
+          invoiceDate: 20110602,
+          vendor: 'Java Time',
+        }
+      ]
+    },
+    {
+      id: 3,
+      items: [
+        {
+          invoiceNumber: 1546,
+          invoiceDate: 20121204,
+          vendor: 'Coffee Spot',
+        },
+        {
+          invoiceNumber: 1894,
+          invoiceDate: 20130606,
+          vendor: 'The Coffee Fiend',
+        }
+      ]
+    }
   ]);
 
   return (
@@ -82,21 +82,34 @@ const InvoiceHistory = () => {
             <Modal.Title>Invoice History</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        {invoices.map(invoice =>
-               (
-                <ul key={invoice.id}>
-                <li>Invoice# {invoice.items[0].invoiceNumber}</li>
-                <li>Date: {invoice.items[0].invoiceDate}</li>
-                <li>Vendor: {invoice.items[0].vendor}</li>
-                </ul>
-                ))}
+    <div>
+      {invoices.map(
+        (
+          { id, items: [{ invoiceNumber, invoiceDate, vendor }] },
+          index
+        ) => {
+          return (
+            <div key={index}>
+              <p>Invoice# {invoiceNumber}</p>
+              <p>Date: {invoiceDate}</p>
+              <p>Vendor: {vendor}</p>
+            </div>
+          )
+        }
+      )}
+    </div>
+{/*         {invoices.map((invoice, id) => */}
+{/*                ( */}
+{/*                 <ul key={id}> */}
+{/*                 <li>Invoice# {invoice.items[0].invoiceNumber}</li> */}
+{/*                 <li>Date: {invoice.items[0].invoiceDate}</li> */}
+{/*                 <li>Vendor: {invoice.items[0].vendor}</li> */}
+{/*                 </ul> */}
+{/*                 ))} */}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
