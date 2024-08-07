@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { Accordion, Container, Table, Button, Dropdown } from "react-bootstrap";
+import { Accordion, Container, Table, Button, Dropdown, Modal} from "react-bootstrap";
 import React from 'react'
 import UpdateAccountModal from '../account/UpdateAccountModal'
 
 const InvoiceHistory = () => {
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [invoices] = useState([
     {
@@ -53,26 +58,44 @@ const InvoiceHistory = () => {
     }
   ]);
 
-  const vendorJavaTime = invoices.filter(singleVendor =>
-    singleVendor.vendor === 'Java Time'
-  )
-
   return (
-    <>
-        <Dropdown>
+<>
+       <Dropdown>
             <Dropdown.Toggle variant="success" id="dropdown-basic">
-            View Invoices
+          View Invoices
             </Dropdown.Toggle>
-                <Dropdown.Menu>
-                {invoices.map((invoice) => (
+                 <Dropdown.Menu>
+               {invoices.map((invoice) => (
                     <Dropdown.Item key={invoice.accountId} eventKey={invoice.invoiceNumber} onClick={() => {
-                        alert('View Invoice data coming soon!')
-                    }}>{invoice.accountId}</Dropdown.Item>
-                        ))}
-                </Dropdown.Menu>
-        </Dropdown>
-    </>
-  )
+
+                         newWindow.document.body.innerHTML = '<a href="invoiceNumber">{invoice.invoiceNumber}</a>';
+                   }}>{invoice.accountId}</Dropdown.Item>
+                         ))}
+                 </Dropdown.Menu>
+         </Dropdown>
+
+      <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+                       {invoices.map((invoice) => (
+                            <Modal.Title key={invoice.accountId} eventKey={invoice.invoiceNumber} onClick={() => {
+                           }}>Invoice# {invoice.accountId}</Modal.Title>
+                                 ))}
+        </Modal.Header>
+        <Modal.Body></Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+                  </>
+         )
 }
 
 export default InvoiceHistory;
