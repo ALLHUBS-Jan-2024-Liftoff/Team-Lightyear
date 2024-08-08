@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 
 const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) => {
+=======
+import { useState } from 'react';
+import defaultImage from '../../assets/images/no-image.png';
+import { Button, Modal, Badge, Card, ListGroup } from 'react-bootstrap';
+
+const ItemCardModal = ({ item }) => {
+>>>>>>> origin
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -76,6 +84,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
         centered
       >
         <Modal.Header closeButton>
+<<<<<<< HEAD
           <Modal.Title>Add Item</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -163,6 +172,23 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
             {error && <div className='alert alert-danger'>{error}</div>}
             {success && <div className='alert alert-success'>Category created successfully!</div>}
           </Form>
+=======
+          <Modal.Title>
+            {item.name} <Badge pill bg='primary'>{item.quantity}</Badge>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Card>
+            <Card.Body>
+              <Card.Img variant="top" src={item.image || defaultImage} />
+            </Card.Body>
+            <ListGroup variant='flush'>
+              <ListGroup.Item>Description: {item.description}</ListGroup.Item>
+              <ListGroup.Item>Location: {item.location}</ListGroup.Item>
+              <ListGroup.Item>Item Cost: ${item.price}</ListGroup.Item>
+            </ListGroup>
+          </Card>
+>>>>>>> origin
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
