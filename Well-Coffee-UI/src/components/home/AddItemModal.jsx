@@ -161,7 +161,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
               />
             </Form.Group>
             {error && <div className='alert alert-danger'>{error}</div>}
-            {success && <div className='alert alert-success'>Category created successfully!</div>}
+            {success && <div className='alert alert-success'>Item created successfully!</div>}
           </Form>
         </Modal.Body>
         <Modal.Footer>
