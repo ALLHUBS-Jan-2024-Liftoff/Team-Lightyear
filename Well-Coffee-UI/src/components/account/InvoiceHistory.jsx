@@ -47,7 +47,6 @@ const InvoiceHistory = () => {
             <Table className="striped bordered hover">
               <thead>
                 <tr>
-                  <th>Employee ID</th>
                   <th>Invoice#</th>
                   <th>Date</th>
                   <th>Vendor</th>
@@ -64,7 +63,6 @@ const InvoiceHistory = () => {
                   return (
                     <tbody>
                       <tr key={index}>
-                        <td>{accountId}</td>
                         <td>{invoiceNumber}</td>
                         <td>{invoiceDate}</td>
                         <td>{vendor}</td>
