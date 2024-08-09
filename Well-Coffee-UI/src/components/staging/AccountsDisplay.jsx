@@ -4,6 +4,7 @@ import AddAccountModal from './AddAccountModal';
 import UpdateAccountModal from './UpdateAccountModal';
 import InvoiceHistory from './InvoiceHistory'
 
+// Grant .08.08.2024-AccountsDisplay code has been moved to ManageEmployees.
 const AccountsDisplay = () => {
   // Sample data for testing purposes:
   const [accounts, setAccounts] = useState([

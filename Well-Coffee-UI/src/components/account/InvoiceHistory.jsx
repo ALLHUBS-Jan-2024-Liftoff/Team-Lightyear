@@ -44,7 +44,7 @@ const InvoiceHistory = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="container">
-            <Table className="striped bordered hover">
+            <Table bordered hover responsive>
               <thead>
                 <tr>
                   <th>Invoice#</th>
