@@ -7,15 +7,15 @@ const ItemCardModal = ({ item }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
   return (
     <>
       <Button variant="outline-success" onClick={handleShow}>
         View
       </Button>
 
-      <Modal 
-        show={show} 
+      <Modal
+        show={show}
         onHide={handleClose}
         size="med"
         aria-labelledby="contained-modal-title-vcenter"
