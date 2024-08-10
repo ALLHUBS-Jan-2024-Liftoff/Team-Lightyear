@@ -1,4 +1,4 @@
-[
+export const DummyAccounts = [
     {
       "id": 1,
       "first_name": "Mike",

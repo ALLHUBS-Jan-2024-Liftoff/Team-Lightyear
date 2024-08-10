@@ -1,4 +1,4 @@
-[
+export const DummyItems =[
     {
       "id": 23,
       "name": "Espresso",

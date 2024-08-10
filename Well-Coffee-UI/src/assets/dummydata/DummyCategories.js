@@ -1,4 +1,4 @@
-[
+export const DummyCategories =[
     {
       "id": 1,
       "name": "Coffee",

@@ -1,4 +1,4 @@
-[
+export const DummyInvoices =[
     {
       "id": 8,
       "invoice_date": "2024-08-09",
