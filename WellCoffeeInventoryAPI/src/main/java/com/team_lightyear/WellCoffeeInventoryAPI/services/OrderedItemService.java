@@ -2,7 +2,7 @@ package com.team_lightyear.WellCoffeeInventoryAPI.services;
 
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.OrderedItem;
-import com.team_lightyear.WellCoffeeInventoryAPI.models.OrderedItemDTO;
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.OrderedItemDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Item;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.OrderedItemRepository;

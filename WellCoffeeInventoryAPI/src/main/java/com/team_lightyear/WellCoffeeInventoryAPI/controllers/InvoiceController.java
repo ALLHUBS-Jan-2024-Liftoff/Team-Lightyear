@@ -1,9 +1,8 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
-import com.team_lightyear.WellCoffeeInventoryAPI.models.InvoiceDTO;
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
-import com.team_lightyear.WellCoffeeInventoryAPI.repositories.OrderedItemRepository;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.InvoiceService;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.ItemService;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.OrderedItemService;

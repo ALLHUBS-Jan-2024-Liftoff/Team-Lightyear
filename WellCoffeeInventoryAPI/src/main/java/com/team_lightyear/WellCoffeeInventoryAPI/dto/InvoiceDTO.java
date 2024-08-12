@@ -1,4 +1,4 @@
-package com.team_lightyear.WellCoffeeInventoryAPI.models;
+package com.team_lightyear.WellCoffeeInventoryAPI.dto;
 
 import java.time.LocalDate;
 import java.util.List;
