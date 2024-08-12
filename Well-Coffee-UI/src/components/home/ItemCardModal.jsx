@@ -7,15 +7,15 @@ const ItemCardModal = ({ item }) => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
   return (
     <>
       <Button variant="outline-success" onClick={handleShow}>
         View
       </Button>
 
-      <Modal
-        show={show}
+      <Modal 
+        show={show} 
         onHide={handleClose}
         size="med"
         aria-labelledby="contained-modal-title-vcenter"
@@ -36,6 +36,12 @@ const ItemCardModal = ({ item }) => {
               <ListGroup.Item>Location: {item.location}</ListGroup.Item>
               <ListGroup.Item>Item Cost: ${item.price}</ListGroup.Item>
             </ListGroup>
+            <br></br>
+            <FormGroup>
+                <Form.Label>Comment</Form.Label>
+                <Form.Control type="text" placeholder="Enter comment" />
+                <Button variant='secondary'>Submit</Button>
+            </FormGroup>
           </Card>
         </Modal.Body>
         <Modal.Footer>
