@@ -1,14 +1,11 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.services;
 
-import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
-import com.team_lightyear.WellCoffeeInventoryAPI.models.InvoiceDTO;
-import com.team_lightyear.WellCoffeeInventoryAPI.models.Item;
+import com.team_lightyear.WellCoffeeInventoryAPI.models.*;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
-import com.team_lightyear.WellCoffeeInventoryAPI.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Trevor Gruber
@@ -17,25 +14,41 @@ import java.util.List;
 public class InvoiceService {
     
     @Autowired
-    ItemRepository itemRepository;
+    ItemService itemService;
+    
+    @Autowired
+    OrderedItemService orderedItemService;
     
     @Autowired
     InvoiceRepository invoiceRepository;
-
-
-//    @RequestParam List<Integer> skills) {
-//        List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
-//        newJob.setSkills(skillObjs);
     
+    //Retrieve an invoice by its id
+    public Optional<Invoice> getInvoiceById(int id) {
+        return invoiceRepository.findById(id);
+    }
+    
+    //Process new invoices
     public Invoice processNewInvoice(InvoiceDTO newInvoiceDTO){
-        List<Item> invoiceItems =
-                (List<Item>) itemRepository.findAllById(newInvoiceDTO.getItemList());
+        //Construct Invoice object from DTO
         Invoice newInvoice = new Invoice(newInvoiceDTO.getInvoiceDate(), newInvoiceDTO.getVendor()
                 , newInvoiceDTO.getInvoiceNumber());
-        for (Item item : invoiceItems){
-            newInvoice.addItems(item);
+        
+        //Loop through the ordered items and process them
+        for (OrderedItemDTO orderedItem : newInvoiceDTO.getOrderedItemsList()) {
+            //Create/Save OrderedItem object
+            OrderedItem newOrderedItem = orderedItemService.createOrderedItem(orderedItem, newInvoice);
+            //Process object
+            newInvoice.addItem(newOrderedItem.getItem());
+            newInvoice.addOrderedItem(newOrderedItem);
+            orderedItemService.addOrderedItemToItem(newOrderedItem);
+            //Update Item entity with new price
+            itemService.updateItemCost(newOrderedItem.getItem().getId(),
+                    newOrderedItem.getItemCost());
+            //Update Item quantity
+            itemService.updateItemQuantity(newOrderedItem.getItem().getId(), newOrderedItem.getQuantityOrdered());
         }
         return invoiceRepository.save(newInvoice);
     }
     
+    //TODO - Write method to get invoices created by a specific Account
 }

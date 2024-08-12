@@ -1,19 +1,24 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by Deanne Chae
  */
 
 @Entity
+//Tells hibernate how to identify objects
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Item {
 
     @Id
@@ -31,12 +36,23 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonBackReference // Prevents infinite recursion
     private Category category;
     
-    @ManyToMany
-    private final List<Invoice> invoiceList = new ArrayList<>();
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "orderedItem_id")
+    //Stores a List of OrderedItem model to be able to retrieve a history of the cost of the item
+    private final List<OrderedItem> orderedItemList = new ArrayList<>();
+    
+    //FetchMode.SELECT uses the JSON Identity information (annotated above the class) to stop
+    // retrieving objects in a
+    // recursive manner. If the object has already been retrieved once, it just passes a
+    // reference (the id) into the JSON file and doesn't retrieve the whole object
+    
+    @ManyToMany (mappedBy = "itemsOrdered")
+    @Fetch(FetchMode.SELECT)
+    //Stores the list of invoices this item is included in
+    private final Set<Invoice> invoiceList = new HashSet<>();
+    
     // No-argument constructor, required by JPA
     public Item() {
     }
@@ -52,6 +68,23 @@ public class Item {
     }
 
     // Getters and Setters
+    
+    public void addInvoice (Invoice invoice) {
+        invoiceList.add(invoice);
+    }
+    
+    public void addOrderedItem(OrderedItem orderedItem) {
+        orderedItemList.add(orderedItem);
+    }
+    
+    public List<OrderedItem> getOrderedItemList() {
+        return orderedItemList;
+    }
+    
+    public Set<Invoice> getInvoiceList() {
+        return invoiceList;
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -104,11 +137,13 @@ public class Item {
         this.category = category;
     }
     
-    public List<Invoice> getInvoiceList() {
-        return invoiceList;
-    }
+//    public List<Invoice> getInvoiceList() {
+//        return invoiceList;
+//    }
     
     // toString() method
+    
+    
     @Override
     public String toString() {
         return "Item{" +
@@ -119,9 +154,11 @@ public class Item {
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
                 ", category=" + category +
+                ", orderedItemList=" + orderedItemList +
+                ", invoiceList=" + invoiceList +
                 '}';
     }
-
+    
     // equals() method
     @Override
     public boolean equals(Object o) {
