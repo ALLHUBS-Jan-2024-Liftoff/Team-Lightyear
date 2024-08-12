@@ -17,8 +17,11 @@ public class Account {
     @GeneratedValue
     private int id;
 
-    @Size(min=1, message="Name must be at least 1 characters long")
-    private String name;
+    @Size(min=1, message="First name must be at least 1 characters long")
+    private String firstName;
+
+    @Size(min=1, message="Last name must be at least 1 characters long")
+    private String lastName;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email. Please try again")
@@ -44,9 +47,11 @@ public class Account {
     }
 
     // Constructor
-    public Account(int id, String name, String email, String password, Boolean manager) {
-        this.id = id;
-        this.name = name;
+
+
+    public Account(String firstName, String lastName, String email, String password, Boolean manager) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.manager = manager;
@@ -58,12 +63,20 @@ public class Account {
     }
 
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -105,11 +118,13 @@ public class Account {
     }
 
     // toString method
+
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", manager=" + manager +
