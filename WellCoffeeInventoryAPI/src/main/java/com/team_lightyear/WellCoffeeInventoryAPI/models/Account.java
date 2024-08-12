@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -33,9 +34,12 @@ public class Account {
     private Boolean manager;
 
     // Awaiting confirmation from Trevor
+    // Note from Trevor- Changed field to be a HashSet since it needs to store multiple invoices
+    // and used HasHSet rather than List because each invoice should be unique. (Invoices can
+    // have identical items on order, but invoice id and invoice number should be unique)
 //    @OneToMany
-//    @JoinColumn(name = "Account_id")
-//    private Invoice invoice;
+//    @JoinColumn(name = "account_id")
+//    private final HashSet<Invoice> invoices = new HashSet<>();
 
 
     // No Arg Constructor for JPA
