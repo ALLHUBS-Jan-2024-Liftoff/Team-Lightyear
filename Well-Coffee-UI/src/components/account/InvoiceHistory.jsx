@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Table, Button, Modal } from "react-bootstrap";
 import React from "react";
+import { DummyInvoices } from "/src/assets/dummydata/DummyInvoices"
+
 
 const InvoiceHistory = () => {
   const [show, setShow] = useState(false);
@@ -8,30 +10,6 @@ const InvoiceHistory = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [invoices] = useState([
-    {
-      id: 1,
-      items: [
-        {
-          accountId: 301,
-          invoiceNumber: 12012,
-          invoiceDate: 20101203,
-          vendor: "Java Time",
-        },
-      ],
-    },
-    {
-      id: 2,
-      items: [
-        {
-          accountId: 301,
-          invoiceNumber: 14586,
-          invoiceDate: 20100618,
-          vendor: "The Coffee Fiend",
-        },
-      ],
-    },
-  ]);
 
   return (
     <>
@@ -52,25 +30,15 @@ const InvoiceHistory = () => {
                   <th>Vendor</th>
                 </tr>
               </thead>
-              {invoices.map(
-                (
-                  {
-                    id,
-                    items: [{ accountId, invoiceNumber, invoiceDate, vendor }],
-                  },
-                  index
-                ) => {
-                  return (
-                    <tbody>
+                   <tbody>
+                {DummyInvoices.map((invoice, index) => (
                       <tr key={index}>
-                        <td>{invoiceNumber}</td>
-                        <td>{invoiceDate}</td>
-                        <td>{vendor}</td>
+                        <td>{invoice.invoice_number}</td>
+                        <td>{invoice.invoice_date}</td>
+                        <td>{invoice.vendor}</td>
                       </tr>
-                    </tbody>
-                  );
-                }
-              )}
+              ))}
+              </tbody>
             </Table>
           </div>
         </Modal.Body>
