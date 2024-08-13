@@ -31,13 +31,13 @@ const InvoiceHistory = ( { invoices } ) => {
                 </tr>
               </thead>
                    <tbody>
-                {DummyInvoices.map((invoice, index) => (
-                      <tr key={index}>
-                        <td>{invoice.invoice_number}</td>
-                        <td>{invoice.invoice_date}</td>
-                        <td>{invoice.vendor}</td>
-                      </tr>
-              ))}
+{/*                 {DummyInvoices.map((invoice, index) => ( */}
+{/*                       <tr key={index}> */}
+{/*                         <td>{invoice.invoice_number}</td> */}
+{/*                         <td>{invoice.invoice_date}</td> */}
+{/*                         <td>{invoice.vendor}</td> */}
+{/*                       </tr> */}
+{/*               ))} */}
               </tbody>
             </Table>
           </div>
