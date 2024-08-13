@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.HashSet;
 import java.util.Objects;
 
 /**
@@ -16,8 +17,11 @@ public class Account {
     @GeneratedValue
     private int id;
 
-    @Size(min=1, message="Name must be at least 1 characters long")
-    private String name;
+    @Size(min=1, message="First name must be at least 1 characters long")
+    private String firstName;
+
+    @Size(min=1, message="Last name must be at least 1 characters long")
+    private String lastName;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email. Please try again")
@@ -30,9 +34,12 @@ public class Account {
     private Boolean manager;
 
     // Awaiting confirmation from Trevor
+    // Note from Trevor- Changed field to be a HashSet since it needs to store multiple invoices
+    // and used HasHSet rather than List because each invoice should be unique. (Invoices can
+    // have identical items on order, but invoice id and invoice number should be unique)
 //    @OneToMany
-//    @JoinColumn(name = "Account_id")
-//    private Invoice invoice;
+//    @JoinColumn(name = "account_id")
+//    private final HashSet<Invoice> invoices = new HashSet<>();
 
 
     // No Arg Constructor for JPA
@@ -40,9 +47,11 @@ public class Account {
     }
 
     // Constructor
-    public Account(int id, String name, String email, String password, Boolean manager) {
-        this.id = id;
-        this.name = name;
+
+
+    public Account(String firstName, String lastName, String email, String password, Boolean manager) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
         this.manager = manager;
@@ -54,12 +63,20 @@ public class Account {
     }
 
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -101,11 +118,13 @@ public class Account {
     }
 
     // toString method
+
     @Override
     public String toString() {
         return "Account{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", manager=" + manager +

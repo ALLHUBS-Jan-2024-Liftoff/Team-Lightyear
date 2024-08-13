@@ -1,30 +1,51 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by Trevor Gruber
  */
 
 @Entity
+//Tells hibernate how to identify objects
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Invoice {
     
     /* fields */
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    //TODO - Trevor - implement once Item entity is available
-//    @ManyToMany
-//    private List<Item> itemList = new ArrayList<>();
+    //FetchMode.SELECT uses the JSON Identity information (annotated above the class) to stop
+    // retrieving objects in a
+    // recursive manner. If the object has already been retrieved once, it just passes a
+    // reference (the id) into the JSON file and doesn't retrieve the whole object
+    @ManyToMany (cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SELECT)
+    @JoinTable(
+            name = "Invoice_Item",
+            joinColumns = { @JoinColumn(name = "invoice_id") },
+            inverseJoinColumns = { @JoinColumn(name = "item_id") }
+    )
+    //This field stores a set of the Item model to be able to retrieve item information
+    private final Set<Item> itemsOrdered = new HashSet<>();
     
-    //TODO - Trevor - implement once authentication/authorization service is running
+    @OneToMany(mappedBy = "orderedOnInvoice", cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SELECT)
+    //This field stores a list of the OrderedItem model to be able to retrieve the cost of the
+    // item on this particular invoice
+    private final List<OrderedItem> orderedItems = new ArrayList<>();
+    
+//    TODO - Trevor - implement once authentication/authorization service is running
 //    @ManyToOne
 //    private Account account;
     
@@ -50,11 +71,31 @@ public class Invoice {
     }
     
     /* Custom methods */
+
+    public void addItem(Item item){
+        itemsOrdered.add(item);
+    }
+    
+    public void addOrderedItem(OrderedItem orderedItem) {
+        orderedItems.add(orderedItem);
+    }
     
     /* Getters and Setters */
     
-    public long getId() {
+    public int getId() {
         return id;
+    }
+    
+    public Set<Item> getItemsOrdered() {
+        return itemsOrdered;
+    }
+    
+    public LocalDate getInvoiceDate() {
+        return invoiceDate;
+    }
+    
+    public void setInvoiceDate(LocalDate invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
     
     public String getVendor() {
@@ -73,12 +114,8 @@ public class Invoice {
         this.invoiceNumber = invoiceNumber;
     }
     
-    public LocalDate getInvoiceDate() {
-        return invoiceDate;
-    }
-    
-    public void setInvoiceDate(LocalDate invoiceDate) {
-        this.invoiceDate = invoiceDate;
+    public List<OrderedItem> getOrderedItemList() {
+        return orderedItems;
     }
     
     /* toString */
@@ -87,6 +124,8 @@ public class Invoice {
     public String toString() {
         return "Invoice{" +
                 "id=" + id +
+                ", itemsOrdered=" + itemsOrdered +
+                ", orderedItems=" + orderedItems +
                 ", invoiceDate=" + invoiceDate +
                 ", vendor='" + vendor + '\'' +
                 ", invoiceNumber='" + invoiceNumber + '\'' +
