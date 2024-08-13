@@ -4,11 +4,11 @@ import React from "react";
 import { DummyInvoices } from "/src/assets/dummydata/DummyInvoices"
 
 
-const InvoiceHistory = () => {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const InvoiceHistory = ({ invoices }) => {
+//   const [show, setShow] = useState(false);
+//
+//   const handleClose = () => setShow(false);
+//   const handleShow = () => setShow(true);
 
 
   return (
@@ -31,8 +31,8 @@ const InvoiceHistory = () => {
                 </tr>
               </thead>
                    <tbody>
-                {DummyInvoices.map((invoice, index) => (
-                      <tr key={index}>
+                {invoices.map((invoice) => (
+                      <tr key={invoice.id} eventKey={invoice.id.toString()}>
                         <td>{invoice.invoice_number}</td>
                         <td>{invoice.invoice_date}</td>
                         <td>{invoice.vendor}</td>
