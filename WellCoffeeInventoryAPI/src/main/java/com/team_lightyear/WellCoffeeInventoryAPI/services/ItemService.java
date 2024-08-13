@@ -1,5 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.services;
 
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.ItemDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Category;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Item;
@@ -47,7 +48,7 @@ public class ItemService {
         return itemRepository.findById(id);
     }
 
-    public Item updateItem(int id, Item itemDetails) {
+    public Item updateItem(int id, ItemDTO itemDetails) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Item with ID " + id + " not found"));
 
@@ -68,9 +69,9 @@ public class ItemService {
         if (itemDetails.getDescription() != null) {
             item.setDescription(itemDetails.getDescription());
         }
-        if (itemDetails.getCategory() != null) {
+        if (itemDetails.getCategoryId() != null) {
             // If the category field gets assigned a new value we need to make sure it exists in the database
-            int categoryId = itemDetails.getCategory().getId();
+            int categoryId = itemDetails.getCategoryId();
             Category category = categoryRepository.findById(categoryId)
                     .orElseThrow(() -> new EntityNotFoundException("Category with ID " + categoryId + " not found"));
             item.setCategory(category);

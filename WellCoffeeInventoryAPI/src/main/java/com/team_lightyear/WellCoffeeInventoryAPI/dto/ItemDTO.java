@@ -25,7 +25,7 @@ public class ItemDTO {
         this.name = name;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
@@ -33,7 +33,7 @@ public class ItemDTO {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
@@ -57,7 +57,7 @@ public class ItemDTO {
         this.description = description;
     }
 
-    public int getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
