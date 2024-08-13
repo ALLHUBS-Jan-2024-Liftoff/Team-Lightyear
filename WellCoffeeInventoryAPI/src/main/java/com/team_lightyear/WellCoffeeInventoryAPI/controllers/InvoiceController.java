@@ -1,5 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
+import com.team_lightyear.WellCoffeeInventoryAPI.models.Category;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
 import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
@@ -36,6 +37,11 @@ public class InvoiceController {
     //Get list of invoices
     @GetMapping("")
     public List<Invoice> getInvoiceList(){return invoiceRepository.findAll();}
+
+    @GetMapping("/all")
+    public List<Invoice> getAllInvoices() {
+        return invoiceService.getAllInvoices();
+    }
     
     //Get invoice by id
     @GetMapping("/{id}")

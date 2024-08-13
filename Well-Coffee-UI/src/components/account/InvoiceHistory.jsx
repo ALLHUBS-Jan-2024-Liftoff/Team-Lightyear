@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Table, Button, Modal } from "react-bootstrap";
 import React from "react";
 import { DummyInvoices } from "/src/assets/dummydata/DummyInvoices"
+import { getAllInvoices } from '../../services/InvoiceService';
 
-
-const InvoiceHistory = () => {
+const InvoiceHistory = ( { invoices } ) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

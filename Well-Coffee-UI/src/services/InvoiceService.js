@@ -23,3 +23,13 @@ export const fetchInvoices = async () => {
       throw error;
     }
   };
+
+  export const getAllInvoices = async () => {
+    try {
+      const response = await axios.get(`${BASEAPIURL}/api/invoice/all`);
+      return response.data;
+    } catch (error) {
+      console.error("There was an error fetching all the invoices!", error);
+      throw error;
+    }
+  };

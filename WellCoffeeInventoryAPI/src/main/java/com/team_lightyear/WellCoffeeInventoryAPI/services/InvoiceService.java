@@ -7,6 +7,7 @@ import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -50,6 +51,11 @@ public class InvoiceService {
             itemService.updateItemQuantity(newOrderedItem.getItem().getId(), newOrderedItem.getQuantityOrdered());
         }
         return invoiceRepository.save(newInvoice);
+    }
+
+    //Get all invoices
+    public List<Invoice> getAllInvoices() {
+        return invoiceRepository.findAll();
     }
     
     //TODO - Write method to get invoices created by a specific Account

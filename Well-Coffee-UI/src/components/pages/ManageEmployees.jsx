@@ -4,10 +4,27 @@ import InvoiceHistory from "../account/InvoiceHistory";
 import { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
 import { DummyAccounts } from "/src/assets/dummydata/DummyAccounts";
+import { getAllInvoices } from '../../services/InvoiceService';
 import axios from "axios";
 
 const ManageEmployees = () => {
   const [accounts, setAccounts] = useState([]);
+  const [invoices, setInvoices] = useState([]);
+
+    //Invoices useEffect
+    useEffect(() => {
+      fetchInvoices();
+    }, []);
+
+    //Invoices fetch
+    const fetchInvoices = async () => {
+      try {
+        const data = await getAllInvoices();
+        setInvoices(data);
+      } catch (error) {
+        setError("There was an error fetching the invoice data. Please try again.");
+      }
+    };
 
   // This will need to be updated to use an axios call once connected to Java API.
   const handleDelete = (id) => {
