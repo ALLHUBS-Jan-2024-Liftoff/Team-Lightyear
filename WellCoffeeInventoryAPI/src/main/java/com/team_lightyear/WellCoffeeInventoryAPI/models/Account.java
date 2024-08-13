@@ -4,16 +4,19 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Objects;
 
 /**
  * Created by Dominique Gould
  */
 @Entity
-public class Account {
+public class Account implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Size(min=1, message="First name must be at least 1 characters long")
@@ -30,7 +33,28 @@ public class Account {
     @Size(min = 5, max = 25, message = "Password must be a minimum of 5 and maximum of 25 letters")
     private String password;
 
-    private Boolean manager;
+    private String role;
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
 
     // Awaiting confirmation from Trevor
 //    @OneToMany
@@ -45,12 +69,12 @@ public class Account {
     // Constructor
 
 
-    public Account(String firstName, String lastName, String email, String password, Boolean manager) {
+    public Account(String firstName, String lastName, String email, String password, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.manager = manager;
+        this.role = role;
     }
 
     // Getters and Setters - No Setter for ID
@@ -83,20 +107,30 @@ public class Account {
         this.email = email;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Boolean getManager() {
-        return manager;
+    public String getRole() {
+        return role;
     }
 
-    public void setManager(Boolean manager) {
-        this.manager = manager;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     // Equals and HashCode method - id and email
@@ -115,6 +149,7 @@ public class Account {
 
     // toString method
 
+
     @Override
     public String toString() {
         return "Account{" +
@@ -123,7 +158,7 @@ public class Account {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", manager=" + manager +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
