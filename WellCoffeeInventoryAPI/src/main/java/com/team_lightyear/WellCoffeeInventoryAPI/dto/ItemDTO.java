@@ -1,19 +1,20 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.dto;
 
 public class ItemDTO {
-    private int categoryId;
+    private int id;
     private String name;
-    private int quantity;
-    private double price;
+    private Integer quantity;
+    private Double price;
     private String location;
     private String description;
+    private Integer categoryId;
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getId() {
+        return id;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -54,5 +55,13 @@ public class ItemDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 }
