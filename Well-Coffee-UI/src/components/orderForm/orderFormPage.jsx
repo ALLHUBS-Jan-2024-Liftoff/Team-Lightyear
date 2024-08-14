@@ -1,65 +1,94 @@
 import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
-import { fetchItems } from "../../services/ItemService";
-import { fetchCategories } from "../../services/CategoryService";
-import { OrderFormTable } from "./orderFormTable.jsx";
+import { fetchItems } from "../../services/ItemService.js";
+import {
+  fetchCategories,
+  createCategory,
+} from "../../services/CategoryService.js";
+import { OrderFormTable } from "./OrderFormTable.jsx";
 import Accordion from "react-bootstrap/Accordion";
 
 const DisplayItems = () => {
-  const [items, setItems] = useState([]);
+  //   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
-  const itemsInOrder = new Map();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
 
-  //   const addItem = (itemId, quantity) => {
-  //     itemsInOrder.set(itemId, quantity);
-  // }
-
-  //     const deleteItem = (itemId) => {
-  //         itemsInOrder.delete(itemId);
-  //     }
-
+  // This hook calls fetchCategories to retrieve and display initial data
   useEffect(() => {
-    // Fetch all items when the component mounts
-    fetchItems()
-      .then(setItems)
-      .catch(error => {
-        console.error("There was an error fetching the items!", error);
-      });
+    fetchCategories();
   }, []);
 
-  useEffect(() => {
-    // Fetch all categories when the component mounts
-    fetchCategories()
-      .then(setCategories)
-      .catch(error => {
-        console.error("There was an error fetching the categories!", error);
-      });
-  }, []);
+  const fetchCategories = async () => {
+    try {
+      const data = await getAllCategories();
+      setCategories(data);
+    } catch (error) {
+      setError(
+        "There was an error fetching the category data. Please try again."
+      );
+    }
 
-  const filterItems = (category, items) => {
-    let filteredItems = [];
-    items.map(item => {
-      if (item.category == category) {
-        filteredItems.push(item);
-      }
+    const [invoiceFormData, setInvoiceFormData] = useState({
+      invoiceDate: "",
+      vendor: "",
+      invoiceNumber: "",
+      orderedItemsList: [
+        {
+          itemId: "",
+          quantityOrdered: "",
+          itemCost: "",
+        },
+      ],
     });
-    return filteredItems;
-  };
 
-  return (
-    <Form>
-      <Accordion defaultActiveKey="0">
-        {categories.map(category => (
-          <OrderFormTable
-            key={category.id}
-            category={category}
-            items={filterItems(category, items)}
-            itemsInOrder={itemsInOrder}
+    // This function handles the process of adding a new invoice
+    const handleAddInvoice = async newInvoice => {
+      setSuccess(false); // Resets success state before a new invoice is added
+      setError(null); // Resets error state before a new invoice is added
+      try {
+        await createInvoice(newInvoice);
+        setSuccess(true); // Sets success state to true and displays a message to the user
+        fetchCategories();
+      } catch (error) {
+        // Error message will be displayed to the user if the invoice cannot be created
+        setError("There was an error creating the invoice. Please try again.");
+        setSuccess(false);
+      }
+    };
+
+    // This function resets all messages and passes it to the child components
+    const resetMessages = () => {
+      setError(null);
+      setSuccess(false);
+    };
+
+    return (
+      <Form>
+        <Form.Group className="mb-3" controlId="invoiceNumber">
+          <Form.Label>Invoice Number:</Form.Label>
+          <Form.Control name="" />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="vendor">
+          <Form.Label>Vendor:</Form.Label>
+          <Form.Control />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="invoiceDate">
+          <Form.Label>Date: </Form.Label>
+          <DatePicker
+            selected={startDate}
+            onChange={date => setStartDate(date)}
+            className="form-control"
           />
-        ))}
-      </Accordion>
-    </Form>
-  );
+        </Form.Group>
+        <Container className='mt-5'>
+          <h1 className='text-center'>Inventory</h1>
+          <Accordion alwaysOpen className='mt-4'>
+            <OrderFormTable categories={categories} />
+          </Accordion>
+        </Container>
+      </Form>
+    );
+  };
 };
-
-export default displayItems;
+export default DisplayItems;

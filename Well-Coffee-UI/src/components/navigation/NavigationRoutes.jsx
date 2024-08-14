@@ -6,7 +6,6 @@ import DailyReport from '../pages/DailyReport';
 import Tutorial from '../pages/Tutorial';
 import AccountPage from '../pages/AccountPage';
 import LogoutPage from '../pages/LogoutPage';
-import DisplayItems from '../orderForm/orderFormPage';
 import HomePage from '../pages/HomePage';
 
 const NavigationRoutes = () => {
