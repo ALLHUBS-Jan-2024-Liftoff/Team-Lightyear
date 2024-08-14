@@ -22,7 +22,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     LoginController loginController;
 
     //  Pages allowed without signing in
-    private static final List<String> whiteList = Arrays.asList("/api/");
+    private static final List<String> whiteList = Arrays.asList("/api", "/api/tutorial", "/api/home");
 
     private static boolean isWhiteListed(String path) {
         for (String pathRoot : whiteList) {
@@ -41,16 +41,20 @@ public class AuthenticationFilter implements HandlerInterceptor {
 
         // Assign session to logged in account
         HttpSession session = request.getSession();
-        Account account = LoginController.getAcountFromSession(session);
+        Account account = loginController.getAccountFromSession(session);
 
+        // User is logged in
         if (account != null) {
             return true;
         }
 
+        // User is NOT logged in
         if (request.getMethod().equals("OPTIONS")) {
             response.setStatus(HttpServletResponse.SC_OK);
             return true;
         } else {
+
+            // Any other respond with error
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return false;
         }

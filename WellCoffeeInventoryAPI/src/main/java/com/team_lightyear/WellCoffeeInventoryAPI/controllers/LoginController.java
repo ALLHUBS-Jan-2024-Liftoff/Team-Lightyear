@@ -25,7 +25,7 @@ public class LoginController {
     @Autowired
     AccountRepository accountRepository;
 
-    private static final String userSessionKey = "account";
+    private static final String accountSessionKey = "account";
 
     public Account getAccountFromSession(HttpSession session) {
         Integer accountId = (Integer) session.getAttribute(accountSessionKey);
@@ -80,7 +80,7 @@ public class LoginController {
         Map<String, String> responseBody = new HashMap<>();
         try {
             Account existingAccount = accountRepository.findByEmail(registerFormDTO.getEmail());
-            if (existingAccount = !registerFormDTO.getEmail().isEmpty() && null && !registerFormDTO.getPassword().isEmpty()) {
+            if (existingAccount == null && !registerFormDTO.getEmail().isEmpty() && !registerFormDTO.getPassword().isEmpty()) {
                 responseBody.put("message", "Account successfully registered");
                 response = ResponseEntity
                         .status(HttpStatus.CREATED)

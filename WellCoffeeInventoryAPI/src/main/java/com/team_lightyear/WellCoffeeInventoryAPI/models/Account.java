@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -35,25 +36,7 @@ public class Account implements UserDetails {
 
     private String role;
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 
     // Awaiting confirmation from Trevor
@@ -61,20 +44,24 @@ public class Account implements UserDetails {
 //    @JoinColumn(name = "Account_id")
 //    private Invoice invoice;
 
-
-    // No Arg Constructor for JPA
     public Account() {
     }
 
+
+    // No Arg Constructor for JPA
+
+
     // Constructor
-
-
-    public Account(String firstName, String lastName, String email, String password, String role) {
+    public Account(String firstName, String lastName, String email, String pwHash, String role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.password = password;
+        this.password = encoder.encode(pwHash);
         this.role = role;
+    }
+
+    public boolean isMatchingPassword(String pwHash) {
+        return encoder.matches(pwHash, password);
     }
 
     // Getters and Setters - No Setter for ID
