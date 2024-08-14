@@ -143,7 +143,6 @@ public class Item {
     
     // toString() method
     
-    
     @Override
     public String toString() {
         return "Item{" +
