@@ -4,7 +4,29 @@ import React from 'react'
   Created by Dominique Gould 
 */
 
-const LoginPage = () => {
+const LoginPage = async () => {
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [message, setMessage] = useState("");
+
+  // const BASEAPIURL = "http://localhost:5173";
+
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     const response = await axios.post(`${BASEAPIURL}/api`, 
+  //     {username, password}, 
+  //     {withCredentials: true,});
+  //     setAuthenticated(true);
+  //     setMessage(response.data.message);
+  //   } catch (error) {
+  //     setMessage(error.response.data.message || "Login failed");
+  //   }
+  
+  // };
+
+
   return (
     <div className='container'>
       <div className='header'>
@@ -16,12 +38,14 @@ const LoginPage = () => {
     
     <div className='loginForm'>
       {/* Form inputs */}
-      <form action='/account' autoComplete='off' method='post'>
+      <form onSubmit={handleLogin}>
         <div className='inputContainer'>
+
           <label htmlFor='email'>Email:</label>
-          <input type='email' id='email' placeholder='Email' />
+          <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' />
+
           <label htmlFor='password'>Password:</label>
-          <input type='password' id='password' placeholder='Password' />
+          <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
         </div>
         
         {/* Will add forgot password later */}
@@ -32,6 +56,7 @@ const LoginPage = () => {
 
 
       </form>
+      {/* {message && <p>{message}</p>} */}
     </div>
     
 
