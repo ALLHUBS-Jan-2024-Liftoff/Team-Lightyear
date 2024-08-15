@@ -1,14 +1,33 @@
-import { Accordion, Container, Table, Button } from "react-bootstrap";
+import { Accordion, Container, Table, Button, Stack } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
+import { useState } from "react";
+import { deleteItem } from "../../services/ItemService";
 
 const CategoryDisplay = ({ categories, fetchCategories }) => {
+  const [message, setMessage] = useState("");
+
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await deleteItem(itemId);
+      setMessage("Item deleted successfully!");
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+      fetchCategories();
+    } catch (error) {
+      setMessage("There was an error deleting the item. Please try again.");
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+    }
+  }
 
   return (
     <>
       <Container className='mt-5'>
         <h1 className='text-center'>Inventory</h1>
-        <Accordion alwaysOpen className='mt-4'>
+        <Accordion gap={2} alwaysOpen className='mt-4'>
           {categories.length === 0 ? (
             <Accordion.Item>
               <Accordion.Header>No categories available</Accordion.Header>
@@ -67,6 +86,6 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
       </Container>
     </>
   );
-}
+} 
 
 export default CategoryDisplay;
