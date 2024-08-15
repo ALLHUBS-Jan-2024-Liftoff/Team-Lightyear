@@ -27,7 +27,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
     <>
       <Container className='mt-5'>
         <h1 className='text-center'>Inventory</h1>
-        <Accordion gap={2} alwaysOpen className='mt-4'>
+        <Accordion alwaysOpen className='mt-4'>
           {categories.length === 0 ? (
             <Accordion.Item>
               <Accordion.Header>No categories available</Accordion.Header>

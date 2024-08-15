@@ -55,7 +55,7 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
 
     try {
       await updateItem(item.id, newData);
-      setMessage("Item updated successfully");
+      setMessage("Item updated successfully!");
       fetchCategories();
       setTimeout(() => {
         handleClose();
