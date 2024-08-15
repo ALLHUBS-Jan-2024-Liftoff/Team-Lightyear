@@ -2,7 +2,7 @@ import { Accordion, Container, Table, Button } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
 
-const CategoryDisplay = ({ categories }) => {
+const CategoryDisplay = ({ categories, fetchCategories }) => {
 
   return (
     <>
@@ -47,7 +47,11 @@ const CategoryDisplay = ({ categories }) => {
                             <td>${item.price}</td>
                             <td>
                               <ItemCardModal item={item} />{' '}
-                              <UpdateItemModal />{' '}
+                              <UpdateItemModal 
+                                categories={categories}
+                                item={item}
+                                fetchCategories={fetchCategories}
+                              />{' '}
                               <Button variant='outline-danger'>Delete</Button>
                             </td>
                           </tr>

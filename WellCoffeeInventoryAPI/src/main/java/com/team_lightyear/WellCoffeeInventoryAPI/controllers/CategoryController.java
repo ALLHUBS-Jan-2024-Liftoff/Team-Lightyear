@@ -1,6 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
-import com.team_lightyear.WellCoffeeInventoryAPI.models.Category;
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.CategoryDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/category")
@@ -20,28 +19,31 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/new")
-    public Category createCategory(@RequestBody Category category) {
-        return categoryService.createCategory(category);
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO createdCategory = categoryService.createCategory(categoryDTO);
+        return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
-    public List<Category> getAllCategories() {
-        return categoryService.getAllCategories();
+    public ResponseEntity<List<CategoryDTO>> getAllCategories() {
+        List<CategoryDTO> categories = categoryService.getAllCategories();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable int id) {
-        Optional<Category> category = categoryService.getCategoryById(id);
-        if (category.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category with ID " + id + " not found");
+        try {
+            CategoryDTO category = categoryService.getCategoryById(id);
+            return ResponseEntity.ok(category);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return ResponseEntity.ok(category);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateCategory(@PathVariable int id, @RequestBody Category categoryDetails) {
+    public ResponseEntity<?> updateCategory(@PathVariable int id, @RequestBody CategoryDTO categoryDTO) {
         try {
-            Category updatedCategory = categoryService.updateCategory(id, categoryDetails);
+            CategoryDTO updatedCategory = categoryService.updateCategory(id, categoryDTO);
             return ResponseEntity.ok(updatedCategory);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -57,5 +59,4 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-
 }

@@ -62,7 +62,7 @@ public class ItemController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateItem(@PathVariable int id, @RequestBody Item itemDetails) {
+    public ResponseEntity<?> updateItem(@PathVariable int id, @RequestBody ItemDTO itemDetails) {
         try {
             Item updatedItem = itemService.updateItem(id, itemDetails);
             return ResponseEntity.ok(updatedItem);
