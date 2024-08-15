@@ -1,8 +1,27 @@
-import { Accordion, Container, Table, Button } from "react-bootstrap";
+import { Accordion, Container, Table, Button, Stack } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
+import { useState } from "react";
+import { deleteItem } from "../../services/ItemService";
 
 const CategoryDisplay = ({ categories, fetchCategories }) => {
+  const [message, setMessage] = useState("");
+
+  const handleDeleteItem = async (itemId) => {
+    try {
+      await deleteItem(itemId);
+      setMessage("Item deleted successfully!");
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+      fetchCategories();
+    } catch (error) {
+      setMessage("There was an error deleting the item. Please try again.");
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+    }
+  }
 
   return (
     <>
@@ -52,7 +71,12 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                                 item={item}
                                 fetchCategories={fetchCategories}
                               />{' '}
-                              <Button variant='outline-danger'>Delete</Button>
+                              <Button 
+                                variant='outline-danger'
+                                onClick={() => handleDeleteItem(item.id)}
+                              >
+                                Delete
+                              </Button>
                             </td>
                           </tr>
                         ))}
@@ -64,9 +88,16 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
             ))
           )}
         </Accordion>
+        {message && (
+          <div 
+            className={`alert ${message.includes('success') ? 'alert-success' : 'alert-danger'} mt-2`}
+          >
+            {message}
+          </div>
+        )}
       </Container>
     </>
   );
-}
+} 
 
 export default CategoryDisplay;

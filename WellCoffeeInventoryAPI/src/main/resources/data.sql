@@ -18,6 +18,7 @@ VALUES
 (4, 18, 12.99, 4, "Clorox Wipes", "Keep it clean", "Shelf 4A", "Squeeky clean"),
 (4, 19, 20.99, 8, "Light Bulbs", "Keep it bright", "Shelf 4A", "Brighten things up");
 
+
 INSERT IGNORE INTO account
 VALUES
 (1, 0, "cars", "mike@aol.com", "Mike", "Myers"),
