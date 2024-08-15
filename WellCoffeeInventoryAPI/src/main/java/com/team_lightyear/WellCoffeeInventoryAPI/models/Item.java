@@ -33,7 +33,8 @@ public class Item {
     private Double price;
     private String location;
     private String description;
-    private ArrayList<String> comment;
+    private String comment;
+//    private ArrayList<String> comment;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -58,16 +59,29 @@ public class Item {
     public Item() {
     }
 
-    // Constructor
-    public Item(String name, Integer quantity, Double price, String location, String description, Category category, ArrayList<String> comment) {
+    // Constructor Array
+//    public Item(String name, Integer quantity, Double price, String location, String description, Category category, ArrayList<String> comment) {
+//        this.name = name;
+//        this.quantity = quantity;
+//        this.price = price;
+//        this.location = location;
+//        this.description = description;
+//        this.category = category;
+//        this.comment = comment;
+//    }
+
+        //Constructor String
+    public Item(int id, String name, Integer quantity, Double price, String location, String description, String comment, Category category) {
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
         this.location = location;
         this.description = description;
-        this.category = category;
         this.comment = comment;
+        this.category = category;
     }
+
 
     // Getters and Setters
     
@@ -139,15 +153,24 @@ public class Item {
         this.category = category;
     }
 
-    public ArrayList<String> getComment() { return comment; }
+    public String getComment() {
+        return comment;
+    }
 
-    public void setComment(ArrayList<String> comment) { this.comment = comment; }
-    //    public List<Invoice> getInvoiceList() {
-//        return invoiceList;
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+//    public ArrayList<String> getComment() {
+//        return comment;
 //    }
-    
+//
+//    public void setComment(ArrayList<String> comment) {
+//        this.comment = comment;
+//    }
+
     // toString() method
-    
+
+
     @Override
     public String toString() {
         return "Item{" +
@@ -157,13 +180,13 @@ public class Item {
                 ", price=" + price +
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
+                ", comment=" + comment +
                 ", category=" + category +
                 ", orderedItemList=" + orderedItemList +
                 ", invoiceList=" + invoiceList +
-                ", comment=" + comment +
                 '}';
     }
-    
+
     // equals() method
     @Override
     public boolean equals(Object o) {
