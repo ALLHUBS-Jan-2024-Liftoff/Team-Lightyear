@@ -71,7 +71,12 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                                 item={item}
                                 fetchCategories={fetchCategories}
                               />{' '}
-                              <Button variant='outline-danger'>Delete</Button>
+                              <Button 
+                                variant='outline-danger'
+                                onClick={() => handleDeleteItem(item.id)}
+                              >
+                                Delete
+                              </Button>
                             </td>
                           </tr>
                         ))}
@@ -83,6 +88,13 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
             ))
           )}
         </Accordion>
+        {message && (
+          <div 
+            className={`alert ${message.includes('success') ? 'alert-success' : 'alert-danger'} mt-2`}
+          >
+            {message}
+          </div>
+        )}
       </Container>
     </>
   );
