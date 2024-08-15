@@ -62,7 +62,10 @@ const HomePage = () => {
 
   return (
     <>
-      <CategoryDisplay categories={categories}/>
+      <CategoryDisplay 
+        categories={categories}
+        fetchCategories={fetchCategories}
+      />
       <Container className='mt-3'>
         <AddCategoryModal 
           onAddCategory={handleAddCategory} 

@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { Accordion, Container, Table, Button } from 'react-bootstrap';
 import AddAccountModal from './AddAccountModal'; 
 import UpdateAccountModal from './UpdateAccountModal';
+import InvoiceHistory from './InvoiceHistory'
 
+// Grant .08.08.2024-AccountsDisplay code has been moved to ManageEmployees.
 const AccountsDisplay = () => {
   // Sample data for testing purposes:
   const [accounts, setAccounts] = useState([
@@ -60,6 +62,7 @@ const AccountsDisplay = () => {
                       <td>{account.role}</td>
                       <td>
                         <UpdateAccountModal account={account} />{' '}
+                        <InvoiceHistory />
                         <Button 
                           variant='outline-danger' 
                           onClick={() => handleDelete(account.id)}

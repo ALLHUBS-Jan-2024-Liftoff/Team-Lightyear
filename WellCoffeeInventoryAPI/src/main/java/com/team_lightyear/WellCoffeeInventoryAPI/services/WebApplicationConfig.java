@@ -13,7 +13,7 @@ public class WebApplicationConfig implements WebMvcConfigurer {
         return new AuthenticationFilter();
     }
 
-    @Override
+
     public void addIntercepters(InterceptorRegistry registry) {
         registry.addInterceptor(authenticationFilter());
     }

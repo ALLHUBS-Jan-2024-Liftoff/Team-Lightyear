@@ -11,3 +11,33 @@ export const createItem = async (item) => {
     throw error;
   }
 };
+
+export const getAllItems = async () => {
+  try {
+    const response = await axios.get(`${BASEAPIURL}/all`);
+    return response.data;
+  } catch (error) {
+    console.error("There was an error fetching the items", error);
+    throw error;
+  }
+};
+
+export const updateItem = async (itemId, itemData) => {
+  try {
+    const response = await axios.patch(`${BASEAPIURL}/${itemId}`, itemData);
+    return response.data;
+  } catch (error) {
+    console.error("There was an error updating the item", error);
+    throw error;
+  }
+};
+
+export const deleteItem = async (itemId) => {
+  try {
+    const response = await axios.delete(`${BASEAPIURL}/${itemId}`);
+    return response.data;
+  } catch (error) {
+    console.error("There was an error deleting the item", error);
+    throw error;
+  }
+};

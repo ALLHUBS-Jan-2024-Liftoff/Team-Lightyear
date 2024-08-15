@@ -8,7 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+<<<<<<< HEAD
 import java.util.Collection;
+=======
+import java.util.HashSet;
+>>>>>>> origin/main
 import java.util.Objects;
 
 /**
@@ -40,9 +44,12 @@ public class Account implements UserDetails {
 
 
     // Awaiting confirmation from Trevor
+    // Note from Trevor- Changed field to be a HashSet since it needs to store multiple invoices
+    // and used HasHSet rather than List because each invoice should be unique. (Invoices can
+    // have identical items on order, but invoice id and invoice number should be unique)
 //    @OneToMany
-//    @JoinColumn(name = "Account_id")
-//    private Invoice invoice;
+//    @JoinColumn(name = "account_id")
+//    private final HashSet<Invoice> invoices = new HashSet<>();
 
     public Account() {
     }
