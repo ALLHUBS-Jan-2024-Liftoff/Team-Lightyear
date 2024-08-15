@@ -33,6 +33,7 @@ public class Item {
     private Double price;
     private String location;
     private String description;
+    private ArrayList<String> comment;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -58,13 +59,14 @@ public class Item {
     }
 
     // Constructor
-    public Item(String name, Integer quantity, Double price, String location, String description, Category category) {
+    public Item(String name, Integer quantity, Double price, String location, String description, Category category, ArrayList<String> comment) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
         this.location = location;
         this.description = description;
         this.category = category;
+        this.comment = comment;
     }
 
     // Getters and Setters
@@ -136,8 +138,11 @@ public class Item {
     public void setCategory(Category category) {
         this.category = category;
     }
-    
-//    public List<Invoice> getInvoiceList() {
+
+    public ArrayList<String> getComment() { return comment; }
+
+    public void setComment(ArrayList<String> comment) { this.comment = comment; }
+    //    public List<Invoice> getInvoiceList() {
 //        return invoiceList;
 //    }
     
@@ -155,6 +160,7 @@ public class Item {
                 ", category=" + category +
                 ", orderedItemList=" + orderedItemList +
                 ", invoiceList=" + invoiceList +
+                ", comment=" + comment +
                 '}';
     }
     
