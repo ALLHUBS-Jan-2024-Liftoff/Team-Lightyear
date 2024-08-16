@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import moment from 'moment';
 import defaultImage from '../../assets/images/no-image.png';
+import TimeStamp from "/src/components/staging/TimeStamp.jsx"
 import { updateItem } from '../../services/ItemService';
 import { Button, Modal, Badge, Card, ListGroup, Form } from 'react-bootstrap';
 
@@ -71,6 +73,7 @@ comment: formData.comment
             </Card.Body>
             <Form onSubmit={handleSubmit} id="updateItemForm">
                         <Form.Group className="mb-3" controlId="itemComment">
+
                           <Form.Control
                             as="textarea"
                             rows={4}
@@ -79,13 +82,16 @@ comment: formData.comment
 //                             value={formData.comment}
                             onChange={handleChange}
                           />
+
                         </Form.Group>
                                   <Button variant="secondary" type="submit" form="updateItemForm" onClick={handleClose}>
                                     Submit
                                   </Button>
                                   </Form>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>Comment: {formData.comment}</ListGroup.Item>
+                <br></br>
+            <ListGroup variant='flush' horizontal>
+            <TimeStamp />
+              <ListGroup.Item>{formData.comment}</ListGroup.Item>
             </ListGroup>
           </Card>
         </Modal.Body>
