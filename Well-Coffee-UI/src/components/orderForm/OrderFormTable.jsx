@@ -1,6 +1,5 @@
 import OrderFormItemRow from "./OrderFormItemRow";
 import { Accordion, Table } from "react-bootstrap";
-import { useState } from "react";
 
 const OrderFormTable = ({
   categories,
