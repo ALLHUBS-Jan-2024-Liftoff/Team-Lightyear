@@ -20,7 +20,7 @@ import java.util.Optional;
  */
 
 @RestController
-@RequestMapping("/api/login")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173")
 public class LoginController {
     @Autowired
@@ -47,7 +47,7 @@ public class LoginController {
         session.setAttribute(accountSessionKey, account.getId());
     }
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<Map> processLoginform(@RequestBody LoginFormDTO loginFormDTO, HttpServletRequest request) {
         ResponseEntity response = null;
         Map<String, String> responseBody = new HashMap<>();
