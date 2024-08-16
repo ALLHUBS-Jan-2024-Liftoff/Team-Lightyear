@@ -61,6 +61,9 @@ public class ItemService {
         if (itemDetails.getQuantity() != null) {
             item.setQuantity(itemDetails.getQuantity());
         }
+        if (itemDetails.getMinQuantity() != null) {
+            item.setMinQuantity(itemDetails.getMinQuantity());
+        }
         if (itemDetails.getPrice() != null) {
             item.setPrice(itemDetails.getPrice());
         }
@@ -100,7 +103,8 @@ public class ItemService {
         if(!itemRepository.existsById(id)) {
             throw new EntityNotFoundException("Item with ID " + id + " not found");
         }
-        itemRepository.deleteById(id);
+        Item item = itemRepository.getReferenceById(id);
+        itemRepository.delete(item);
     }
     
     //Adds invoice to the list of invoices in the Item

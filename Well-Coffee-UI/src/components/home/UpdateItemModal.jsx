@@ -8,6 +8,7 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
   const [formData, setFormData] = useState({
     name: item.name,
     quantity: item.quantity,
+    minQuantity: item.minQuantity,
     price: item.price,
     location: item.location,
     description: item.description,
@@ -19,6 +20,7 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
     setFormData({
       name: item.name,
       quantity: item.quantity,
+      minQuantity: item.minQuantity,
       price: item.price,
       location: item.location,
       description: item.description,
@@ -47,6 +49,7 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
     const newData = {
       name: formData.name,
       quantity: formData.quantity,
+      minQuantity: formData.minQuantity,
       price: formData.price,
       location: formData.location,
       description: formData.description,
@@ -119,6 +122,17 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
                   placeholder="Enter quantity" 
                   name="quantity"
                   value={formData.quantity}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="itemMinQuantity">
+                <Form.Label>Minimum Quantity</Form.Label>
+                <Form.Control 
+                  type="text" 
+                  placeholder="Enter minimum quantity" 
+                  name="minQuantity"
+                  value={formData.minQuantity}
                   onChange={handleChange}
                 />
               </Form.Group>

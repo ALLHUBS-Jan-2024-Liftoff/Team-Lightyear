@@ -4,6 +4,7 @@ public class ItemDTO {
     private int id;
     private String name;
     private Integer quantity;
+    private Integer minQuantity;
     private Double price;
     private String location;
     private String description;
@@ -63,5 +64,13 @@ public class ItemDTO {
 
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
+    }
+    
+    public Integer getMinQuantity() {
+        return minQuantity;
+    }
+    
+    public void setMinQuantity(Integer minQuantity) {
+        this.minQuantity = minQuantity;
     }
 }
