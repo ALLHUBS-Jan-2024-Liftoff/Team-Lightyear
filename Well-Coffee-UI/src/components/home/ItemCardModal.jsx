@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import moment from 'moment';
+import { useState, useRef } from 'react';
 import defaultImage from '../../assets/images/no-image.png';
 import TimeStamp from "/src/components/staging/TimeStamp.jsx"
 import { updateItem } from '../../services/ItemService';
@@ -30,8 +29,7 @@ comment: formData.comment
       }));
     }
 
-      const handleSubmit = async (e) => {
-        e.preventDefault();
+      const handleSubmit = async () => {
 
         const newData = {
         comment: formData.comment
@@ -47,6 +45,12 @@ comment: formData.comment
           setMessage("There was an error updating the item. Please try again.");
         }
       };
+
+const inputRef = useRef(null);
+
+function handleClick() {
+    console.log(inputRef.current.value);
+  }
 
   return (
     <>
@@ -75,23 +79,24 @@ comment: formData.comment
                         <Form.Group className="mb-3" controlId="itemComment">
 
                           <Form.Control
+
                             as="textarea"
                             rows={4}
                             placeholder="Enter comment"
                             name="comment"
-//                             value={formData.comment}
+                            value={formData.comment}
                             onChange={handleChange}
                           />
 
                         </Form.Group>
-                                  <Button variant="secondary" type="submit" form="updateItemForm" onClick={handleClose}>
+                                  <Button variant="secondary" type="submit" form="updateItemForm" onClick={() => window.location.reload(false)}>
                                     Submit
                                   </Button>
                                   </Form>
                 <br></br>
             <ListGroup variant='flush' horizontal>
             <TimeStamp />
-              <ListGroup.Item>{formData.comment}</ListGroup.Item>
+              <ListGroup.Item>{item.comment}</ListGroup.Item>
             </ListGroup>
           </Card>
         </Modal.Body>
