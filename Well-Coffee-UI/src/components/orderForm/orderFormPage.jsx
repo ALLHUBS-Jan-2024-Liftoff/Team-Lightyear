@@ -15,6 +15,7 @@ const DisplayOrderForm = () => {
   const [startDate, setStartDate] = useState(
     new Date().toISOString().split("T")[0]
   );
+  const [validated, setValidated] = useState(false);
 
   // This hook calls fetchCategories to retrieve and display initial data
   useEffect(() => {
@@ -89,15 +90,19 @@ const DisplayOrderForm = () => {
   };
 
   // This function handles form submission
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const invoiceData = {
-      invoiceDate: invoiceFormData.invoiceDate,
-      vendor: invoiceFormData.vendor,
-      invoiceNumber: invoiceFormData.invoiceNumber,
-      orderedItemsList: orderedItemsList,
-    };
-    await handleAddInvoice(invoiceData);
+  const handleSubmit = async event => {
+    event.preventDefault();
+    if (invoiceFormData.vendor === "" || invoiceFormData.invoiceNumber === "") {
+      setError("Please complete required fields.");
+    } else {
+      const invoiceData = {
+        invoiceDate: invoiceFormData.invoiceDate,
+        vendor: invoiceFormData.vendor,
+        invoiceNumber: invoiceFormData.invoiceNumber,
+        orderedItemsList: orderedItemsList,
+      };
+      await handleAddInvoice(invoiceData);
+    }
   };
 
   // This function handles the process of adding a new invoice
@@ -124,7 +129,10 @@ const DisplayOrderForm = () => {
   return (
     <>
       <Container className="mt-5">
-        <Form onSubmit={handleSubmit} id="orderForm">
+        <Form
+          onSubmit={handleSubmit}
+          id="orderForm"
+        >
           {error && <div className="alert alert-danger">{error}</div>}
           {success && (
             <div className="alert alert-success">

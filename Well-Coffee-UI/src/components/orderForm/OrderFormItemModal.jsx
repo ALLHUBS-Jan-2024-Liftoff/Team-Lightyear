@@ -58,20 +58,20 @@ const OrderFormItemModal = ({
     setSuccess(false);
     setError(null);
     e.preventDefault();
-    const itemData = {
-      itemId: itemFormData.itemId,
-      quantityOrdered: itemFormData.quantityOrdered,
-      itemCost: itemFormData.price,
-    };
-    // Uses the prop function passed from 'HomePage'
-    try {
+    if (itemFormData.quantityOrdered < 1) {
+      setError("Quantity to Order must be greater than 0.");
+      setSuccess(false);
+    } else {
+      const itemData = {
+        itemId: itemFormData.itemId,
+        quantityOrdered: itemFormData.quantityOrdered,
+        itemCost: itemFormData.price,
+      };
+      try {
         handleAddItemToOrder(itemData);
         setSuccess(true);
-      } catch (error) {
-        setError("There was an error creating the item. Please try again.");
-        setSuccess(false);
-      }
-    
+      } catch (error) {}
+    }
   };
 
   useEffect(() => {
@@ -100,7 +100,12 @@ const OrderFormItemModal = ({
         </Modal.Header>
         <Modal.Body>
           <Form as={Row} onSubmit={handleItemSubmit} id="addItemForm">
-            <input type="hidden" name="id" value={item.id} />
+            {error && <div className="alert alert-danger">{error}</div>}
+            {success && (
+              <div className="alert alert-success">
+                Item added successfully!
+              </div>
+            )}
             <Form.Group controlId="id">
               <Form.Control type="hidden" name="id" defaultValue={item.id} />
             </Form.Group>
