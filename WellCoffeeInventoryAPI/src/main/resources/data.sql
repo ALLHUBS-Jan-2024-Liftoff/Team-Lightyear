@@ -35,9 +35,9 @@ VALUES
 -- Fields:
 --(id, date, invNumber, vendor)
 (1, 240812, 105, "Java Time"),
-(2, 240812, 159, "The Coffee Friends");
---(3, 240812, 250, "Beans On Demand"),
---(4, 240812, 490, "Half & Half Priced Warehouse");
+(2, 240812, 159, "The Coffee Friends"),
+(3, 240812, 250, "Beans On Demand"),
+(4, 240812, 490, "Half & Half Priced Warehouse");
 
 INSERT IGNORE INTO invoice_item
 VALUES
@@ -47,14 +47,45 @@ VALUES
 (1,2),
 (1,6),
 (2,2),
-(2,4);
+(2,4),
+(3,4),
+(3,2),
+(3,9),
+(4,3),
+(4,8),
+(4,7),
+(4,4);
 
 INSERT IGNORE INTO ordered_item
 VALUES
 -- Fields:
---(id, invoice_id, item_cost, item_id, quantityOrdered)
-(1,1,5.99,1,4),
-(2,1,12.99,2,2),
-(3,1,24.99,6,9),
-(4,2,12.99,2,8),
-(5,2,15.99,4,1);
+--(id, item_cost, item_id, quantityOrdered)
+(1,5.99,1,4),
+(2,12.99,2,2),
+(3,24.99,6,9),
+(4,12.99,2,8),
+(5,15.99,4,1),
+(6,15.99,4,5),
+(7,12.99,2,3),
+(8,20.99,9,1),
+(9,15.99,3,2),
+(10,12.99,8,3),
+(11,19.99,7,20),
+(12,15.99,4,58);
+
+INSERT IGNORE INTO invoice_ordered_items
+VALUES
+-- Fields:
+--(invoice_id, ordered_items_id)
+(1,1),
+(1,2),
+(1,3),
+(2,4),
+(2,5),
+(3,6),
+(3,7),
+(3,8),
+(4,9),
+(4,10),
+(4,11),
+(4,12);
