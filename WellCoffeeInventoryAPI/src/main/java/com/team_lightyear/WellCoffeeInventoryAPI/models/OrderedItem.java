@@ -1,6 +1,7 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Fetch;
@@ -30,12 +31,13 @@ public class OrderedItem {
     @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
     //Stores a reference to the ordered item
-    private Item item;
+    private Item itemId;
     
-    @ManyToOne (cascade = CascadeType.ALL)
-    @JoinColumn (name = "invoice_id")
-    //Stores a reference to which invoice it was ordered on
-    private Invoice orderedOnInvoice;
+//    @ManyToOne (cascade = CascadeType.ALL)
+//    @JoinColumn (name = "invoice_id")
+//    @JsonIgnore
+//    //Stores a reference to which invoice it was ordered on
+//    private Invoice orderedOnInvoice;
     
     //Stores the cost of the item in this invoice
     private Double itemCost;
@@ -48,9 +50,9 @@ public class OrderedItem {
     public OrderedItem() {
     }
     
-    public OrderedItem(Item item, Invoice orderedOnInvoice, Double itemCost, Integer quantityOrdered) {
-        this.item = item;
-        this.orderedOnInvoice = orderedOnInvoice;
+    public OrderedItem(Item itemId, Double itemCost, Integer quantityOrdered) {
+        this.itemId = itemId;
+//        this.orderedOnInvoice = orderedOnInvoice;
         this.itemCost = itemCost;
         this.quantityOrdered = quantityOrdered;
     }
@@ -64,11 +66,11 @@ public class OrderedItem {
     }
     
     public Item getItem() {
-        return item;
+        return itemId;
     }
     
     public void setItem(Item item) {
-        this.item = item;
+        this.itemId = item;
     }
     
     public Double getItemCost() {
@@ -87,13 +89,13 @@ public class OrderedItem {
         this.quantityOrdered = quantityOrdered;
     }
     
-    public Invoice getInvoice() {
-        return orderedOnInvoice;
-    }
-    
-    public void setInvoice(Invoice invoice) {
-        this.orderedOnInvoice = invoice;
-    }
+//    public Invoice getInvoice() {
+//        return orderedOnInvoice;
+//    }
+//
+//    public void setInvoice(Invoice invoice) {
+//        this.orderedOnInvoice = invoice;
+//    }
     
     /* toString */
     
@@ -101,8 +103,8 @@ public class OrderedItem {
     public String toString() {
         return "OrderedItem{" +
                 "id=" + id +
-                ", item=" + item +
-                ", orderedOnInvoice=" + orderedOnInvoice +
+                ", item=" + itemId +
+//                ", orderedOnInvoice=" + orderedOnInvoice +
                 ", itemCost=" + itemCost +
                 ", quantityOrdered=" + quantityOrdered +
                 '}';

@@ -24,12 +24,9 @@ public class OrderedItemService {
     @Autowired
     ItemService itemService;
     
-    @Autowired
-    InvoiceRepository invoiceRepository;
-    
     public OrderedItem createOrderedItem (OrderedItemDTO orderedItemDTO, Invoice newInvoice) {
         Item item = itemService.getItemById(orderedItemDTO.getItemId()).get();
-        OrderedItem newOrderedItem = new OrderedItem(item, newInvoice, orderedItemDTO.getItemCost(),
+        OrderedItem newOrderedItem = new OrderedItem(item, orderedItemDTO.getItemCost(),
                 orderedItemDTO.getQuantityOrdered());
         return orderedItemRepository.save(newOrderedItem);
     }

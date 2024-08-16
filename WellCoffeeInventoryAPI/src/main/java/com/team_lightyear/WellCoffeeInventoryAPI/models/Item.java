@@ -1,6 +1,7 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -41,6 +42,7 @@ public class Item {
     
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
+    @JsonIgnore
     //Stores a List of OrderedItem model to be able to retrieve a history of the cost of the item
     private final List<OrderedItem> orderedItemList = new ArrayList<>();
     
@@ -50,7 +52,7 @@ public class Item {
     // reference (the id) into the JSON file and doesn't retrieve the whole object
     
     @ManyToMany (mappedBy = "itemsOrdered")
-    @Fetch(FetchMode.SELECT)
+    @JsonIgnore
     //Stores the list of invoices this item is included in
     private final Set<Invoice> invoiceList = new HashSet<>();
     
