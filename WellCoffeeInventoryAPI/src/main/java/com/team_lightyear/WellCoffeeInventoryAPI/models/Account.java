@@ -8,11 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import java.util.Collection;
-=======
+//=======
 import java.util.HashSet;
->>>>>>> origin/main
+//>>>>>>> origin/main
 import java.util.Objects;
 
 /**
