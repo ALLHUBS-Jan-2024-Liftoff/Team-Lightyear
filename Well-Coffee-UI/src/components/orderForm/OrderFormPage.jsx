@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Container, Row, Col, Button } from "react-bootstrap";
-import { getAllCategories } from "../../services/CategoryService";
+import { getAllCategories } from "../../services/CategoryService.js";
 import OrderFormTable from "./OrderFormTable.jsx";
 import Accordion from "react-bootstrap/Accordion";
 import { createInvoice } from "../../services/InvoiceService.js";

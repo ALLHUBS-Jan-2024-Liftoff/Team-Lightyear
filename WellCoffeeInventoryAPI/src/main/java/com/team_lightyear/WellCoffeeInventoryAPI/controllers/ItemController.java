@@ -31,6 +31,7 @@ public class ItemController {
             Item item = new Item();
             item.setName(itemDTO.getName());
             item.setQuantity(itemDTO.getQuantity());
+            item.setMinQuantity(itemDTO.getMinQuantity());
             item.setPrice(itemDTO.getPrice());
             item.setLocation(itemDTO.getLocation());
             item.setDescription(itemDTO.getDescription());

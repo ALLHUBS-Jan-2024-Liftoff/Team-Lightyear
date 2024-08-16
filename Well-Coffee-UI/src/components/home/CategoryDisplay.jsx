@@ -51,6 +51,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                           <th>Description</th>
                           <th>Location</th>
                           <th>Quantity</th>
+                          <th>Minimum Quantity</th>
                           <th>Item Cost</th>
                           <th>Action</th>
                         </tr>
@@ -63,6 +64,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                             <td>{item.description}</td>
                             <td>{item.location}</td>
                             <td>{item.quantity}</td>
+                            <td>{item.minQuantity}</td>
                             <td>${item.price}</td>
                             <td>
                               <ItemCardModal item={item} />{' '}
