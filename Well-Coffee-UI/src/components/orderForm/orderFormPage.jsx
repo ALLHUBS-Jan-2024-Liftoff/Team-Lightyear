@@ -8,14 +8,25 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const DisplayOrderForm = () => {
-  //   const [items, setItems] = useState([]);
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [startDate, setStartDate] = useState(
     new Date().toISOString().split("T")[0]
   );
-  const [validated, setValidated] = useState(false);
+  const [orderedItemsList, setOrderedItemsList] = useState([]);
+  const [invoiceFormData, setInvoiceFormData] = useState({
+    invoiceDate: startDate,
+    vendor: "",
+    invoiceNumber: "",
+  });
+  const [itemFormData, setItemFormData] = useState({
+    itemId: "",
+    price: "",
+    quantityOrdered: 0,
+  });
+
+  // const [validated, setValidated] = useState(false);
 
   // This hook calls fetchCategories to retrieve and display initial data
   useEffect(() => {
@@ -33,20 +44,6 @@ const DisplayOrderForm = () => {
     }
   };
 
-  const [invoiceFormData, setInvoiceFormData] = useState({
-    invoiceDate: startDate,
-    vendor: "",
-    invoiceNumber: "",
-  });
-
-  const [orderedItemsList, setOrderedItemsList] = useState([]);
-
-  const [itemFormData, setItemFormData] = useState({
-    itemId: "",
-    price: "",
-    quantityOrdered: 0,
-  });
-
   // This function uses the spread operator to update the state of a specific field in formData
   const handleChange = e => {
     const { name, value } = e.target;
@@ -57,11 +54,11 @@ const DisplayOrderForm = () => {
   };
 
   //This function handles a date change
-  const handleDateChange = e => {
-    setStartDate(e);
+  const handleDateChange = invDate => {
+    setStartDate(invDate);
     setInvoiceFormData({
       ...invoiceFormData,
-      invoiceDate: e,
+      invoiceDate: invDate,
     });
     console.log(invoiceFormData);
   };
@@ -70,7 +67,7 @@ const DisplayOrderForm = () => {
     if (success) {
       setTimeout(() => {
         handleRefresh();
-      }, 1000); // Closes the modal after 1 second
+      }, 1000); // Resets order form after 1 second
     }
   }, [success]);
 
@@ -92,7 +89,10 @@ const DisplayOrderForm = () => {
   // This function handles form submission
   const handleSubmit = async event => {
     event.preventDefault();
-    if (invoiceFormData.vendor === "" || invoiceFormData.invoiceNumber === "") {
+    if (
+      invoiceFormData.vendor === "" ||
+      (invoiceFormData.invoiceNumber === "") | (orderedItemsList.length === 0)
+    ) {
       setError("Please complete required fields.");
     } else {
       const invoiceData = {
@@ -120,7 +120,6 @@ const DisplayOrderForm = () => {
     }
   };
 
-  // This function resets all messages and passes it to the child components
   const resetMessages = () => {
     setError(null);
     setSuccess(false);
@@ -129,10 +128,7 @@ const DisplayOrderForm = () => {
   return (
     <>
       <Container className="mt-5">
-        <Form
-          onSubmit={handleSubmit}
-          id="orderForm"
-        >
+        <Form onSubmit={handleSubmit} id="orderForm">
           {error && <div className="alert alert-danger">{error}</div>}
           {success && (
             <div className="alert alert-success">
@@ -173,23 +169,21 @@ const DisplayOrderForm = () => {
                 onChange={date =>
                   handleDateChange(date.toISOString().split("T")[0])
                 }
-                // onChangeRaw={(event) => handleDateChange(event.target.value)}
                 todayButton="Today"
               />
             </Form.Group>
+            </Row>
             <Button
-              as={Col}
               type="submit"
               onClick={handleSubmit}
               form="orderForm"
             >
               Submit Order
             </Button>
-          </Row>
         </Form>
       </Container>
       <Container className="mt-5">
-        <h1 className="text-center">Items</h1>
+        <h1 className="text-center">Items Available to Order</h1>
         <Accordion alwaysOpen className="mt-4">
           <OrderFormTable
             categories={categories}

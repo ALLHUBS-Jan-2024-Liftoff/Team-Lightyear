@@ -186,17 +186,13 @@ const OrderFormItemModal = ({
                 onChange={handleChange}
               />
             </Form.Group>
-
-            <Button
-              as={Col}
-              type="submit"
-              onClick={handleItemSubmit}
-              form="addItemForm"
-            >
-              Add to Order
-            </Button>
           </Form>
         </Modal.Body>
+        <Modal.Footer>
+          <Button type="submit" onClick={handleItemSubmit} form="addItemForm">
+            Add to Order
+          </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );
