@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const BASEAPIURL = "http://localhost:8080";
+const BASEAPIURL = "http://localhost:8080/api/invoice";
 
 export const fetchInvoices = async () => {
     try {
-      const response = await axios.get(`${BASEAPIURL}/api/invoice`);
+      const response = await axios.get(`${BASEAPIURL}`);
       return response.data;
     } catch (error) {
       console.error("There was an error fetching the invoices!", error);
@@ -12,14 +12,12 @@ export const fetchInvoices = async () => {
     }
   };
 
-  export const addInvoice = async (invoiceDate, vendor, invoiceNumber) => {
+  export const createInvoice = async (invoice) => {
     try {
-      const response = await axios.post(`${BASEAPIURL}/api/invoice/new`, null, {
-        params: { invoiceDate, vendor, invoiceNumber },
-      });
+      const response = await axios.post(`${BASEAPIURL}/new`, invoice);
       return response.data;
     } catch (error) {
-      console.error("There was an error creating the invoice!", error);
+      console.error("There was an error creating the invoice", error);
       throw error;
     }
   };

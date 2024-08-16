@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import LoginPage from '../pages/LoginPage';
-import OrderPage from '../pages/OrderPage';
+import DisplayOrderForm from '../orderForm/OrderFormPage';
 import ManageEmployees from '../pages/ManageEmployees';
 import DailyReport from '../pages/DailyReport';
 import Tutorial from '../pages/Tutorial';
@@ -14,7 +14,7 @@ const NavigationRoutes = () => {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/order" element={<OrderPage />} />
+        <Route path="/order" element={<DisplayOrderForm />} />
         <Route path="/manage" element={<ManageEmployees />} />
         <Route path="/report" element={<DailyReport />} />
         <Route path="/tutorial" element={<Tutorial />} />
