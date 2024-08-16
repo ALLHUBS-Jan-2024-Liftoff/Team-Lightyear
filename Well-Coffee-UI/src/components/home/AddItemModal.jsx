@@ -6,6 +6,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
   const [formData, setFormData] = useState({
     name: "",
     quantity: "",
+    minQuantity: "",
     price: "",
     location: "",
     description: "",
@@ -17,6 +18,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
     setFormData({
       name: "",
       quantity: "",
+      minQuantity: "",
       price: "",
       location: "",
       description: "",
@@ -46,6 +48,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
         categoryId: formData.categoryId,
         name: formData.name,
         quantity: formData.quantity,
+        minQuantity: formData.minQuantity,
         price: formData.price,
         location: formData.location,
         description: formData.description
@@ -116,6 +119,17 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
                   name="quantity"
                   placeholder="Enter quantity"
                   value={formData.quantity}
+                  onChange={handleChange} 
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="itemMinQuantity">
+                <Form.Label>Minimum Quantity</Form.Label>
+                <Form.Control 
+                  type="text"
+                  name="minQuantity"
+                  placeholder="Enter minimum quantity"
+                  value={formData.minQuantity}
                   onChange={handleChange} 
                 />
               </Form.Group>

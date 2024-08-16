@@ -35,6 +35,7 @@ const ItemCardModal = ({ item }) => {
               <ListGroup.Item>Description: {item.description}</ListGroup.Item>
               <ListGroup.Item>Location: {item.location}</ListGroup.Item>
               <ListGroup.Item>Item Cost: ${item.price}</ListGroup.Item>
+              <ListGroup.Item>Minimum Quantity: {item.minQuantity}</ListGroup.Item>
             </ListGroup>
           </Card>
         </Modal.Body>
