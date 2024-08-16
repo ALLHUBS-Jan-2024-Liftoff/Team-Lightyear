@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import defaultImage from '../../assets/images/no-image.png';
 import { Button, Modal, Badge, Card, ListGroup } from 'react-bootstrap';
+import DisplayStatusIcon from '../item/ItemStatusIcon';
 
 const ItemCardModal = ({ item }) => {
   const [show, setShow] = useState(false);
@@ -24,6 +25,7 @@ const ItemCardModal = ({ item }) => {
         <Modal.Header closeButton>
           <Modal.Title>
             {item.name} <Badge pill bg='primary'>{item.quantity}</Badge>
+            <DisplayStatusIcon item={item} />
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

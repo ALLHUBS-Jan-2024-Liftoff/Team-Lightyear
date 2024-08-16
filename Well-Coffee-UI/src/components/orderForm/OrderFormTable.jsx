@@ -28,7 +28,7 @@ const OrderFormTable = ({
               <Table striped bordered hover responsive>
                 <thead>
                   <tr>
-                    {/* <th scope="col">Status</th> */}
+                    <th scope="col">Status</th>
                     <th scope="col">Item Name</th>
                     <th scope="col">Description</th>
                     {/* <th scope="col">Amazon PID</th> */}

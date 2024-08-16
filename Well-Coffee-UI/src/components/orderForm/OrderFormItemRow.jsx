@@ -1,3 +1,4 @@
+import DisplayStatusIcon from "../item/ItemStatusIcon";
 import OrderFormItemModal from "./OrderFormItemModal";
 
 const OrderFormItemRow = ({
@@ -9,7 +10,7 @@ const OrderFormItemRow = ({
 }) => {
   return (
       <tr key={item.id}>
-        {/* <td>Status</td> */}
+        <td><DisplayStatusIcon item={item} /></td>
         <td>{item.name}</td>
         <td>{item.description}</td>
         {/* <td>{item.amid}</td> */}
