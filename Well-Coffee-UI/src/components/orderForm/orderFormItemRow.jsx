@@ -1,24 +1,34 @@
-import Button from "react-bootstrap/Button";
+import { Form, Col, Row, Button } from "react-bootstrap";
+import { useState } from "react";
+import OrderFormItemModal from "./OrderFormItemModal";
 
-
-export const OrderFormItemRow = ({ item, index }) => {
- 
+const OrderFormItemRow = ({
+  item,
+  orderedItemsList,
+  setOrderedItemsList,
+  itemFormData,
+  setItemFormData
+}) => {
   return (
-    <tr key={index}>
-      {/* <td>Status</td> */}
-      <td>{item.name}</td>
-      <td>{item.description}</td>
-      {/* <td>{item.amid}</td> */}
-      <td>{item.cost}</td>
-      <td>{item.quantity}</td>
-      <td>
-        {/* Using default up down arrows for now. Buttons on either side are complicated. */}
-        {/* <Button variant="primary" onClick={} >-</Button>{" "} */}
-        <Form.Group className="mb-3" controlId="quantityOrdered">
-          <Form.Control type="number" placeholder="0" onChange={(e) => handleChange(e)} />
-        </Form.Group>
-        {/* <Button variant="primary">+</Button>{" "} */}
-      </td>
-    </tr>
+      <tr key={item.id}>
+        {/* <td>Status</td> */}
+        <td>{item.name}</td>
+        <td>{item.description}</td>
+        {/* <td>{item.amid}</td> */}
+        <td>{item.price}</td>
+        <td>{item.quantity}</td>
+        <td>
+          <OrderFormItemModal
+            key={item.id}
+            item={item}
+            orderedItemsList={orderedItemsList}
+            setOrderedItemsList={setOrderedItemsList}
+            itemFormData={itemFormData}
+            setItemFormData={setItemFormData}
+          />
+        </td>
+      </tr>
   );
 };
+
+export default OrderFormItemRow;

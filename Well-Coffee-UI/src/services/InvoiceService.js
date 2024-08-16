@@ -12,12 +12,12 @@ export const fetchInvoices = async () => {
     }
   };
 
-  export const addInvoice = async (invoiceDate, vendor, invoiceNumber, orderedItemsList) => {
+  export const createInvoice = async (invoice) => {
     try {
-      const response = await axios.post(`${BASEAPIURL}/new`, { invoiceDate, vendor, invoiceNumber, orderedItemsList });
+      const response = await axios.post(`${BASEAPIURL}/new`, invoice);
       return response.data;
     } catch (error) {
-      console.error("There was an error creating the invoice!", error);
+      console.error("There was an error creating the invoice", error);
       throw error;
     }
   };
