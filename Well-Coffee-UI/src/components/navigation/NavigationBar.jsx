@@ -21,6 +21,8 @@ const NavigationBar = () => {
               <NavDropdown align='end' title="Account">
                 <NavDropdown.Item as={Link} to={"/account"}>View Account</NavDropdown.Item>
                 <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to={"/register"}>Register</NavDropdown.Item>
+                <NavDropdown.Divider />
                 <NavDropdown.Item as={Link} to={"/logout"}>Logout</NavDropdown.Item>
               </NavDropdown>
             </Nav>

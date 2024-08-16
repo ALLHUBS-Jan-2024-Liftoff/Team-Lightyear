@@ -35,7 +35,7 @@ const AddAccountModal = ({ onAdd }) => {
 
     } catch (error) {
       // Error message will be displayed to the user if the category cannot be created
-      setError("There was an error creating the category. Please try again.");
+      setError("There was an error creating the account. Please try again.");
     }
   }
 

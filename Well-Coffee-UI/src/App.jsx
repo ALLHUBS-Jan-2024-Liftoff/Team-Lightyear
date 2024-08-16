@@ -9,6 +9,7 @@ import { BrowserRouter as Router,
 } from "react-router-dom";
 import LoginPage from "./components/pages/LoginPage";
 import Tutorial from "./components/pages/Tutorial";
+import Register from "./components/pages/Register";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -39,6 +40,10 @@ function App() {
           <Route 
           path="tutorial" 
           element={<Tutorial />} 
+          />
+          <Route 
+          path="/register" 
+          element={<Register />} 
           />
             {/* Private Routes */}
             {authenticated ? (
