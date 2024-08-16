@@ -124,7 +124,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
               </Form.Group>
 
               <Form.Group as={Col} controlId="itemMinQuantity">
-                <Form.Label>Minimum Quantity to Have On Hand</Form.Label>
+                <Form.Label>Minimum Quantity</Form.Label>
                 <Form.Control 
                   type="text"
                   name="minQuantity"
