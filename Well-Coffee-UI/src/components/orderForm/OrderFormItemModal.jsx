@@ -109,6 +109,7 @@ const OrderFormItemModal = ({
             <Form.Group controlId="id">
               <Form.Control type="hidden" name="id" defaultValue={item.id} />
             </Form.Group>
+            
             {/* <Form.Group as={Col} controlId={item.id + "itemStatus"}>
           <Form.Label>Status</Form.Label>
           <Form.Control
@@ -168,6 +169,17 @@ const OrderFormItemModal = ({
                 type="text"
                 name="quantity"
                 value={item.quantity}
+                readOnly
+                disabled
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} controlId={item.id + "itemMinQuantity"}>
+              <Form.Label>Minimum Quantity</Form.Label>
+              <Form.Control
+                type="text"
+                name="minQuantity"
+                value={item.minQuantity}
                 readOnly
                 disabled
               />

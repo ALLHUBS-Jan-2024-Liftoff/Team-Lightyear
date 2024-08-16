@@ -15,6 +15,7 @@ const OrderFormItemRow = ({
         {/* <td>{item.amid}</td> */}
         <td>{item.price}</td>
         <td>{item.quantity}</td>
+        <td>{item.minQuantity}</td>
         <td>
           <OrderFormItemModal
             key={item.id}
