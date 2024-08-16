@@ -64,6 +64,7 @@ function Register() {
                     <button type="submit">Register</button>
                 </div>
             </form>
+            {message && <p>{message}</p>}
         </div>             
     )
 }
