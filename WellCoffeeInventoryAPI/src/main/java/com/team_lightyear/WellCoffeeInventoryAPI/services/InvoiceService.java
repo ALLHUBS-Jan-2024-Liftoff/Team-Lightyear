@@ -2,8 +2,8 @@ package com.team_lightyear.WellCoffeeInventoryAPI.services;
 
 import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.dto.OrderedItemDTO;
-import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.GetInvoiceDTO;
-import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.GetInvoiceDTOMapper;
+import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.dto.GetInvoiceDTO;
+import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.mapper.GetInvoiceDTOMapper;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.*;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
-import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.GetInvoiceDTO;
+import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.dto.GetInvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
 import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;

@@ -1,5 +1,6 @@
-package com.team_lightyear.WellCoffeeInventoryAPI.GetDTO;
+package com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.mapper;
 
+import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.dto.GetInvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
 import org.springframework.stereotype.Service;
 

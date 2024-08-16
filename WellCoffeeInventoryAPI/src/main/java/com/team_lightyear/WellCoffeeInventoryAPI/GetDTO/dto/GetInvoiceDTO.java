@@ -1,4 +1,4 @@
-package com.team_lightyear.WellCoffeeInventoryAPI.GetDTO;
+package com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.dto;
 
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Item;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.OrderedItem;
