@@ -18,7 +18,7 @@ const handleLogout = async () => {
 const handleReturn = async () => {
   
   try {
-    await axios.get("http://localhost:8080/api/home",
+    await axios.post("http://localhost:8080/api/home",
     { withCredentials: true,
      });
   } catch (error) {

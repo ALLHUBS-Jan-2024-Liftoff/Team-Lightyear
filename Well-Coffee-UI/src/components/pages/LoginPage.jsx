@@ -1,30 +1,37 @@
 import React from 'react'
+import { useState } from 'react';
 
 /* 
   Created by Dominique Gould 
 */
 
-const LoginPage = async () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [message, setMessage] = useState("");
+function LoginPage({ setAuthenticated }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
-  // const BASEAPIURL = "http://localhost:5173";
+  const BASEAPIURL = "http://localhost:8080/api/login";
 
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  //   try {
-  //     const response = await axios.post(`${BASEAPIURL}/api`, 
-  //     {username, password}, 
-  //     {withCredentials: true,});
-  //     setAuthenticated(true);
-  //     setMessage(response.data.message);
-  //   } catch (error) {
-  //     setMessage(error.response.data.message || "Login failed");
-  //   }
+    try {
+      const response = await axios.get(`${BASEAPIURL}`, 
+      {
+        username, 
+        password
+      }, 
+      {
+        withCredentials: true,
+      }
+      );
+      setAuthenticated(true);
+      setMessage(response.data.message);
+    } catch (error) {
+      setMessage(error.response?.data.message || "Login failed");
+    }
   
-  // };
+  };
 
 
   return (
@@ -56,7 +63,7 @@ const LoginPage = async () => {
 
 
       </form>
-      {/* {message && <p>{message}</p>} */}
+      {message && <p>{message}</p>}
     </div>
     
 
