@@ -103,8 +103,7 @@ public class ItemService {
         if(!itemRepository.existsById(id)) {
             throw new EntityNotFoundException("Item with ID " + id + " not found");
         }
-        Item item = itemRepository.getReferenceById(id);
-        itemRepository.delete(item);
+        itemRepository.deleteById(id);
     }
     
     //Adds invoice to the list of invoices in the Item
