@@ -12,7 +12,8 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
     price: item.price,
     location: item.location,
     description: item.description,
-    categoryId: item.categoryId
+    categoryId: item.categoryId,
+    amazonProductId: item.amazonProductId
   });
 
   const handleClose = () => {
@@ -24,7 +25,8 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
       price: item.price,
       location: item.location,
       description: item.description,
-      categoryId: item.categoryId
+      categoryId: item.categoryId,
+      amazonProductId: item.amazonProductId
     });
     setMessage("");
   };
@@ -53,7 +55,8 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
       price: formData.price,
       location: formData.location,
       description: formData.description,
-      categoryId: formData.categoryId
+      categoryId: formData.categoryId,
+      amazonProductId: formData.amazonProductId
     };
 
     try {
@@ -156,6 +159,17 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
                   placeholder="Enter location" 
                   name="location"
                   value={formData.location}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="amazonProductId">
+                <Form.Label>Amazon Product ID</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Amazon Product ID"
+                  name="amazonProductId"
+                  value={formData.amazonProductId}
                   onChange={handleChange}
                 />
               </Form.Group>

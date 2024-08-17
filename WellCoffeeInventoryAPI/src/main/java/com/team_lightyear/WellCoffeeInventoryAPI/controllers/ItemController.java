@@ -35,6 +35,7 @@ public class ItemController {
             item.setPrice(itemDTO.getPrice());
             item.setLocation(itemDTO.getLocation());
             item.setDescription(itemDTO.getDescription());
+            item.setAmazonProductId(itemDTO.getAmazonProductId());
 
             // This retrieves the categoryId from the DTO
             int categoryId = itemDTO.getCategoryId();

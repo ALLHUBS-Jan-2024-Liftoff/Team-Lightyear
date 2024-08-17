@@ -10,7 +10,8 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
     price: "",
     location: "",
     description: "",
-    categoryId: ""
+    categoryId: "",
+    amazonProductId: ""
   });
 
   const handleClose = () => {
@@ -22,7 +23,8 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
       price: "",
       location: "",
       description: "",
-      categoryId: ""
+      categoryId: "",
+      amazonProductId: ""
     });
     resetMessages();
   };
@@ -51,7 +53,8 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
         minQuantity: formData.minQuantity,
         price: formData.price,
         location: formData.location,
-        description: formData.description
+        description: formData.description,
+        amazonProductId: formData.amazonProductId
       };
       // Uses the prop function passed from 'HomePage'
       await onAddItem(itemData);
@@ -157,6 +160,17 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
                 />
               </Form.Group>
               
+              <Form.Group as={Col} controlId="amazonProductId">
+                <Form.Label>Amazon Product ID</Form.Label>
+                <Form.Control 
+                  type="text" 
+                  name="amazonProductId"
+                  placeholder="Enter Amazon Product ID" 
+                  value={formData.amazonProductId}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
                 <Form.Label>Photo</Form.Label>
                 <Form.Control type="file" />

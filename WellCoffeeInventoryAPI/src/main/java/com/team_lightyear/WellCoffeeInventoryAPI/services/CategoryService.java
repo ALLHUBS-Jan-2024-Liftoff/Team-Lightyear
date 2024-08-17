@@ -109,6 +109,7 @@ public class CategoryService {
         itemDTO.setLocation(item.getLocation());
         itemDTO.setDescription(item.getDescription());
         itemDTO.setCategoryId(item.getCategory().getId());
+        itemDTO.setAmazonProductId(item.getAmazonProductId());
         return itemDTO;
     }
 }

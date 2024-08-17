@@ -9,6 +9,7 @@ public class ItemDTO {
     private String location;
     private String description;
     private Integer categoryId;
+    private String amazonProductId;
 
     public int getId() {
         return id;
@@ -72,5 +73,13 @@ public class ItemDTO {
     
     public void setMinQuantity(Integer minQuantity) {
         this.minQuantity = minQuantity;
+    }
+    
+    public String getAmazonProductId() {
+        return amazonProductId;
+    }
+    
+    public void setAmazonProductId(String amazonProductId) {
+        this.amazonProductId = amazonProductId;
     }
 }
