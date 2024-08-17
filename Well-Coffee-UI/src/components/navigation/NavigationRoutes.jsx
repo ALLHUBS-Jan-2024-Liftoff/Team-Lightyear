@@ -7,6 +7,7 @@ import Tutorial from '../pages/Tutorial';
 import AccountPage from '../pages/AccountPage';
 import LogoutPage from '../pages/LogoutPage';
 import HomePage from '../pages/HomePage';
+import SearchPage from '../pages/SearchPage';
 
 const NavigationRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const NavigationRoutes = () => {
         <Route path="/tutorial" element={<Tutorial />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/logout" element={<LogoutPage />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
     </>
   )
