@@ -13,7 +13,8 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
     location: item.location,
     description: item.description,
     categoryId: item.categoryId,
-    amazonProductId: item.amazonProductId
+    amazonProductId: item.amazonProductId,
+    image: item.image
   });
 
   const handleClose = () => {
@@ -26,7 +27,8 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
       location: item.location,
       description: item.description,
       categoryId: item.categoryId,
-      amazonProductId: item.amazonProductId
+      amazonProductId: item.amazonProductId,
+      image: item.image
     });
     setMessage("");
   };
@@ -56,7 +58,8 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
       location: formData.location,
       description: formData.description,
       categoryId: formData.categoryId,
-      amazonProductId: formData.amazonProductId
+      amazonProductId: formData.amazonProductId,
+      image: formData.image
     };
 
     try {
@@ -69,6 +72,20 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
     } catch (error) {
       setMessage("There was an error updating the item. Please try again.");
     }
+  };
+
+  function convertToBase64(e) {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setFormData({
+        ...formData,
+        image: reader.result
+      });
+    };
+    reader.onerror = error => {
+      console.log("Error converting image to base64", error);
+    };
   };
 
   return (
@@ -176,7 +193,10 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
               
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control 
+                  type="file" 
+                  onChange={convertToBase64}
+                />
               </Form.Group>
             </Row>
 
