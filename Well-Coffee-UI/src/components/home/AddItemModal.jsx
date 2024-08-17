@@ -11,7 +11,8 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
     location: "",
     description: "",
     categoryId: "",
-    amazonProductId: ""
+    amazonProductId: "",
+    image: ""
   });
 
   const handleClose = () => {
@@ -24,7 +25,8 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
       location: "",
       description: "",
       categoryId: "",
-      amazonProductId: ""
+      amazonProductId: "",
+      image: ""
     });
     resetMessages();
   };
@@ -54,7 +56,8 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
         price: formData.price,
         location: formData.location,
         description: formData.description,
-        amazonProductId: formData.amazonProductId
+        amazonProductId: formData.amazonProductId, 
+        image: formData.image
       };
       // Uses the prop function passed from 'HomePage'
       await onAddItem(itemData);
@@ -67,6 +70,20 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
       }, 1000); // Closes the modal after 1 second
     }
   }, [success]); 
+
+  function convertToBase64(e) {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setFormData({
+        ...formData,
+        image: reader.result
+      });
+    };
+    reader.onerror = error => {
+      console.log("Error converting image to base64", error);
+    };
+  };
 
   return (
     <>
@@ -173,7 +190,10 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
 
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control 
+                  type="file" 
+                  onChange={convertToBase64}
+                />
               </Form.Group>
             </Row>
 

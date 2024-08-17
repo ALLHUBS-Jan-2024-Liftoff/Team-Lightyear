@@ -7,22 +7,21 @@ VALUES
 (3, 081224, "Paper Products"),
 (4, 081224, "Miscellaneous");
 
+ALTER TABLE item MODIFY image LONGTEXT;
 
 INSERT IGNORE INTO item
 VALUES
 -- Fields:
--- (category_id, id, minQuantity, price, quantity, name, amazonProductId, description, location)
-(1, 1, 23, 5.99, 55, "Espresso Beans", "", "Dark and tasty", "Shelf 1A"),
-(1, 2, 12, 12.99, 10, "Highlander Grog Beans", "", "There can only be one...", "Shelf 1A"),
-(1, 3, 13, 15.99, 8, "Hazelnut Beans", "", "Robust with a nutty finish.", "Shelf 1A"),
-(2, 4, 14, 15.99, 15, "Cinnamon Rolls", "", "A sweet staple.", "Shelf 2A"),
-(2, 5, 15, 24.99, 18, "Strawberry Scones", "", "There is fruit in it so it HAS to be healthy",
-"Shelf
-2A"),
-(3, 6, 16, 24.99, 20, "Straws", "", "500 count", "Shelf 3A"),
-(3, 7, 17, 19.99, 30, "Spoons", "", "300 count", "Shelf 3A"),
-(4, 8, 18, 12.99, 4, "Clorox Wipes", "", "Keep it clean", "Shelf 4A"),
-(4, 9, 19, 20.99, 8, "Light Bulbs", "", "Keep it bright", "Shelf 4A");
+-- (category_id, id, minQuantity, price, quantity, name, amazonProductId, description, location, image)
+(1, 1, 23, 5.99, 55, "Espresso Beans", "", "Dark and tasty", "Shelf 1A", ""),
+(1, 2, 12, 12.99, 10, "Highlander Grog Beans", "", "There can only be one...", "Shelf 1A", ""),
+(1, 3, 13, 15.99, 8, "Hazelnut Beans", "", "Robust with a nutty finish.", "Shelf 1A", ""),
+(2, 4, 14, 15.99, 15, "Cinnamon Rolls", "", "A sweet staple.", "Shelf 2A", ""),
+(2, 5, 15, 24.99, 18, "Strawberry Scones", "", "There is fruit in it so it HAS to be healthy", "Shelf 2A", ""),
+(3, 6, 16, 24.99, 20, "Straws", "", "500 count", "Shelf 3A", ""),
+(3, 7, 17, 19.99, 30, "Spoons", "", "300 count", "Shelf 3A", ""),
+(4, 8, 18, 12.99, 4, "Clorox Wipes", "", "Keep it clean", "Shelf 4A", ""),
+(4, 9, 19, 20.99, 8, "Light Bulbs", "", "Keep it bright", "Shelf 4A", "");
 
 INSERT IGNORE INTO account
 VALUES
