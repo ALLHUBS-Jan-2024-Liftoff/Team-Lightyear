@@ -1,9 +1,10 @@
-import { Container, Table } from "react-bootstrap"
+import { Container, Table, Form, InputGroup } from "react-bootstrap"
 import { getAllItems } from "../../services/ItemService";
 import { useState, useEffect } from "react";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     fetchItems();
@@ -22,6 +23,14 @@ const SearchPage = () => {
     <>
       <Container className="mt-5">
         <h1 className="text-center">Item Finder</h1>
+        <Form className="mt-4">
+          <InputGroup>
+            <Form.Control 
+              placeholder="Search items" 
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </InputGroup>
+        </Form>
         <Table striped bordered hover responsive className="mt-3">
           <thead>
             <tr>
