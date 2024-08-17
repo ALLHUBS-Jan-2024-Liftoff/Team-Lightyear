@@ -1,6 +1,7 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Fetch;
@@ -30,7 +31,7 @@ public class Invoice {
     // recursive manner. If the object has already been retrieved once, it just passes a
     // reference (the id) into the JSON file and doesn't retrieve the whole object
     @ManyToMany (cascade = CascadeType.ALL)
-    @Fetch(FetchMode.SELECT)
+    @JsonIgnore
     @JoinTable(
             name = "Invoice_Item",
             joinColumns = { @JoinColumn(name = "invoice_id") },
@@ -39,8 +40,8 @@ public class Invoice {
     //This field stores a set of the Item model to be able to retrieve item information
     private final Set<Item> itemsOrdered = new HashSet<>();
     
-    @OneToMany(mappedBy = "orderedOnInvoice", cascade = CascadeType.ALL)
-    @Fetch(FetchMode.SELECT)
+    @OneToMany( cascade = CascadeType.ALL)
+    @JsonIgnore
     //This field stores a list of the OrderedItem model to be able to retrieve the cost of the
     // item on this particular invoice
     private final List<OrderedItem> orderedItems = new ArrayList<>();
