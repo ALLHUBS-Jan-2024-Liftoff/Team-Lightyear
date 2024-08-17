@@ -30,6 +30,7 @@ public class Item {
     @Size(min = 3, max = 50, message = "Must be between 3 and 15 characters")
     private String name;
     private Integer quantity;
+    private Integer minQuantity;
     private Double price;
     private String location;
     private String description;
@@ -39,7 +40,7 @@ public class Item {
     private Category category;
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderedItem_id")
+    @JoinColumn(name = "item_id")
     //Stores a List of OrderedItem model to be able to retrieve a history of the cost of the item
     private final List<OrderedItem> orderedItemList = new ArrayList<>();
     
@@ -58,9 +59,12 @@ public class Item {
     }
 
     // Constructor
-    public Item(String name, Integer quantity, Double price, String location, String description, Category category) {
+    public Item(String name, Integer quantity, Integer minQuantity, Double price, String location,
+                String description
+            , Category category) {
         this.name = name;
         this.quantity = quantity;
+        this.minQuantity = minQuantity;
         this.price = price;
         this.location = location;
         this.description = description;
@@ -137,7 +141,15 @@ public class Item {
         this.category = category;
     }
     
-//    public List<Invoice> getInvoiceList() {
+    public Integer getMinQuantity() {
+        return minQuantity;
+    }
+    
+    public void setMinQuantity(Integer minQuantity) {
+        this.minQuantity = minQuantity;
+    }
+    
+    //    public List<Invoice> getInvoiceList() {
 //        return invoiceList;
 //    }
     
@@ -149,6 +161,7 @@ public class Item {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
+                ", minQuantity=" + minQuantity +
                 ", price=" + price +
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +

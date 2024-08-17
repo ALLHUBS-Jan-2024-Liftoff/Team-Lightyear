@@ -61,6 +61,9 @@ public class ItemService {
         if (itemDetails.getQuantity() != null) {
             item.setQuantity(itemDetails.getQuantity());
         }
+        if (itemDetails.getMinQuantity() != null) {
+            item.setMinQuantity(itemDetails.getMinQuantity());
+        }
         if (itemDetails.getPrice() != null) {
             item.setPrice(itemDetails.getPrice());
         }
