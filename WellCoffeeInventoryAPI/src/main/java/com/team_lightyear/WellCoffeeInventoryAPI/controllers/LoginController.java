@@ -50,7 +50,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> processLoginForm(@RequestBody LoginFormDTO loginFormDTO, HttpServletRequest request) {
         Map<String, String> responseBody = new HashMap<>();
-        Account theAccount = accountRepository.findByEmail(loginFormDTO.getEmail());
+        Account theAccount = accountRepository.findByEmail(loginFormDTO.getEmail().toLowerCase());
         String password = loginFormDTO.getPassword();
         ResponseEntity response = null;
 
