@@ -10,6 +10,11 @@ import { BrowserRouter as Router,
 import LoginPage from "./components/pages/LoginPage";
 import Tutorial from "./components/pages/Tutorial";
 import Register from "./components/pages/Register";
+import HomePage from "./components/pages/HomePage";
+import DailyReport from "./components/pages/DailyReport";
+import ManageEmployees from "./components/pages/ManageEmployees";
+import Logout from "./components/pages/LogoutPage";
+import OrderPage from "./components/pages/OrderPage";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -18,17 +23,18 @@ function App() {
       <nav>
         {!authenticated ? (
           <>
-                <NavigationBar />
-                <NavigationRoutes />
+                <NavigationBar /> 
+                {/* <NavigationRoutes /> */}
           </>
         ) : (
         <>
+{/* 
         <Link to="/home">Home</Link>
         <Link to="/tutorial">Tutorial</Link>
         <Link to="/report">Daily Report</Link>
         <Link to="/manage">Manage Employees</Link>
         <Link to="/order">Order</Link>
-        <Link to="/logout">Logout</Link>
+        <Link to="/logout">Logout</Link> */}
         </>
         )}
         <Routes>
@@ -47,12 +53,17 @@ function App() {
           />
             {/* Private Routes */}
             {authenticated ? (
+              
               <>
-              <Route path="/tutorial" element={<Tutorial />} />
+              <NavigationRoutes />
+
+              {/* <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/report" element={<DailyReport />} />
               <Route path="/manage" element={<ManageEmployees />} />
-              <Route path="/order" element={<OrderPage />} />
+              <Route path="/order" element={<OrderPage />} /> */}
+              {/* <NavigationRoutes /> */}
+
                 </>
             ) : (
               <Route path="*" element={<Navigate to="/login" replace />} />

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import axios from 'axios';
 
 /* 
   Created by Dominique Gould 
@@ -10,13 +11,15 @@ function LoginPage({ setAuthenticated }) {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const BASEAPIURL = "http://localhost:8080/api/login";
+  // const BASEAPIURL = "http://localhost:8080/api/login";
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    console.log("Is it working?");
+    console.log(email, password);
     try {
-      const response = await axios.post(`${BASEAPIURL}`, 
+      const response = await axios.post("http://localhost:8080/api/login", 
       {
         email, 
         password
@@ -26,6 +29,7 @@ function LoginPage({ setAuthenticated }) {
       }
       );
       setAuthenticated(true);
+      console.log(response.data.message);
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response?.data.message || "Login failed");
