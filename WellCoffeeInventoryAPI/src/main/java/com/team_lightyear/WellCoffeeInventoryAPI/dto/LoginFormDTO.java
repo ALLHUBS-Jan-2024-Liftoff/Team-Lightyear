@@ -5,6 +5,7 @@ public class LoginFormDTO {
 
     private String password;
 
+
     public String getEmail() {
         return email;
     }

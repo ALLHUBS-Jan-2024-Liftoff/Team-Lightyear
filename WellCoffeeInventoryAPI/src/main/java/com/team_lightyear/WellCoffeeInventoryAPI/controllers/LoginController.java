@@ -48,16 +48,19 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map> processLoginform(@RequestBody LoginFormDTO loginFormDTO, HttpServletRequest request) {
-        ResponseEntity response = null;
+    public ResponseEntity<Map<String, String>> processLoginForm(@RequestBody LoginFormDTO loginFormDTO, HttpServletRequest request) {
         Map<String, String> responseBody = new HashMap<>();
         Account theAccount = accountRepository.findByEmail(loginFormDTO.getEmail());
         String password = loginFormDTO.getPassword();
+        ResponseEntity response = null;
+
+        System.out.println("Attempting to log in with email: " + loginFormDTO.getEmail());
         if (theAccount == null) {
-        responseBody.put("message", "Account with that email does not exist");
-        response = ResponseEntity
+            responseBody.put("message", "Account with that email does not exist");
+            response = ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(responseBody);
+
         } else if (!theAccount.isMatchingPassword(password)) {
             responseBody.put("message", "Password does not match");
             response = ResponseEntity
@@ -65,15 +68,15 @@ public class LoginController {
                     .body(responseBody);
         } else {
             setAccountInSession(request.getSession(), theAccount);
-            responseBody.put("message", "Account successfully logged in.");
             responseBody.put("email", theAccount.getEmail());
             responseBody.put("accountRole", theAccount.getRole());
+            responseBody.put("message", "Account successfully logged in.");
             response = ResponseEntity
-                    .status(HttpStatus.CREATED)
+                    .status(HttpStatus.OK)
                     .body(responseBody);
         }
         return response;
-    }
+        }
 
     @PostMapping("/register")
     public ResponseEntity<Map> processRegistrationForm(@RequestBody RegisterFormDTO registerFormDTO, HttpServletRequest request) {
@@ -82,34 +85,34 @@ public class LoginController {
         try {
             Account existingAccount = accountRepository.findByEmail(registerFormDTO.getEmail());
             if (existingAccount == null && !registerFormDTO.getEmail().isEmpty() && !registerFormDTO.getPassword().isEmpty()) {
-                responseBody.put("message", "Account successfully registered");
                 response = ResponseEntity
                         .status(HttpStatus.CREATED)
                         .body(responseBody);
                 Account newAccount = new Account(registerFormDTO.getFirstName(), registerFormDTO.getLastName(), registerFormDTO.getEmail(), registerFormDTO.getPassword(), "Employee");
                 setAccountInSession(request.getSession(), newAccount);
                 accountRepository.save(newAccount);
+                responseBody.put("message", "Account successfully registered");
             } else if (existingAccount != null) {
-                responseBody.put("message", "User already exists.");
                 response = ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(responseBody);
+                responseBody.put("message", "User already exists.");
             } else if (registerFormDTO.getEmail().isEmpty()) {
                 responseBody.put("message", "Email required.");
                 response = ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(responseBody);
             } else if (registerFormDTO.getPassword().isEmpty()) {
-                responseBody.put("message", "Password is required.");
                 response = ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .body(responseBody);
+                responseBody.put("message", "Password is required.");
             }
         } catch (Exception ex) {
-            responseBody.put("message", "An exception occurred due to " + ex.getMessage());
             response = ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(responseBody);
+            responseBody.put("message", "An exception occurred due to " + ex.getMessage());
         }
         return response;
     }
