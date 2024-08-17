@@ -36,6 +36,7 @@ public class ItemController {
             item.setLocation(itemDTO.getLocation());
             item.setDescription(itemDTO.getDescription());
             item.setAmazonProductId(itemDTO.getAmazonProductId());
+            item.setImage(itemDTO.getImage());
 
             // This retrieves the categoryId from the DTO
             int categoryId = itemDTO.getCategoryId();
