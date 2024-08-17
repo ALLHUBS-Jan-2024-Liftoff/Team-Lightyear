@@ -22,7 +22,7 @@ public class AuthenticationFilter implements HandlerInterceptor {
     LoginController loginController;
 
     //  Pages allowed without signing in
-    private static final List<String> whiteList = Arrays.asList("/api", "/api/tutorial", "/api/home");
+    private static final List<String> whiteList = Arrays.asList("/api", "/api/tutorial", "/api/home", "/api/login", "/api/register");
 
     private static boolean isWhiteListed(String path) {
         for (String pathRoot : whiteList) {

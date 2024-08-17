@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //<<<<<<< HEAD
@@ -19,23 +19,23 @@ import java.util.Objects;
  * Created by Dominique Gould
  */
 @Entity
-public class Account implements UserDetails {
+public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Size(min=1, message="First name must be at least 1 characters long")
+//    @Size(min=1, message="First name must be at least 1 characters long")
     private String firstName;
 
-    @Size(min=1, message="Last name must be at least 1 characters long")
+//    @Size(min=1, message="Last name must be at least 1 characters long")
     private String lastName;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email. Please try again")
+//    @NotBlank(message = "Email is required")
+//    @Email(message = "Invalid email. Please try again")
     private String email;
 
-    @NotBlank( message = "Password is required")
-    @Size(min = 5, max = 25, message = "Password must be a minimum of 5 and maximum of 25 letters")
+//    @NotBlank( message = "Password is required")
+//    @Size(min = 5, max = 25, message = "Password must be a minimum of 5 and maximum of 25 letters")
     private String password;
 
     private String role;
@@ -76,6 +76,9 @@ public class Account implements UserDetails {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -101,16 +104,16 @@ public class Account implements UserDetails {
         this.email = email;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        return null;
+//    }
 
     public String getPassword() {
         return password;
     }
 
-    @Override
+//    @Override
     public String getUsername() {
         return null;
     }
