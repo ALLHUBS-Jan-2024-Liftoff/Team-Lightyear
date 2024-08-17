@@ -83,6 +83,8 @@ public class ItemController {
             return ResponseEntity.ok("Item with ID " + id + " deleted successfully");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The item with ID " + id + " is linked to other records and cannot be deleted at this time.");
         }
     }
 }
