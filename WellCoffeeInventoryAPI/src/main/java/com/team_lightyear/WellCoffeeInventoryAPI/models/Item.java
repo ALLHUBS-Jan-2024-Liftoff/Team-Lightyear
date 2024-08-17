@@ -6,8 +6,6 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.*;
 
@@ -36,6 +34,9 @@ public class Item {
     private String location;
     private String description;
     private String amazonProductId;
+
+    @Lob // Specifies that the database should store this as a Large Object
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -160,7 +161,15 @@ public class Item {
     public void setAmazonProductId(String amazonProductId) {
         this.amazonProductId = amazonProductId;
     }
-    
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     //    public List<Invoice> getInvoiceList() {
 //        return invoiceList;
 //    }
