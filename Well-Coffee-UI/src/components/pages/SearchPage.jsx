@@ -45,7 +45,11 @@ const SearchPage = () => {
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => (
+          {items.filter((item) => {
+            const itemName = item.name.toLowerCase();
+            const searchTerm = search.toLowerCase();
+            return searchTerm === "" ? item : itemName.includes(searchTerm);
+            }).map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
