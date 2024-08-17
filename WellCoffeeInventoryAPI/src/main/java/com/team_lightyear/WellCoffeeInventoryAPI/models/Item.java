@@ -64,8 +64,7 @@ public class Item {
 
     // Constructor
     public Item(String name, Integer quantity, Integer minQuantity, Double price, String location,
-                String description
-            , Category category, String amazonProductId) {
+                String description, Category category, String amazonProductId, String image) {
         this.name = name;
         this.quantity = quantity;
         this.minQuantity = minQuantity;
@@ -74,6 +73,7 @@ public class Item {
         this.description = description;
         this.category = category;
         this.amazonProductId = amazonProductId;
+        this.image = image;
     }
 
     // Getters and Setters
