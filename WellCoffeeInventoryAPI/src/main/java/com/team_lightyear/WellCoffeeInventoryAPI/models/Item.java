@@ -35,6 +35,7 @@ public class Item {
     private Double price;
     private String location;
     private String description;
+    private String amazonProductId;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -63,7 +64,7 @@ public class Item {
     // Constructor
     public Item(String name, Integer quantity, Integer minQuantity, Double price, String location,
                 String description
-            , Category category) {
+            , Category category, String amazonProductId) {
         this.name = name;
         this.quantity = quantity;
         this.minQuantity = minQuantity;
@@ -71,6 +72,7 @@ public class Item {
         this.location = location;
         this.description = description;
         this.category = category;
+        this.amazonProductId = amazonProductId;
     }
 
     // Getters and Setters
@@ -151,6 +153,14 @@ public class Item {
         this.minQuantity = minQuantity;
     }
     
+    public String getAmazonProductId() {
+        return amazonProductId;
+    }
+    
+    public void setAmazonProductId(String amazonProductId) {
+        this.amazonProductId = amazonProductId;
+    }
+    
     //    public List<Invoice> getInvoiceList() {
 //        return invoiceList;
 //    }
@@ -170,6 +180,7 @@ public class Item {
                 ", category=" + category +
                 ", orderedItemList=" + orderedItemList +
                 ", invoiceList=" + invoiceList +
+                ", amazonProductId=" + amazonProductId +
                 '}';
     }
     
