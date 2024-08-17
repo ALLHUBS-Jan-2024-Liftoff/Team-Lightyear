@@ -13,7 +13,7 @@ const NavigationRoutes = () => {
   return (
     <>
       <Routes>
-        {/* <Route path="/login" element={<LoginPage />} /> */}
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path="/manage" element={<ManageEmployees />} />
