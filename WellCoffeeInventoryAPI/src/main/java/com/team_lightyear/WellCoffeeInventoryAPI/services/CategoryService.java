@@ -110,6 +110,7 @@ public class CategoryService {
         itemDTO.setDescription(item.getDescription());
         itemDTO.setCategoryId(item.getCategory().getId());
         itemDTO.setAmazonProductId(item.getAmazonProductId());
+        itemDTO.setImage(item.getImage());
         return itemDTO;
     }
 }

@@ -76,6 +76,9 @@ public class ItemService {
         if (itemDetails.getAmazonProductId() != null) {
             item.setAmazonProductId(itemDetails.getAmazonProductId());
         }
+        if (itemDetails.getImage() != null) {
+            item.setImage(itemDetails.getImage());
+        }
         if (itemDetails.getCategoryId() != null) {
             // If the category field gets assigned a new value we need to make sure it exists in the database
             int categoryId = itemDetails.getCategoryId();

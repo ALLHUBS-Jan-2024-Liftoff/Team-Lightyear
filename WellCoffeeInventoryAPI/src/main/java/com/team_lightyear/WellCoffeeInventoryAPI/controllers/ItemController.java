@@ -28,14 +28,17 @@ public class ItemController {
     public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO) {
         try {
             // This converts the DTO into an Item entity
-            Item item = new Item();
-            item.setName(itemDTO.getName());
-            item.setQuantity(itemDTO.getQuantity());
-            item.setMinQuantity(itemDTO.getMinQuantity());
-            item.setPrice(itemDTO.getPrice());
-            item.setLocation(itemDTO.getLocation());
-            item.setDescription(itemDTO.getDescription());
-            item.setAmazonProductId(itemDTO.getAmazonProductId());
+            Item item = new Item(
+                    itemDTO.getName(),
+                    itemDTO.getQuantity(),
+                    itemDTO.getMinQuantity(),
+                    itemDTO.getPrice(),
+                    itemDTO.getLocation(),
+                    itemDTO.getDescription(),
+                    null,  // Category is handled in the service layer
+                    itemDTO.getAmazonProductId(),
+                    itemDTO.getImage()
+            );
 
             // This retrieves the categoryId from the DTO
             int categoryId = itemDTO.getCategoryId();

@@ -10,6 +10,7 @@ public class ItemDTO {
     private String description;
     private Integer categoryId;
     private String amazonProductId;
+    private String image;
 
     public int getId() {
         return id;
@@ -81,5 +82,13 @@ public class ItemDTO {
     
     public void setAmazonProductId(String amazonProductId) {
         this.amazonProductId = amazonProductId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
