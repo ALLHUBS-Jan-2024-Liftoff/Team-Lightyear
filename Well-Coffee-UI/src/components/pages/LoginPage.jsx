@@ -16,9 +16,9 @@ function LoginPage({ setAuthenticated }) {
     e.preventDefault();
 
     try {
-      const response = await axios.get(`${BASEAPIURL}`, 
+      const response = await axios.post(`${BASEAPIURL}`, 
       {
-        username, 
+        email, 
         password
       }, 
       {
