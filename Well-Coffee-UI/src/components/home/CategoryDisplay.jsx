@@ -3,6 +3,7 @@ import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
 import { useState } from "react";
 import { deleteItem } from "../../services/ItemService";
+import DisplayStatusIcon from "../item/ItemStatusIcon";
 
 const CategoryDisplay = ({ categories, fetchCategories }) => {
   const [message, setMessage] = useState("");
@@ -59,7 +60,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                       <tbody>
                         {category.items.map((item, index) => (
                           <tr key={index}>
-                            <td>{item.status}</td>
+                            <td><DisplayStatusIcon item={item} /></td>
                             <td>{item.name}</td>
                             <td>{item.description}</td>
                             <td>{item.location}</td>
