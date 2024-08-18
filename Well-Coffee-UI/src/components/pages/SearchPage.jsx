@@ -1,36 +1,40 @@
-import { Container, Table, Form, InputGroup } from "react-bootstrap"
-import { getAllItems } from "../../services/ItemService";
-import { useState, useEffect } from "react";
+import { Container, Table, Form, InputGroup, Button, Row, Col } from "react-bootstrap"
+import { searchItems } from "../../services/ItemService";
+import { useState } from "react";
 
 const SearchPage = () => {
   const [items, setItems] = useState([]);
-  const [search, setSearch] = useState("");
+  const [searchKey, setSearchKey] = useState("");
 
-  useEffect(() => {
-    fetchItems();
-  }, []);
-
-  const fetchItems = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     try {
-      const data = await getAllItems();
-      setItems(data);
+      const results = await searchItems(searchKey);
+      setItems(results);
     } catch (error) {
-      setError("There was an error fetching the item data. Please try again.");
+      console.error("Error during search: ", error)
     }
   };
 
   return (
     <>
       <Container className="mt-5">
-        <h1 className="text-center">Item Finder</h1>
-        <Form className="mt-4">
-          <InputGroup>
-            <Form.Control 
-              placeholder="Search items" 
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </InputGroup>
-        </Form>
+        <h1 className="text-center">
+          Item Search
+        </h1>
+        <div className="d-flex align-items-center mt-4">
+          <Form className="d-flex flex-grow-1" onSubmit={handleSearch} id="searchItemForm">
+            <InputGroup className="w-100">
+              <Form.Control 
+                type="text"
+                value={searchKey}
+                onChange={(e) => setSearchKey(e.target.value)}
+                placeholder="Search for items..."
+              />
+            </InputGroup>
+          </Form>    
+          <Button className="ms-1" type="submit" form="searchItemForm">Search 🔎</Button>
+        </div>
         <Table striped bordered hover responsive className="mt-3">
           <thead>
             <tr>
@@ -45,11 +49,7 @@ const SearchPage = () => {
             </tr>
           </thead>
           <tbody>
-          {items.filter((item) => {
-            const itemName = item.name.toLowerCase();
-            const searchTerm = search.toLowerCase();
-            return searchTerm === "" ? item : itemName.includes(searchTerm);
-            }).map((item) => (
+          {items.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
@@ -68,4 +68,4 @@ const SearchPage = () => {
   )
 }
 
-export default SearchPage
+export default SearchPage;
