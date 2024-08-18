@@ -6,10 +6,13 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
   const [formData, setFormData] = useState({
     name: "",
     quantity: "",
+    minQuantity: "",
     price: "",
     location: "",
     description: "",
-    categoryId: ""
+    categoryId: "",
+    amazonProductId: "",
+    image: ""
   });
 
   const handleClose = () => {
@@ -17,10 +20,13 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
     setFormData({
       name: "",
       quantity: "",
+      minQuantity: "",
       price: "",
       location: "",
       description: "",
-      categoryId: ""
+      categoryId: "",
+      amazonProductId: "",
+      image: ""
     });
     resetMessages();
   };
@@ -46,9 +52,12 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
         categoryId: formData.categoryId,
         name: formData.name,
         quantity: formData.quantity,
+        minQuantity: formData.minQuantity,
         price: formData.price,
         location: formData.location,
-        description: formData.description
+        description: formData.description,
+        amazonProductId: formData.amazonProductId, 
+        image: formData.image
       };
       // Uses the prop function passed from 'HomePage'
       await onAddItem(itemData);
@@ -61,6 +70,20 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
       }, 1000); // Closes the modal after 1 second
     }
   }, [success]); 
+
+  function convertToBase64(e) {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setFormData({
+        ...formData,
+        image: reader.result
+      });
+    };
+    reader.onerror = error => {
+      console.log("Error converting image to base64", error);
+    };
+  };
 
   return (
     <>
@@ -120,6 +143,17 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
                 />
               </Form.Group>
 
+              <Form.Group as={Col} controlId="itemMinQuantity">
+                <Form.Label>Minimum Quantity</Form.Label>
+                <Form.Control 
+                  type="text"
+                  name="minQuantity"
+                  placeholder="Enter minimum quantity"
+                  value={formData.minQuantity}
+                  onChange={handleChange} 
+                />
+              </Form.Group>
+
               <Form.Group as={Col} controlId="itemPrice">
                 <Form.Label>Price</Form.Label>
                 <Form.Control 
@@ -143,9 +177,23 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
                 />
               </Form.Group>
               
+              <Form.Group as={Col} controlId="amazonProductId">
+                <Form.Label>Amazon Product ID</Form.Label>
+                <Form.Control 
+                  type="text" 
+                  name="amazonProductId"
+                  placeholder="Enter Amazon Product ID" 
+                  value={formData.amazonProductId}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control 
+                  type="file" 
+                  onChange={convertToBase64}
+                />
               </Form.Group>
             </Row>
 

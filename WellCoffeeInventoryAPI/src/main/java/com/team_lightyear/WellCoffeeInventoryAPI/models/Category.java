@@ -1,6 +1,7 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -36,7 +37,7 @@ public class Category {
     // recursive manner. If the object has already been retrieved once, it just passes a
     // reference (the id) into the JSON file and doesn't retrieve the whole object
     @OneToMany (mappedBy = "category", cascade = CascadeType.ALL)
-    @Fetch(FetchMode.SELECT)
+    @JsonIgnore
     private final List<Item> items = new ArrayList<>();
 
     private LocalDateTime dateCreated;

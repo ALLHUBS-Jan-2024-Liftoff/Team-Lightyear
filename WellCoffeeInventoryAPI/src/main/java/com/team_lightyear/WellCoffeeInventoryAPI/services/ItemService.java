@@ -61,6 +61,9 @@ public class ItemService {
         if (itemDetails.getQuantity() != null) {
             item.setQuantity(itemDetails.getQuantity());
         }
+        if (itemDetails.getMinQuantity() != null) {
+            item.setMinQuantity(itemDetails.getMinQuantity());
+        }
         if (itemDetails.getPrice() != null) {
             item.setPrice(itemDetails.getPrice());
         }
@@ -70,8 +73,16 @@ public class ItemService {
         if (itemDetails.getDescription() != null) {
             item.setDescription(itemDetails.getDescription());
         }
+<<<<<<< HEAD
         if (itemDetails.getComment() != null) {
             item.setComment(itemDetails.getComment());
+=======
+        if (itemDetails.getAmazonProductId() != null) {
+            item.setAmazonProductId(itemDetails.getAmazonProductId());
+        }
+        if (itemDetails.getImage() != null) {
+            item.setImage(itemDetails.getImage());
+>>>>>>> origin
         }
         if (itemDetails.getCategoryId() != null) {
             // If the category field gets assigned a new value we need to make sure it exists in the database

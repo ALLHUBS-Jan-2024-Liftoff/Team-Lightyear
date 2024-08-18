@@ -160,8 +160,17 @@ public class Item {
     public void setComment(String comment) {
         this.comment = comment;
     }
+//    public ArrayList<String> getComment() {
+//        return comment;
+//    }
+//
+//    public void setComment(ArrayList<String> comment) {
+//        this.comment = comment;
+//    }
 
     // toString() method
+
+
     @Override
     public String toString() {
         return "Item{" +

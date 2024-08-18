@@ -8,10 +8,13 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
   const [formData, setFormData] = useState({
     name: item.name,
     quantity: item.quantity,
+    minQuantity: item.minQuantity,
     price: item.price,
     location: item.location,
     description: item.description,
-    categoryId: item.categoryId
+    categoryId: item.categoryId,
+    amazonProductId: item.amazonProductId,
+    image: item.image
   });
 
   const handleClose = () => {
@@ -19,10 +22,13 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
     setFormData({
       name: item.name,
       quantity: item.quantity,
+      minQuantity: item.minQuantity,
       price: item.price,
       location: item.location,
       description: item.description,
-      categoryId: item.categoryId
+      categoryId: item.categoryId,
+      amazonProductId: item.amazonProductId,
+      image: item.image
     });
     setMessage("");
   };
@@ -47,10 +53,13 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
     const newData = {
       name: formData.name,
       quantity: formData.quantity,
+      minQuantity: formData.minQuantity,
       price: formData.price,
       location: formData.location,
       description: formData.description,
-      categoryId: formData.categoryId
+      categoryId: formData.categoryId,
+      amazonProductId: formData.amazonProductId,
+      image: formData.image
     };
 
     try {
@@ -63,6 +72,20 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
     } catch (error) {
       setMessage("There was an error updating the item. Please try again.");
     }
+  };
+
+  function convertToBase64(e) {
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      setFormData({
+        ...formData,
+        image: reader.result
+      });
+    };
+    reader.onerror = error => {
+      console.log("Error converting image to base64", error);
+    };
   };
 
   return (
@@ -123,6 +146,17 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
                 />
               </Form.Group>
 
+              <Form.Group as={Col} controlId="itemMinQuantity">
+                <Form.Label>Minimum Quantity</Form.Label>
+                <Form.Control 
+                  type="text" 
+                  placeholder="Enter minimum quantity" 
+                  name="minQuantity"
+                  value={formData.minQuantity}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+
               <Form.Group as={Col} controlId="itemPrice">
                 <Form.Label>Price</Form.Label>
                 <Form.Control 
@@ -145,10 +179,24 @@ const UpdateItemModal = ({ categories, item, fetchCategories }) => {
                   onChange={handleChange}
                 />
               </Form.Group>
+
+              <Form.Group as={Col} controlId="amazonProductId">
+                <Form.Label>Amazon Product ID</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter Amazon Product ID"
+                  name="amazonProductId"
+                  value={formData.amazonProductId}
+                  onChange={handleChange}
+                />
+              </Form.Group>
               
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" />
+                <Form.Control 
+                  type="file" 
+                  onChange={convertToBase64}
+                />
               </Form.Group>
             </Row>
 
