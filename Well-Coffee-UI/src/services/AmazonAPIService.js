@@ -9,7 +9,7 @@ const options = {
     country: 'US'
   },
   headers: {
-    'x-rapidapi-key': '06da9c9100msh8140205ba579f51p1ea5e8jsn1baff55986c0',
+    'x-rapidapi-key': process.env.REACT_APP_AMAZON_API_KEY,
     'x-rapidapi-host': 'real-time-amazon-data.p.rapidapi.com'
   }
 };
