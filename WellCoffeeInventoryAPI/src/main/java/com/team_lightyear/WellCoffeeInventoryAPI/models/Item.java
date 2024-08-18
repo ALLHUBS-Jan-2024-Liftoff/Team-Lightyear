@@ -1,12 +1,11 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.*;
 
@@ -30,18 +29,23 @@ public class Item {
     @Size(min = 3, max = 50, message = "Must be between 3 and 15 characters")
     private String name;
     private Integer quantity;
+    private Integer minQuantity;
     private Double price;
     private String location;
     private String description;
     private String comment;
-//    private ArrayList<String> comment;
+    private String amazonProductId;
+
+    @Lob // Specifies that the database should store this as a Large Object
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderedItem_id")
+    @JoinColumn(name = "item_id")
+    @JsonIgnore
     //Stores a List of OrderedItem model to be able to retrieve a history of the cost of the item
     private final List<OrderedItem> orderedItemList = new ArrayList<>();
     
@@ -51,7 +55,7 @@ public class Item {
     // reference (the id) into the JSON file and doesn't retrieve the whole object
     
     @ManyToMany (mappedBy = "itemsOrdered")
-    @Fetch(FetchMode.SELECT)
+    @JsonIgnore
     //Stores the list of invoices this item is included in
     private final Set<Invoice> invoiceList = new HashSet<>();
     
@@ -59,27 +63,26 @@ public class Item {
     public Item() {
     }
 
-    // Constructor Array
-//    public Item(String name, Integer quantity, Double price, String location, String description, Category category, ArrayList<String> comment) {
-//        this.name = name;
-//        this.quantity = quantity;
-//        this.price = price;
-//        this.location = location;
-//        this.description = description;
-//        this.category = category;
-//        this.comment = comment;
-//    }
-
         //Constructor String
     public Item(int id, String name, Integer quantity, Double price, String location, String description, String comment, Category category) {
         this.id = id;
+    }
+
+    // Constructor
+    public Item(String name, Integer quantity, Integer minQuantity, Double price, String location,
+                String description, Category category, String amazonProductId, String image, String comment) {
+
         this.name = name;
         this.quantity = quantity;
+        this.minQuantity = minQuantity;
         this.price = price;
         this.location = location;
         this.description = description;
         this.comment = comment;
         this.category = category;
+        this.amazonProductId = amazonProductId;
+        this.image = image;
+        this.comment = comment;
     }
 
 
@@ -160,13 +163,30 @@ public class Item {
     public void setComment(String comment) {
         this.comment = comment;
     }
-//    public ArrayList<String> getComment() {
-//        return comment;
-//    }
-//
-//    public void setComment(ArrayList<String> comment) {
-//        this.comment = comment;
-//    }
+    
+    public Integer getMinQuantity() {
+        return minQuantity;
+    }
+    
+    public void setMinQuantity(Integer minQuantity) {
+        this.minQuantity = minQuantity;
+    }
+    
+    public String getAmazonProductId() {
+        return amazonProductId;
+    }
+    
+    public void setAmazonProductId(String amazonProductId) {
+        this.amazonProductId = amazonProductId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     // toString() method
 
@@ -177,6 +197,7 @@ public class Item {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
+                ", minQuantity=" + minQuantity +
                 ", price=" + price +
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
@@ -184,6 +205,8 @@ public class Item {
                 ", category=" + category +
                 ", orderedItemList=" + orderedItemList +
                 ", invoiceList=" + invoiceList +
+                ", amazonProductId=" + amazonProductId +
+                ", comment=" + comment +
                 '}';
     }
 
