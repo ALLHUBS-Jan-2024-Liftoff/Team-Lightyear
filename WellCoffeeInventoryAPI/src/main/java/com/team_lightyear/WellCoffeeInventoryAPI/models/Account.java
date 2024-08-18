@@ -1,11 +1,14 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -37,9 +40,9 @@ public class Account {
     // Note from Trevor- Changed field to be a HashSet since it needs to store multiple invoices
     // and used HasHSet rather than List because each invoice should be unique. (Invoices can
     // have identical items on order, but invoice id and invoice number should be unique)
-//    @OneToMany
-//    @JoinColumn(name = "account_id")
-//    private final HashSet<Invoice> invoices = new HashSet<>();
+    @OneToMany (mappedBy = "account")
+    @JsonIgnore
+    private final List<Invoice> invoices = new ArrayList<>();
 
 
     // No Arg Constructor for JPA
@@ -102,7 +105,15 @@ public class Account {
     public void setManager(Boolean manager) {
         this.manager = manager;
     }
-
+    
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+    
+    public void addInvoice(Invoice invoice) {
+        invoices.add(invoice);
+    }
+    
     // Equals and HashCode method - id and email
     @Override
     public boolean equals(Object o) {

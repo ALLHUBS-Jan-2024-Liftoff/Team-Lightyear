@@ -1,5 +1,7 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.dto;
 
+import com.team_lightyear.WellCoffeeInventoryAPI.models.Account;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +16,7 @@ public class InvoiceDTO {
     // DTO list of Item ID integers to send to InvoiceService for processing by ItemRepository
     private List<OrderedItemDTO> orderedItemsList;
     
-//    private Account account;
+    private Account account;
     
     //LocalDate is stored as 2010-12-03
     private LocalDate invoiceDate;
@@ -68,12 +70,21 @@ public class InvoiceDTO {
         this.invoiceNumber = invoiceNumber;
     }
     
+    public Account getAccount() {
+        return account;
+    }
+    
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+    
     /* toString */
     
     @Override
     public String toString() {
         return "InvoiceDTO{" +
                 "orderedItemsList=" + orderedItemsList +
+                ", account=" + account +
                 ", invoiceDate=" + invoiceDate +
                 ", vendor='" + vendor + '\'' +
                 ", invoiceNumber='" + invoiceNumber + '\'' +
@@ -87,12 +98,11 @@ public class InvoiceDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         InvoiceDTO that = (InvoiceDTO) o;
-        return Objects.equals(orderedItemsList, that.orderedItemsList) && Objects.equals(invoiceDate,
-                that.invoiceDate) && Objects.equals(vendor, that.vendor) && Objects.equals(invoiceNumber, that.invoiceNumber);
+        return Objects.equals(orderedItemsList, that.orderedItemsList) && Objects.equals(account, that.account) && Objects.equals(invoiceDate, that.invoiceDate) && Objects.equals(vendor, that.vendor) && Objects.equals(invoiceNumber, that.invoiceNumber);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hash(orderedItemsList, invoiceDate, vendor, invoiceNumber);
+        return Objects.hash(orderedItemsList, account, invoiceDate, vendor, invoiceNumber);
     }
 }

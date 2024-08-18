@@ -49,7 +49,7 @@ public class InvoiceService {
     public Invoice processNewInvoice(InvoiceDTO newInvoiceDTO){
         //Construct Invoice object from DTO
         Invoice newInvoice = new Invoice(newInvoiceDTO.getInvoiceDate(), newInvoiceDTO.getVendor()
-                , newInvoiceDTO.getInvoiceNumber());
+                , newInvoiceDTO.getInvoiceNumber(), newInvoiceDTO.getAccount());
         
         //Loop through the ordered items and process them
         for (OrderedItemDTO orderedItem : newInvoiceDTO.getOrderedItemsList()) {

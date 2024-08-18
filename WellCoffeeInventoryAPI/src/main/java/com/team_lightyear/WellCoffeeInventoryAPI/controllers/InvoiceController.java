@@ -51,6 +51,8 @@ public class InvoiceController {
     //Create new invoice
     @PostMapping("/new")
     public Invoice postInvoice(@RequestBody InvoiceDTO newInvoice) {
+        //TODO get user from session and set in newInvoice
+        
         //Calls the invoice service to process the new invoice
         Invoice invoice = invoiceService.processNewInvoice(newInvoice);
         //Adds invoice to the Set<Invoice> invoiceList in OrderedItem after the invoice has been
