@@ -5,9 +5,11 @@ import { useState } from "react";
 const SearchPage = () => {
   const [items, setItems] = useState([]);
   const [searchKey, setSearchKey] = useState("");
+  const [hasSearched, setHasSearched] = useState(false);
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    setHasSearched(true);
     try {
       const results = await searchItems(searchKey);
       setItems(results);
@@ -49,7 +51,16 @@ const SearchPage = () => {
             </tr>
           </thead>
           <tbody>
-          {items.map((item) => (
+          {!hasSearched ? (
+            <tr>
+              <td colSpan="8" className="text-center">Start search</td>
+            </tr> 
+          ) : items.length === 0 ? (
+            <tr>
+              <td colSpan="8" className="text-center">No items found</td>
+            </tr>
+          ) : (
+          items.map((item) => (
               <tr key={item.id}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>
@@ -60,12 +71,13 @@ const SearchPage = () => {
                 <td>{item.minQuantity}</td>
                 <td>${item.price}</td>
               </tr>
-            ))}
+            ))
+          )}
           </tbody>
         </Table>
       </Container>
     </>
-  )
+  );
 }
 
 export default SearchPage;
