@@ -86,6 +86,7 @@ const UpdateAmazonIdForm = ({
                 message.includes("success") ? "alert-success" : "alert-danger"
               }`}
             >
+              <br />
               {message}
             </div>
           )}

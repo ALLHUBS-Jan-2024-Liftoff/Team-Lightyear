@@ -3,7 +3,6 @@ import { Button } from "react-bootstrap";
 import UpdateAmazonIdForm from "./UpdateAmazonIdForm";
 import AmazonInfoCard from "./AmazonInfoCard";
 import { getAmazonProductInfo } from "../../services/AmazonAPIService";
-import AmazonErrorCard from "./AmazonErrorCard";
 
 const AmazonInfoButtons = ({ item, fetchCategories }) => {
   const [showForm, setShowForm] = useState(false);
@@ -115,10 +114,13 @@ const AmazonInfoButtons = ({ item, fetchCategories }) => {
   const [amazonPInfo, setAmazonPInfo] = useState();
   const [amazonInfoPulled, setAmazonInfoPulled] = useState(false);
 
+
+  //This function handles showing the form modal to update the Product ID
   const handleShowForm = () => {
     setShowForm(true);
   };
 
+  //This function handles showing the modal with all the information collected from the API
   const handleShowCard = () => {
     if (!amazonInfoPulled) {
       fetchAmazonProductInfo(item.amazonProductId);
@@ -144,63 +146,60 @@ const AmazonInfoButtons = ({ item, fetchCategories }) => {
   const fetchAmazonProductInfo = async amazonProductId => {
     try {
       const responseData = await getAmazonProductInfo(amazonProductId);
-      //Check if Amazon Product ID is valid
+      //Check if Amazon Product ID is valid by checking for a object key that should be in the object
       if (!responseData.data.product_title) {
         setMessage(
           "Invalid Amazon Product ID. Please correct error and try again."
         );
         console.log(message);
-        setAmazonInfoPulled(false);
         setError(true);
-        setTimeout(() => {
-          handleCloseCard();
-        }, 3000);
+        setShowForm(true);
       } else {
         setAmazonPInfo(responseData);
         setAmazonInfoPulled(true);
       }
     } catch (error) {
-      setMessage(
+      console.log(
         "There was an error fetching the Amazon Product data. Please try again."
       );
       console.log(error);
     }
   };
 
-  return item.amazonProductId === "" ? (
+  return (
     <>
-      <Button variant="outline-secondary" onClick={handleShowForm}>
-        Add Amazon PID
-      </Button>
-
-      <UpdateAmazonIdForm
-        item={item}
-        showForm={showForm}
-        setShowForm={setShowForm}
-        fetchCategories={fetchCategories}
-        message={message}
-        setMessage={setMessage}
-      />
-    </>
-  ) : (
-    <>
-      <Button variant="outline-secondary" onClick={handleShowCard}>
-        Amazon Info
-      </Button>
-      {error && (
-        <AmazonErrorCard
-          showCard={showCard}
-          handleCloseCard={handleCloseCard}
-          message={message}
-        />
+    {/* Display Button to add Amazon ID if none is stored */}
+      {item.amazonProductId === "" ? (
+        <Button variant="outline-warning" onClick={handleShowForm}>
+          Add Amazon PID
+        </Button>
+      ) : (
+        <>
+        {/* Display Button to view Amazon info if ID is stored */}
+          <Button variant="outline-info" onClick={handleShowCard}>
+            Amazon Info
+          </Button>
+          {/* AmazonInfoCard is only rendered once the API has successfully collect information and set amazonInfoPulled to True */}
+          {amazonInfoPulled && (
+            <AmazonInfoCard
+              amazonPInfo={amazonPInfo}
+              showCard={showCard}
+              handleCloseCard={handleCloseCard}
+              message={message}
+              error={error}
+            />
+          )}
+        </>
       )}
-      {amazonInfoPulled && (
-        <AmazonInfoCard
-          amazonPInfo={amazonPInfo}
-          showCard={showCard}
-          handleCloseCard={handleCloseCard}
+      {/* UpdateAmazonIdForm is rendered once showForm is set to true. The Add Amazon PID button sets showForm to true as does the error handling for a bad Amazon Product ID so it can be fixed right away */}
+      {showForm && (
+        <UpdateAmazonIdForm
+          item={item}
+          showForm={showForm}
+          setShowForm={setShowForm}
+          fetchCategories={fetchCategories}
           message={message}
-          error={error}
+          setMessage={setMessage}
         />
       )}
     </>
