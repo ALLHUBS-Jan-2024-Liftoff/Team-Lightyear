@@ -63,11 +63,6 @@ public class Item {
     public Item() {
     }
 
-        //Constructor String
-    public Item(int id, String name, Integer quantity, Double price, String location, String description, String comment, Category category) {
-        this.id = id;
-    }
-
     // Constructor
     public Item(String name, Integer quantity, Integer minQuantity, Double price, String location,
                 String description, Category category, String amazonProductId, String image, String comment) {
