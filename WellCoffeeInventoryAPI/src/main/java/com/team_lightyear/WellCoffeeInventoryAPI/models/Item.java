@@ -78,7 +78,6 @@ public class Item {
         this.price = price;
         this.location = location;
         this.description = description;
-        this.comment = comment;
         this.category = category;
         this.amazonProductId = amazonProductId;
         this.image = image;
