@@ -41,3 +41,15 @@ export const deleteItem = async (itemId) => {
     throw error;
   }
 };
+
+export const searchItems = async (searchKey) => {
+  try {
+    const response = await axios.get(`${BASEAPIURL}/search`, {
+      params: { searchKey }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("There was an error searching for items", error);
+    throw error;
+  }
+};

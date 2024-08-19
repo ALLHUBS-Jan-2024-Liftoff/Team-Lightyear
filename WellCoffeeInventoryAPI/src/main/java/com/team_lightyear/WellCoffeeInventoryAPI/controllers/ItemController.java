@@ -66,6 +66,11 @@ public class ItemController {
         return ResponseEntity.ok(item);
     }
 
+    @GetMapping("/search")
+    public List<Item> searchItems(@RequestParam(defaultValue = "") String searchKey) {
+        return itemService.searchItems(searchKey);
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateItem(@PathVariable int id, @RequestBody ItemDTO itemDetails) {
         try {

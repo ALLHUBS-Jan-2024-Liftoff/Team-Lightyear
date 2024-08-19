@@ -49,6 +49,14 @@ public class ItemService {
         return itemRepository.findById(id);
     }
 
+    public List<Item> searchItems(String searchKey) {
+        if (searchKey.equals("")) {
+            return itemRepository.findAll();
+        } else {
+            return itemRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchKey, searchKey);
+        }
+    }
+
     public Item updateItem(int id, ItemDTO itemDetails) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Item with ID " + id + " not found"));
