@@ -82,6 +82,9 @@ public class ItemService {
         if (itemDetails.getDescription() != null) {
             item.setDescription(itemDetails.getDescription());
         }
+        if (itemDetails.getComment() != null) {
+            item.setComment(itemDetails.getComment());
+        }
         if (itemDetails.getAmazonProductId() != null) {
             item.setAmazonProductId(itemDetails.getAmazonProductId());
         }

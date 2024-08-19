@@ -1,5 +1,7 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.dto;
 
+import java.util.ArrayList;
+
 public class ItemDTO {
     private int id;
     private String name;
@@ -9,6 +11,7 @@ public class ItemDTO {
     private String location;
     private String description;
     private Integer categoryId;
+    private String comment;
     private String amazonProductId;
     private String image;
 
@@ -67,6 +70,14 @@ public class ItemDTO {
     public void setCategoryId(int categoryId) {
         this.categoryId = categoryId;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
     
     public Integer getMinQuantity() {
         return minQuantity;
@@ -91,4 +102,5 @@ public class ItemDTO {
     public void setImage(String image) {
         this.image = image;
     }
+
 }
