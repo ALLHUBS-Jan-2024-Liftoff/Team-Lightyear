@@ -37,7 +37,8 @@ public class ItemController {
                     itemDTO.getDescription(),
                     null,  // Category is handled in the service layer
                     itemDTO.getAmazonProductId(),
-                    itemDTO.getImage()
+                    itemDTO.getImage(),
+                    itemDTO.getComment()
             );
 
             // This retrieves the categoryId from the DTO

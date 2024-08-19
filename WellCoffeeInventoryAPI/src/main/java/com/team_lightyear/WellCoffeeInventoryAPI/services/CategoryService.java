@@ -108,6 +108,7 @@ public class CategoryService {
         itemDTO.setPrice(item.getPrice());
         itemDTO.setLocation(item.getLocation());
         itemDTO.setDescription(item.getDescription());
+        itemDTO.setComment(item.getComment());
         itemDTO.setCategoryId(item.getCategory().getId());
         itemDTO.setAmazonProductId(item.getAmazonProductId());
         itemDTO.setImage(item.getImage());
