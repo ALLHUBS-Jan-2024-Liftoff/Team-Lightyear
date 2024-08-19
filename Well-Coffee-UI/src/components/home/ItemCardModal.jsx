@@ -6,7 +6,6 @@ import DisplayStatusIcon from "../item/ItemStatusIcon";
 
 const ItemCardModal = ({ item }) => {
   const [show, setShow] = useState(false);
-  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     comment: item.comment,
   });
@@ -14,7 +13,7 @@ const ItemCardModal = ({ item }) => {
   const handleClose = (e) => {
     setShow(false);
     setFormData({
-      comment: formData.comment,
+      comment: item.comment,
     });
     setMessage("");
   };
@@ -29,21 +28,16 @@ const ItemCardModal = ({ item }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-
-  e.preventDefault();
+  const handleSubmit = async () => {
     const newData = {
       comment: formData.comment,
     };
 
     try {
       await updateItem(item.id, newData);
-      setMessage("Item updated successfully");
-      setTimeout(() => {
-        handleClose();
-      }, 1000);
+      console.log("New comment");
     } catch (error) {
-      setMessage("There was an error updating the item. Please try again.");
+      console.log("Comment update error");
     }
   };
 
@@ -74,10 +68,19 @@ const ItemCardModal = ({ item }) => {
             <Card.Body>
               <Card.Img variant="top" src={item.image || defaultImage} />
             </Card.Body>
-            <ListGroup>
+            <ListGroup variant="flush">
               <ListGroup.Item>
                 Amazon Product ID: {item.amazonProductId}
               </ListGroup.Item>
+              <ListGroup.Item>Description: {item.description}</ListGroup.Item>
+              <ListGroup.Item>Location: {item.location}</ListGroup.Item>
+              <ListGroup.Item>Item Cost: ${item.price}</ListGroup.Item>
+              <ListGroup.Item>
+                Minimum Quantity: {item.minQuantity}
+              </ListGroup.Item>
+              <br></br>
+              <ListGroup.Item variant="info">Recent Comments: </ListGroup.Item>
+              <ListGroup.Item>{item.comment}</ListGroup.Item>
             </ListGroup>
             <Form onSubmit={handleSubmit} id="updateItemForm">
               <Form.Group className="mb-3" controlId="itemComment">
@@ -89,27 +92,10 @@ const ItemCardModal = ({ item }) => {
                   onChange={handleChange}
                 />
               </Form.Group>
-              {message && <div className={`alert ${message.includes('success') ? 'alert-success' : 'alert-danger'}`}>{message}</div>}
-              <Button
-                variant="secondary"
-                type="submit"
-                form="updateItemForm"
-                onClick={handleSubmit}
-              >
+              <Button variant="secondary" type="submit" form="updateItemForm">
                 Submit
               </Button>
             </Form>
-            <br></br>
-            <ListGroup variant="flush" horizontal>
-              <ListGroup.Item variant="info">Recent Comments: </ListGroup.Item>
-              <ListGroup.Item>{item.comment}</ListGroup.Item>
-            </ListGroup>
-            {/*             <ListGroup variant='flush'>
-              <ListGroup.Item>Description: {item.description}</ListGroup.Item>
-              <ListGroup.Item>Location: {item.location}</ListGroup.Item>
-              <ListGroup.Item>Item Cost: ${item.price}</ListGroup.Item>
-              <ListGroup.Item>Minimum Quantity: {item.minQuantity}</ListGroup.Item>
-            </ListGroup> */}
           </Card>
         </Modal.Body>
         <Modal.Footer>
