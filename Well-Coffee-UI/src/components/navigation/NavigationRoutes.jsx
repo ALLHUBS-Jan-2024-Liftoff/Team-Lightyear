@@ -8,6 +8,7 @@ import AccountPage from '../pages/AccountPage';
 import LogoutPage from '../pages/LogoutPage';
 import HomePage from '../pages/HomePage';
 import SearchPage from '../pages/SearchPage';
+import AmazonSearchHome from '../amazonAPI/ItemSearch/AmazonSearchHome';
 
 const NavigationRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const NavigationRoutes = () => {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/logout" element={<LogoutPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/amazon" element={<AmazonSearchHome />} />
       </Routes>
     </>
   )

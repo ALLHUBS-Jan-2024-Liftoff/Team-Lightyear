@@ -4,7 +4,7 @@ import UpdateItemModal from "./UpdateItemModal";
 import { useState } from "react";
 import { deleteItem } from "../../services/ItemService";
 import DisplayStatusIcon from "../item/ItemStatusIcon";
-import AmazonInfoButtons from "../amazonAPI/AmazonInfoButtons";
+import AmazonInfoButtons from "../amazonAPI/ItemInfo/AmazonInfoButtons";
 
 const CategoryDisplay = ({ categories, fetchCategories }) => {
   const [message, setMessage] = useState("");

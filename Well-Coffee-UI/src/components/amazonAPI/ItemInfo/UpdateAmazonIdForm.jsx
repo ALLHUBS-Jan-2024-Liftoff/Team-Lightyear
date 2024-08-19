@@ -1,6 +1,6 @@
 import { Button, Modal, Form } from "react-bootstrap";
 import { useState } from "react";
-import { updateItem } from "../../services/ItemService";
+import { updateItem } from "../../../services/ItemService";
 
 const UpdateAmazonIdForm = ({
   item,
