@@ -17,6 +17,7 @@ import Logout from "./components/pages/LogoutPage";
 import OrderPage from "./components/pages/OrderPage";
 
 function App() {
+
   const [authenticated, setAuthenticated] = useState(false);
 
   return (
@@ -24,17 +25,17 @@ function App() {
         {!authenticated ? (
           <>
                 <NavigationBar /> 
-                {/* <NavigationRoutes /> */}
+                {/* <NavigationRoutes />  */}
           </>
         ) : (
         <>
-{/* 
+
         <Link to="/home">Home</Link>
         <Link to="/tutorial">Tutorial</Link>
         <Link to="/report">Daily Report</Link>
         <Link to="/manage">Manage Employees</Link>
         <Link to="/order">Order</Link>
-        <Link to="/logout">Logout</Link> */}
+        <Link to="/logout">Logout</Link>
         </>
         )}
         <Routes>
@@ -57,15 +58,18 @@ function App() {
               <>
               <NavigationRoutes />
 
-              {/* <Route path="/tutorial" element={<Tutorial />} />
+              <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/report" element={<DailyReport />} />
               <Route path="/manage" element={<ManageEmployees />} />
-              <Route path="/order" element={<OrderPage />} /> */}
+              <Route path="/order" element={<OrderPage />} />
               {/* <NavigationRoutes /> */}
 
                 </>
             ) : (
+              
+              /* Redirect non-authenticated users to login */
+
               <Route path="*" element={<Navigate to="/login" replace />} />
 
             )}
