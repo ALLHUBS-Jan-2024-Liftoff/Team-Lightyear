@@ -4,11 +4,12 @@ import UpdateItemModal from "./UpdateItemModal";
 import { useState } from "react";
 import { deleteItem } from "../../services/ItemService";
 import DisplayStatusIcon from "../item/ItemStatusIcon";
+import AmazonInfoButtons from "../amazonAPI/AmazonInfoButtons";
 
 const CategoryDisplay = ({ categories, fetchCategories }) => {
   const [message, setMessage] = useState("");
 
-  const handleDeleteItem = async (itemId) => {
+  const handleDeleteItem = async itemId => {
     try {
       await deleteItem(itemId);
       setMessage("Item deleted successfully!");
@@ -22,13 +23,13 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
         setMessage("");
       }, 1500);
     }
-  }
+  };
 
   return (
     <>
-      <Container className='mt-5'>
-        <h1 className='text-center'>Inventory</h1>
-        <Accordion alwaysOpen className='mt-4'>
+      <Container className="mt-5">
+        <h1 className="text-center">Inventory</h1>
+        <Accordion alwaysOpen className="mt-4">
           {categories.length === 0 ? (
             <Accordion.Item>
               <Accordion.Header>No categories available</Accordion.Header>
@@ -36,15 +37,18 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                 <div>⬇️</div>
               </Accordion.Body>
             </Accordion.Item>
-          ) : ( 
-            categories.map((category) => (
-              <Accordion.Item key={category.id} eventKey={category.id.toString()}>
+          ) : (
+            categories.map(category => (
+              <Accordion.Item
+                key={category.id}
+                eventKey={category.id.toString()}
+              >
                 <Accordion.Header>{category.name}</Accordion.Header>
                 <Accordion.Body>
                   {category.items.length == 0 ? (
                     <div>No items available</div>
                   ) : (
-                    <Table striped bordered hover responsive>  
+                    <Table striped bordered hover responsive>
                       <thead>
                         <tr>
                           <th>Status</th>
@@ -60,7 +64,9 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                       <tbody>
                         {category.items.map((item, index) => (
                           <tr key={index}>
-                            <td><DisplayStatusIcon item={item} /></td>
+                            <td>
+                              <DisplayStatusIcon item={item} />
+                            </td>
                             <td>{item.name}</td>
                             <td>{item.description}</td>
                             <td>{item.location}</td>
@@ -68,14 +74,18 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                             <td>{item.minQuantity}</td>
                             <td>${item.price}</td>
                             <td>
-                              <ItemCardModal item={item} />{' '}
-                              <UpdateItemModal 
+                              <ItemCardModal item={item} />{" "}
+                              <UpdateItemModal
                                 categories={categories}
                                 item={item}
                                 fetchCategories={fetchCategories}
-                              />{' '}
-                              <Button 
-                                variant='outline-danger'
+                              />{" "}
+                              <AmazonInfoButtons
+                                item={item}
+                                fetchCategories={fetchCategories}
+                              />{" "}
+                              <Button
+                                variant="outline-danger"
                                 onClick={() => handleDeleteItem(item.id)}
                               >
                                 Delete
@@ -92,8 +102,10 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
           )}
         </Accordion>
         {message && (
-          <div 
-            className={`alert ${message.includes('success') ? 'alert-success' : 'alert-danger'} mt-2`}
+          <div
+            className={`alert ${
+              message.includes("success") ? "alert-success" : "alert-danger"
+            } mt-2`}
           >
             {message}
           </div>
@@ -101,6 +113,6 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
       </Container>
     </>
   );
-} 
+};
 
 export default CategoryDisplay;
