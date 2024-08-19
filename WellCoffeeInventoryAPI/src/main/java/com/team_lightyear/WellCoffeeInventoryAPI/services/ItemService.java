@@ -9,6 +9,7 @@ import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.ItemRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -117,7 +118,11 @@ public class ItemService {
         if(!itemRepository.existsById(id)) {
             throw new EntityNotFoundException("Item with ID " + id + " not found");
         }
-        itemRepository.deleteById(id);
+        try {
+            itemRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Cannot delete item with ID " + id + " due to foreign key constraints");
+        }
     }
     
     //Adds invoice to the list of invoices in the Item

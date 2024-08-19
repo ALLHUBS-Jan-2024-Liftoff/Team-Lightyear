@@ -35,7 +35,7 @@ export const updateItem = async (itemId, itemData) => {
 export const deleteItem = async (itemId) => {
   try {
     const response = await axios.delete(`${BASEAPIURL}/${itemId}`);
-    return response.data;
+    return response;
   } catch (error) {
     console.error("There was an error deleting the item", error);
     throw error;

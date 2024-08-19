@@ -11,14 +11,20 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
 
   const handleDeleteItem = async itemId => {
     try {
-      await deleteItem(itemId);
-      setMessage("Item deleted successfully!");
+      const response = await deleteItem(itemId);
+      if(response.status === 200) {
+        setMessage("Item deleted successfully!");
+      }
       setTimeout(() => {
         setMessage("");
       }, 1500);
       fetchCategories();
     } catch (error) {
-      setMessage("There was an error deleting the item. Please try again.");
+      if (error.response && error.response.status === 400) {
+        setMessage("This item is associated with an invoice and cannot be deleted at this time.")
+      } else {
+        setMessage("There was an error deleting the item. Please try again.");
+      }
       setTimeout(() => {
         setMessage("");
       }, 1500);
