@@ -1,6 +1,11 @@
-import { Card, Row, Col, Button, Container } from "react-bootstrap";
+import { useState } from "react";
+import { Card, Row, Col, Button, Container, ListGroup } from "react-bootstrap";
+import AmazonAddItem from "./AmazonAddItem";
 
-const AmazonSearchResults = ({ searchResults, setMessage, setError }) => {
+const AmazonSearchResults = ({ searchResults, setMessage, error, setError }) => {
+  const [show, setShow] = useState(false);
+
+
   return (
     <Container className="mt-3">
       <Row>
@@ -18,6 +23,13 @@ const AmazonSearchResults = ({ searchResults, setMessage, setError }) => {
             )}
             
           </Row>
+          <Row>
+          <ListGroup variant="flush">
+                  <ListGroup.Item>{item.product_star_rating} stars with{" "}
+                  {item.product_num_ratings} ratings
+    </ListGroup.Item>
+              </ListGroup>
+          </Row>
         </Card.Body>
         <Card.Footer>
           <Row>
@@ -31,10 +43,8 @@ const AmazonSearchResults = ({ searchResults, setMessage, setError }) => {
               View on Amazon to Order
               <br />{item.product_price}
             </Button>{" "}
-            <Card.Text as={Col}>
-              {item.product_star_rating} stars with{" "}
-              {item.product_num_ratings} ratings
-            </Card.Text>
+            
+            <AmazonAddItem amazonItem={item} setMessage={setMessage} error={error} setError={setError} />
           </Row>
         </Card.Footer>
       </Card>

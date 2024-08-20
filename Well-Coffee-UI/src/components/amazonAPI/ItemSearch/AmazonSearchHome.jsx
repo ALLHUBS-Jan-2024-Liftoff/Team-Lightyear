@@ -393,6 +393,7 @@ const AmazonSearchHome = ({}) => {
         <AmazonSearchResults
           searchResults={searchResults}
           setMessage={setMessage}
+          error={error}
           setError={setError}
         />
       </Container>
