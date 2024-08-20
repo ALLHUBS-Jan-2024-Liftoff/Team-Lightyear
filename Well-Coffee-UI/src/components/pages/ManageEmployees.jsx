@@ -2,16 +2,27 @@ import UpdateAccountModal from "../account/UpdateAccountModal";
 import InvoiceHistory from "../account/InvoiceHistory";
 import { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
-import { getAllAccounts } from "../../services/AccountService";
+import { deleteAccount, getAllAccounts } from "../../services/AccountService";
 
 const ManageEmployees = () => {
   const [accounts, setAccounts] = useState([]);
+  const [message, setMessage] = useState("");
 
-  // This will need to be updated to use an axios call once connected to Java API.
-  const handleDelete = (id) => {
-    // Logic to handle account deletion
-    setAccounts(accounts.filter((account) => account.id !== id));
-  };
+  const handleDeleteAccount = async accountId => {
+    try {
+      await deleteAccount(accountId);
+      setMessage("Account terminated successfully.");
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+      fetchAccounts();
+    } catch (error) {
+      setMessage("There was an error deleting the account. Please try again.");
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+    }
+  }
 
   useEffect(() => {
     fetchAccounts();
@@ -55,7 +66,7 @@ const ManageEmployees = () => {
                   <InvoiceHistory />{' '}
                   <Button
                     variant="outline-danger"
-                    onClick={() => handleDelete(account.id)}
+                    onClick={() => handleDeleteAccount(account.id)}
                   >
                     Terminate
                   </Button>
@@ -64,6 +75,15 @@ const ManageEmployees = () => {
             ))}
           </tbody>
         </Table>
+        {message && (
+          <div
+            className={`alert ${
+              message.includes("success") ? "alert-success" : "alert-danger"
+            } mt-2`}
+          >
+            {message}
+          </div>
+        )}
       </Container>
     </>
   );
