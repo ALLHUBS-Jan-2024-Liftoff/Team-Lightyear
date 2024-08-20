@@ -18,3 +18,6 @@ export const createAccount = async (e) => {
         setIsLoading(false);
       });
     }
+
+    const [message, setMessage] = useState("");
+
