@@ -3,8 +3,8 @@ import { Form, Container, Row, Col, Button } from "react-bootstrap";
 import { getAllCategories } from "../../services/CategoryService.js";
 import OrderFormTable from "./OrderFormTable.jsx";
 import Accordion from "react-bootstrap/Accordion";
-import InvoiceHistory from "./InvoiceHistory"
 import { createInvoice } from "../../services/InvoiceService.js";
+import InvoiceHistory from "./InvoiceHistory.jsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -89,7 +89,8 @@ const DisplayOrderForm = () => {
 
   // This function handles form submission
   const handleSubmit = async event => {
-//Grant-Removed event.preventDefault() to refresh invoices
+  //Grant-Commented out to refresh invoice list to reflect change in database
+//     event.preventDefault();
     if (
       invoiceFormData.vendor === "" ||
       (invoiceFormData.invoiceNumber === "") | (orderedItemsList.length === 0)
@@ -181,9 +182,8 @@ const DisplayOrderForm = () => {
             >
               Submit Order
             </Button>
-            <InvoiceHistory />
-        </Form>
 
+        </Form>
       </Container>
       <Container className="mt-5">
         <h1 className="text-center">Items Available to Order</h1>
@@ -196,6 +196,8 @@ const DisplayOrderForm = () => {
             setItemFormData={setItemFormData}
           />
         </Accordion>
+        <br></br>
+        <InvoiceHistory />
       </Container>
     </>
   );

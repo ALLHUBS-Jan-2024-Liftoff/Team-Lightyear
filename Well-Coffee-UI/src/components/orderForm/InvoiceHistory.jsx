@@ -23,45 +23,49 @@ const InvoiceHistory = () => {
 
   return (
     <>
-      <Button variant="secondary" onClick={handleShow}>
-        Invoice History
-      </Button>
+      <div className="d-grid gap-2">
+        <Button variant="outline-secondary" size="lg" onClick={handleShow}>
+          Invoice History
+        </Button>
+      </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Invoice History</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container">
-            {/*             <Table bordered hover responsive>
-              <thead>
-                <tr>
-                  <th>Invoice#</th>
-                  <th>Date</th>
-                  <th>Vendor</th>
-                </tr>
-              </thead> */}
             {invoices.map((invoice) => (
-              // console.log(invoice);
               <Accordion defaultActiveKey="0">
                 <Accordion.Item key={invoice.id}>
                   <Accordion.Header>
                     Invoice#{invoice.invoiceNumber}
                   </Accordion.Header>
                   <Accordion.Body>
-                    <Table bordered hover responsive>
+                    <Table>
                       <tr>
                         <th>Date</th>
                         <th>Vendor</th>
                       </tr>
-                        <td>{invoice.invoiceDate}</td>
-                        <td>{invoice.vendor}</td>
-                      <tr>
-                        <th>Items Ordered</th>
-                      
-                        {/* {invoices.invoice.map((itemsOrdered) => (
-                          console.log(itemsOrdered)
-                        ))} */}
-                      </tr>
+                      <td>{invoice.invoiceDate}</td>
+                      <td>{invoice.vendor}</td>
+                    </Table>
+                    <Table striped bordered hover>
+                      <thead>
+                        <tr>
+                          <th>Item#</th>
+                          <th>Price</th>
+                          <th>Quantity</th>
+                        </tr>
+                      </thead>
+                      {invoice.orderedItems.map((data) => (
+                        <tbody>
+                          <tr>
+                            <td>{data.item}</td>
+                            <td>{data.itemCost}</td>
+                            <td>{data.quantityOrdered}</td>
+                          </tr>
+                        </tbody>
+                      ))}
                     </Table>
                   </Accordion.Body>
                 </Accordion.Item>

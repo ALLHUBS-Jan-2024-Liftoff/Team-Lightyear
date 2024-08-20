@@ -58,6 +58,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                       <thead>
                         <tr>
                           <th>Status</th>
+                          <th>Item#</th>
                           <th>Name</th>
                           <th>Description</th>
                           <th>Location</th>
@@ -73,6 +74,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                             <td>
                               <DisplayStatusIcon item={item} />
                             </td>
+                            <td>{item.id}</td>
                             <td>{item.name}</td>
                             <td>{item.description}</td>
                             <td>{item.location}</td>
