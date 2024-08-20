@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Table, Button, Modal } from "react-bootstrap";
+import { Table, Button, Modal, Accordion } from "react-bootstrap";
 import { fetchInvoices } from "/src/services/InvoiceService.js";
 import React from "react";
 
@@ -16,6 +16,7 @@ const InvoiceHistory = () => {
         return res.json();
       })
       .then((invoices) => {
+        console.log(invoices);
         setInvoices(invoices);
       });
   }, []);
@@ -31,25 +32,41 @@ const InvoiceHistory = () => {
         </Modal.Header>
         <Modal.Body>
           <div className="container">
-            <Table bordered hover responsive>
+            {/*             <Table bordered hover responsive>
               <thead>
                 <tr>
                   <th>Invoice#</th>
                   <th>Date</th>
                   <th>Vendor</th>
                 </tr>
-              </thead>
-              {invoices.map((invoice) => (
-                // console.log(invoice);
-                <tbody>
-                  <tr key={invoice.id}>
-                    <td>{invoice.invoiceNumber}</td>
-                    <td>{invoice.invoiceDate}</td>
-                    <td>{invoice.vendor}</td>
-                  </tr>
-                </tbody>
-              ))}
-            </Table>
+              </thead> */}
+            {invoices.map((invoice) => (
+              // console.log(invoice);
+              <Accordion defaultActiveKey="0">
+                <Accordion.Item key={invoice.id}>
+                  <Accordion.Header>
+                    Invoice#{invoice.invoiceNumber}
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <Table bordered hover responsive>
+                      <tr>
+                        <th>Date</th>
+                        <th>Vendor</th>
+                      </tr>
+                        <td>{invoice.invoiceDate}</td>
+                        <td>{invoice.vendor}</td>
+                      <tr>
+                        <th>Items Ordered</th>
+                      
+                        {/* {invoices.invoice.map((itemsOrdered) => (
+                          console.log(itemsOrdered)
+                        ))} */}
+                      </tr>
+                    </Table>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            ))}
           </div>
         </Modal.Body>
         <Modal.Footer>
