@@ -1,39 +1,29 @@
-import React from "react";
 import UpdateAccountModal from "../account/UpdateAccountModal";
 import InvoiceHistory from "../account/InvoiceHistory";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
+import { getAllAccounts } from "../../services/AccountService";
 
 const ManageEmployees = () => {
-  // Sample data for testing purposes:
-  const [accounts, setAccounts] = useState([
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
-      role: "Manager",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      email: "jane.smith@example.com",
-      role: "Employee",
-    },
-    {
-      id: 3,
-      firstName: "Emily",
-      lastName: "Johnson",
-      email: "emily.johnson@example.com",
-      role: "Manager",
-    },
-  ]);
+  const [accounts, setAccounts] = useState([]);
 
   // This will need to be updated to use an axios call once connected to Java API.
   const handleDelete = (id) => {
     // Logic to handle account deletion
     setAccounts(accounts.filter((account) => account.id !== id));
+  };
+
+  useEffect(() => {
+    fetchAccounts();
+  }, []);
+
+  const fetchAccounts = async () => {
+    try {
+      const data = await getAllAccounts();
+      setAccounts(data);
+    } catch (error) {
+      setError("There was an error fetching the account data. Please try again.");
+    }
   };
 
   return (
