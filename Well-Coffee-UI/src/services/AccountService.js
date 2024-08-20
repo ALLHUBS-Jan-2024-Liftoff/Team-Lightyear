@@ -27,3 +27,13 @@ export const createAccount = async (e) => {
         throw error;
       }
     };
+
+    export const deleteAccount = async (accountId) => {
+      try {
+        const response = await axios.delete(`${BASEAPIURL}/api/manage/${accountId}`);
+        return response;
+      } catch (error) {
+        console.error("There was an error deleting the account", error);
+        throw error;
+      }
+    };
