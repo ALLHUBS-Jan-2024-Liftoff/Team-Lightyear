@@ -39,10 +39,9 @@ const ManageEmployees = () => {
 
   return (
     <>
-      <h1>ManageEmployees</h1>
       <Container className="mt-5">
-        <h1 className="text-center">Accounts</h1>
-        <Table striped bordered hover responsive>
+        <h1 className="text-center">Employee Accounts</h1>
+        <Table striped bordered hover responsive className="mt-3">
           <thead>
             <tr>
               <th>ID</th>
