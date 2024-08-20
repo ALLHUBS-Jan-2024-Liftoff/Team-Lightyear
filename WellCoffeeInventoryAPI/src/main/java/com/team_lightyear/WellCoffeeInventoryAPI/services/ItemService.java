@@ -9,6 +9,7 @@ import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.ItemRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,6 +50,14 @@ public class ItemService {
         return itemRepository.findById(id);
     }
 
+    public List<Item> searchItems(String searchKey) {
+        if (searchKey.equals("")) {
+            return itemRepository.findAll();
+        } else {
+            return itemRepository.findByNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(searchKey, searchKey);
+        }
+    }
+
     public Item updateItem(int id, ItemDTO itemDetails) {
         Item item = itemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Item with ID " + id + " not found"));
@@ -61,6 +70,9 @@ public class ItemService {
         if (itemDetails.getQuantity() != null) {
             item.setQuantity(itemDetails.getQuantity());
         }
+        if (itemDetails.getMinQuantity() != null) {
+            item.setMinQuantity(itemDetails.getMinQuantity());
+        }
         if (itemDetails.getPrice() != null) {
             item.setPrice(itemDetails.getPrice());
         }
@@ -69,6 +81,15 @@ public class ItemService {
         }
         if (itemDetails.getDescription() != null) {
             item.setDescription(itemDetails.getDescription());
+        }
+        if (itemDetails.getComment() != null) {
+            item.setComment(itemDetails.getComment());
+        }
+        if (itemDetails.getAmazonProductId() != null) {
+            item.setAmazonProductId(itemDetails.getAmazonProductId());
+        }
+        if (itemDetails.getImage() != null) {
+            item.setImage(itemDetails.getImage());
         }
         if (itemDetails.getCategoryId() != null) {
             // If the category field gets assigned a new value we need to make sure it exists in the database
@@ -100,7 +121,11 @@ public class ItemService {
         if(!itemRepository.existsById(id)) {
             throw new EntityNotFoundException("Item with ID " + id + " not found");
         }
-        itemRepository.deleteById(id);
+        try {
+            itemRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Cannot delete item with ID " + id + " due to foreign key constraints");
+        }
     }
     
     //Adds invoice to the list of invoices in the Item

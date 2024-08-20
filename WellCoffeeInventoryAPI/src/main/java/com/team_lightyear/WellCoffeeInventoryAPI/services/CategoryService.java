@@ -104,10 +104,14 @@ public class CategoryService {
         itemDTO.setId(item.getId());
         itemDTO.setName(item.getName());
         itemDTO.setQuantity(item.getQuantity());
+        itemDTO.setMinQuantity(item.getMinQuantity());
         itemDTO.setPrice(item.getPrice());
         itemDTO.setLocation(item.getLocation());
         itemDTO.setDescription(item.getDescription());
+        itemDTO.setComment(item.getComment());
         itemDTO.setCategoryId(item.getCategory().getId());
+        itemDTO.setAmazonProductId(item.getAmazonProductId());
+        itemDTO.setImage(item.getImage());
         return itemDTO;
     }
 }

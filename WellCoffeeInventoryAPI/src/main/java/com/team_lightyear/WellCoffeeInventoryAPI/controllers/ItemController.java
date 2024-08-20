@@ -28,12 +28,18 @@ public class ItemController {
     public ResponseEntity<?> createItem(@RequestBody ItemDTO itemDTO) {
         try {
             // This converts the DTO into an Item entity
-            Item item = new Item();
-            item.setName(itemDTO.getName());
-            item.setQuantity(itemDTO.getQuantity());
-            item.setPrice(itemDTO.getPrice());
-            item.setLocation(itemDTO.getLocation());
-            item.setDescription(itemDTO.getDescription());
+            Item item = new Item(
+                    itemDTO.getName(),
+                    itemDTO.getQuantity(),
+                    itemDTO.getMinQuantity(),
+                    itemDTO.getPrice(),
+                    itemDTO.getLocation(),
+                    itemDTO.getDescription(),
+                    null,  // Category is handled in the service layer
+                    itemDTO.getAmazonProductId(),
+                    itemDTO.getImage(),
+                    itemDTO.getComment()
+            );
 
             // This retrieves the categoryId from the DTO
             int categoryId = itemDTO.getCategoryId();
@@ -61,6 +67,11 @@ public class ItemController {
         return ResponseEntity.ok(item);
     }
 
+    @GetMapping("/search")
+    public List<Item> searchItems(@RequestParam(defaultValue = "") String searchKey) {
+        return itemService.searchItems(searchKey);
+    }
+
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateItem(@PathVariable int id, @RequestBody ItemDTO itemDetails) {
         try {
@@ -78,6 +89,8 @@ public class ItemController {
             return ResponseEntity.ok("Item with ID " + id + " deleted successfully");
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The item with ID " + id + " is linked to other records and cannot be deleted at this time.");
         }
     }
 }

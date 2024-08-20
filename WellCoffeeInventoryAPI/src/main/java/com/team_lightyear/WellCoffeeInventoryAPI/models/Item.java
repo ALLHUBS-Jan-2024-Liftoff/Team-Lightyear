@@ -1,12 +1,11 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.*;
 
@@ -30,16 +29,23 @@ public class Item {
     @Size(min = 3, max = 50, message = "Must be between 3 and 15 characters")
     private String name;
     private Integer quantity;
+    private Integer minQuantity;
     private Double price;
     private String location;
     private String description;
+    private String comment;
+    private String amazonProductId;
+
+    @Lob // Specifies that the database should store this as a Large Object
+    private String image;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderedItem_id")
+    @JoinColumn(name = "item_id")
+    @JsonIgnore
     //Stores a List of OrderedItem model to be able to retrieve a history of the cost of the item
     private final List<OrderedItem> orderedItemList = new ArrayList<>();
     
@@ -49,7 +55,7 @@ public class Item {
     // reference (the id) into the JSON file and doesn't retrieve the whole object
     
     @ManyToMany (mappedBy = "itemsOrdered")
-    @Fetch(FetchMode.SELECT)
+    @JsonIgnore
     //Stores the list of invoices this item is included in
     private final Set<Invoice> invoiceList = new HashSet<>();
     
@@ -58,14 +64,21 @@ public class Item {
     }
 
     // Constructor
-    public Item(String name, Integer quantity, Double price, String location, String description, Category category) {
+    public Item(String name, Integer quantity, Integer minQuantity, Double price, String location,
+                String description, Category category, String amazonProductId, String image, String comment) {
+
         this.name = name;
         this.quantity = quantity;
+        this.minQuantity = minQuantity;
         this.price = price;
         this.location = location;
         this.description = description;
         this.category = category;
+        this.amazonProductId = amazonProductId;
+        this.image = image;
+        this.comment = comment;
     }
+
 
     // Getters and Setters
     
@@ -136,28 +149,61 @@ public class Item {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
     
-//    public List<Invoice> getInvoiceList() {
-//        return invoiceList;
-//    }
+    public Integer getMinQuantity() {
+        return minQuantity;
+    }
     
+    public void setMinQuantity(Integer minQuantity) {
+        this.minQuantity = minQuantity;
+    }
+    
+    public String getAmazonProductId() {
+        return amazonProductId;
+    }
+    
+    public void setAmazonProductId(String amazonProductId) {
+        this.amazonProductId = amazonProductId;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     // toString() method
-    
+
+
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", quantity=" + quantity +
+                ", minQuantity=" + minQuantity +
                 ", price=" + price +
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
+                ", comment=" + comment +
                 ", category=" + category +
                 ", orderedItemList=" + orderedItemList +
                 ", invoiceList=" + invoiceList +
+                ", amazonProductId=" + amazonProductId +
+                ", comment=" + comment +
                 '}';
     }
-    
+
     // equals() method
     @Override
     public boolean equals(Object o) {

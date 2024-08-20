@@ -1,5 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
+import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.dto.GetInvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
 import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
@@ -12,13 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by Trevor Gruber
  */
 @RestController
 @RequestMapping("/api/invoice")
+@CrossOrigin(origins = "http://localhost:5173")
 public class InvoiceController {
     
     @Autowired
@@ -35,17 +36,16 @@ public class InvoiceController {
     
     //Get list of invoices
     @GetMapping("")
-    public List<Invoice> getInvoiceList(){return invoiceRepository.findAll();}
+    public ResponseEntity<?> getInvoiceList(){
+        List<GetInvoiceDTO> invoices = invoiceService.getInvoiceDTOList();
+        return new ResponseEntity<>(invoices, HttpStatus.OK);
+    }
     
     //Get invoice by id
     @GetMapping("/{id}")
     public ResponseEntity<?> getInvoiceById(@PathVariable int id) {
-        Optional<Invoice> invoice = invoiceService.getInvoiceById(id);
-        if (invoice.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invoice with ID " + id + " " +
-                    "not found");
-        }
-        return ResponseEntity.ok(invoice);
+        GetInvoiceDTO invoice = invoiceService.getInvoiceById(id);
+        return new ResponseEntity<>(invoice, HttpStatus.OK);
     }
     
     //Create new invoice
