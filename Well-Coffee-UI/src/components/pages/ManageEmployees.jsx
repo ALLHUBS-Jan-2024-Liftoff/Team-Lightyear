@@ -60,7 +60,7 @@ const ManageEmployees = () => {
                 <td>{account.firstName}</td>
                 <td>{account.lastName}</td>
                 <td>{account.email}</td>
-                <td>{account.role}</td>
+                <td>{account.manager === true ? "Manager" : "Employee"}</td>
                 <td>
                   <UpdateAccountModal account={account} />{' '} 
                   <InvoiceHistory />{' '}
