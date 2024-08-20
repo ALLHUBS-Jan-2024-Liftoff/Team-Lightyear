@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Table, Button, Modal } from "react-bootstrap";
-import { fetchInvoices } from "/src/services/InvoiceService.js"
+import { fetchInvoices } from "/src/services/InvoiceService.js";
 import React from "react";
 
 const InvoiceHistory = () => {
@@ -10,25 +10,15 @@ const InvoiceHistory = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-      useEffect(() => {
-        fetch('http://localhost:8080/api/invoice')
-          .then(res => {
-           return res.json();
-          })
-          .then(invoices => {
-          console.log(invoices);
-          setInvoices(invoices);
-          })
-      }, []);
-/*        const getAllInvoices = async () => {
-          try {
-            const data = await fetchInvoices();
-            console.log(invoices)
-            setInvoices(invoices);
-          } catch (error) {
-            setError("There was an error fetching the invoice data. Please try again.");
-          }
-        }; */
+  useEffect(() => {
+    fetch("http://localhost:8080/api/invoice")
+      .then((res) => {
+        return res.json();
+      })
+      .then((invoices) => {
+        setInvoices(invoices);
+      });
+  }, []);
 
   return (
     <>
@@ -49,27 +39,16 @@ const InvoiceHistory = () => {
                   <th>Vendor</th>
                 </tr>
               </thead>
-      <div>
-        {invoices.map((invoice, index) => {
-            console.log(invoice)
-
-        }
-        )}
-      </div>
-
-{/*                {invoices.length === 0 ? (
-              <p>No data here!</p>
-              ) : (
-              invoices.map(invoice => (
-               <tbody>
-                                    <tr key={invoice.id}>
-                                      <td>{invoiceNumber}</td>
-                                      <td>{invoiceDate}</td>
-                                      <td>{vendor}</td>
-                                    </tr>
-                                  </tbody>
-              ))
-              )} */}
+              {invoices.map((invoice) => (
+                // console.log(invoice);
+                <tbody>
+                  <tr key={invoice.id}>
+                    <td>{invoice.invoiceNumber}</td>
+                    <td>{invoice.invoiceDate}</td>
+                    <td>{invoice.vendor}</td>
+                  </tr>
+                </tbody>
+              ))}
             </Table>
           </div>
         </Modal.Body>
@@ -84,23 +63,3 @@ const InvoiceHistory = () => {
 };
 
 export default InvoiceHistory;
-
-{/*               {invoices.map(
-                (
-                  {
-                    id,
-                    items: [{ accountId, invoiceNumber, invoiceDate, vendor }],
-                  },
-                  index
-                ) => {
-                  return (
-                    <tbody>
-                      <tr key={index}>
-                        <td>{invoiceNumber}</td>
-                        <td>{invoiceDate}</td>
-                        <td>{vendor}</td>
-                      </tr>
-                    </tbody>
-                  );
-                }
-              )}  */}
