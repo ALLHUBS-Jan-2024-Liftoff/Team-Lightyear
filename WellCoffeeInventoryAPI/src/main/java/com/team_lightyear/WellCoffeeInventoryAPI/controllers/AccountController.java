@@ -14,7 +14,6 @@ import java.util.Optional;
  * Created by Dominique Gould
  */
 
-
 @RestController
 @RequestMapping("/api/manage")
 @CrossOrigin(origins = "http://localhost:5173")
@@ -33,8 +32,6 @@ public class AccountController {
         return accountService.createAccount(account);
     }
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity<?> getAccountById(@PathVariable int id) {
         Optional<Account> account = accountService.getAccountById(id);
@@ -43,10 +40,4 @@ public class AccountController {
         }
         return ResponseEntity.ok(account);
     }
-
-
-
-
-
-
 }
