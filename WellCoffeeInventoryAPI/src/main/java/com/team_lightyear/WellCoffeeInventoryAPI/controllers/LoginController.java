@@ -52,7 +52,7 @@ public class LoginController {
         Map<String, String> responseBody = new HashMap<>();
         Account theAccount = accountRepository.findByEmail(loginFormDTO.getEmail().toLowerCase());
         String password = loginFormDTO.getPassword();
-        ResponseEntity response = null;
+        ResponseEntity<Map<String,String>> response = null;
 
         System.out.println("Attempting to log in with email: " + loginFormDTO.getEmail());
         if (theAccount == null) {
@@ -79,8 +79,8 @@ public class LoginController {
         }
 
     @PostMapping("/register")
-    public ResponseEntity<Map> processRegistrationForm(@RequestBody RegisterFormDTO registerFormDTO, HttpServletRequest request) {
-        ResponseEntity response = null;
+    public ResponseEntity<Map<String, String>> processRegistrationForm(@RequestBody RegisterFormDTO registerFormDTO, HttpServletRequest request) {
+        ResponseEntity<Map<String, String>> response = null;
         Map<String, String> responseBody = new HashMap<>();
         try {
             Account existingAccount = accountRepository.findByEmail(registerFormDTO.getEmail());
