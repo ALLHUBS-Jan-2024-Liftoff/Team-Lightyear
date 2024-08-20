@@ -89,7 +89,7 @@ const DisplayOrderForm = () => {
 
   // This function handles form submission
   const handleSubmit = async event => {
-    event.preventDefault();
+//Grant-Removed event.preventDefault() to refresh invoices
     if (
       invoiceFormData.vendor === "" ||
       (invoiceFormData.invoiceNumber === "") | (orderedItemsList.length === 0)
