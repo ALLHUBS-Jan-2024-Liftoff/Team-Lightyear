@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import defaultImage from "../../assets/images/no-image.png";
-import { Button, Modal, Badge, Card, ListGroup, Form } from "react-bootstrap";
-import { updateItem } from "../../services/ItemService";
+import { Button, Modal, Badge, Card, ListGroup, Form, ListGroupItem } from "react-bootstrap";
+import { updateItem, getAllItems } from "../../services/ItemService";
 import DisplayStatusIcon from "../item/ItemStatusIcon";
 
-const ItemCardModal = ({ item }) => {
+const ItemCardModal = ({ item, fetchItems }) => {
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -14,15 +14,15 @@ const ItemCardModal = ({ item }) => {
   const handleClose = (e) => {
     setShow(false);
     setFormData({
-      comment: item.comment,
+      comment: item.comment
     });
     setMessage("");
   };
 
   const handleShow = () => setShow(true);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((oldData) => ({
       ...oldData,
       [name]: value,
@@ -32,15 +32,17 @@ const ItemCardModal = ({ item }) => {
   const handleSubmit = async (e) => {
   e.preventDefault();
     const newData = {
-      comment: formData.comment,
+      comment: formData.comment
     };
 
     try {
       await updateItem(item.id, newData);
+      fetchItems();
       setMessage("Comment update success");
       setTimeout(() => {
         handleClose()
       }, 1000);
+
     } catch (error) {
       setMessage("Error!")
     }
@@ -85,7 +87,7 @@ const ItemCardModal = ({ item }) => {
               </ListGroup.Item>
               <br></br>
               <ListGroup.Item variant="info">Recent Comments: </ListGroup.Item>
-              <ListGroup.Item>{item.comment}</ListGroup.Item>
+                  <ListGroup.Item>{item.comment}</ListGroup.Item>
             </ListGroup>
             <Form onSubmit={handleSubmit} id="updateItemForm">
               <Form.Group className="mb-3" controlId="itemComment">
@@ -97,11 +99,11 @@ const ItemCardModal = ({ item }) => {
                   onChange={handleChange}
                 />
               </Form.Group>
-              {message && <div className={`alert ${message.includes('success') ? 'alert-success' : 'alert-danger'}`}>{message}</div>}</Form>
+              {message && <div className={`alert ${message.includes('success') ? 'alert-success' : 'alert-danger'}`}>{message}</div>}
+              </Form>
               <Button variant="secondary" type="submit" form="updateItemForm">
                 Submit
               </Button>
-
           </Card>
         </Modal.Body>
         <Modal.Footer>
