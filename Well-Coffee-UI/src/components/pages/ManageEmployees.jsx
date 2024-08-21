@@ -60,7 +60,12 @@ const ManageEmployees = () => {
                 <td>{account.email}</td>
                 <td>{account.role}</td>
                 <td>
+<<<<<<< HEAD
                   <UpdateAccountModal account={account} />
+=======
+                  <UpdateAccountModal account={account} /> 
+                  <InvoiceHistory />
+>>>>>>> origin
                   <Button
                     variant="outline-danger"
                     onClick={() => handleDelete(account.id)}

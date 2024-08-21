@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 
 const AccountPage = () => {
   return (
@@ -8,7 +7,7 @@ const AccountPage = () => {
     
     
 
-    <table class='account-table'>
+    <table className='account-table'>
       <thead>
         <tr>
           <th>User ID</th>
