@@ -15,11 +15,11 @@ function Register() {
         try {
             const response = await axios.post("http://localhost:8080/api/register", 
             {
-                firstName,
-                lastName,
-                email,
-                password,
-                role: "employee"
+                firstName: "John",
+                lastName: "Doe",
+                email: "john.doe@example.com",
+                password: "password",
+                role: "manager"
             },
             {
                 withCredentials: true,

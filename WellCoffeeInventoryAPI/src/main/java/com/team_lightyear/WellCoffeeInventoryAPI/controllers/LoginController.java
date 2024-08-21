@@ -27,8 +27,7 @@ public class LoginController {
     AccountRepository accountRepository;
 
 
-<<<<<<< HEAD
-=======
+
     public Account getAccountFromSession(HttpSession session) {
         Integer accountId = (Integer) session.getAttribute(accountSessionKey);
         if (accountId == null) {
@@ -44,18 +43,13 @@ public class LoginController {
     private static void setAccountInSession(HttpSession session, Account account) {
         session.setAttribute(accountSessionKey, account.getId());
     }
->>>>>>> origin/main
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> processLoginForm(@RequestBody LoginFormDTO loginFormDTO, HttpServletRequest request) {
         Map<String, String> responseBody = new HashMap<>();
         Account theAccount = accountRepository.findByEmail(loginFormDTO.getEmail().toLowerCase());
         String password = loginFormDTO.getPassword();
-<<<<<<< HEAD
         ResponseEntity<Map<String,String>> response = null;
-=======
-        ResponseEntity<Map<String, String>> response = null;
->>>>>>> origin/main
 
         System.out.println("Attempting to log in with email: " + loginFormDTO.getEmail());
         if (theAccount == null) {

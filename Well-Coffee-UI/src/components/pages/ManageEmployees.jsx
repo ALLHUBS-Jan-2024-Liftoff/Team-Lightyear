@@ -38,6 +38,7 @@ const ManageEmployees = () => {
 
   return (
     <>
+      <h1>ManageEmployees</h1>
       <Container className="mt-5">
         <h1 className="text-center">Accounts</h1>
         <Table striped bordered hover responsive>
