@@ -24,7 +24,7 @@ function App() {
     <>
     <NavigationBar authenticated={authenticated} />
     <Routes>
-      {authenticated ? (
+      {!authenticated ? (
         <>
         <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated} />} />
         <Route path="/register" element={<Register />} />
