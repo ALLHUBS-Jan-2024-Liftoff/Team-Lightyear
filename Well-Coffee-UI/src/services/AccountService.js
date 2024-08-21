@@ -2,7 +2,6 @@ import axios from "axios";
 
 const BASEAPIURL = "http://localhost:8080";
 
-
 export const createAccount = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -19,5 +18,22 @@ export const createAccount = async (e) => {
       });
     }
 
-    const [message, setMessage] = useState("");
+    export const getAllAccounts = async () => {
+      try {
+        const response = await axios.get(`${BASEAPIURL}/api/manage/all`);
+        return response.data;
+      } catch (error) {
+        console.error("There was an error fetching the accounts", error);
+        throw error;
+      }
+    };
 
+    export const deleteAccount = async (accountId) => {
+      try {
+        const response = await axios.delete(`${BASEAPIURL}/api/manage/${accountId}`);
+        return response;
+      } catch (error) {
+        console.error("There was an error deleting the account", error);
+        throw error;
+      }
+    };
