@@ -1,47 +1,46 @@
-import React from "react";
 import UpdateAccountModal from "../account/UpdateAccountModal";
 import { useState } from "react";
 import { Container, Table, Button } from "react-bootstrap";
 import InvoiceHistory from "/src/components/orderForm/InvoiceHistory.jsx";
 
 const ManageEmployees = () => {
-  // Sample data for testing purposes:
-  const [accounts, setAccounts] = useState([
-    {
-      id: 1,
-      firstName: "John",
-      lastName: "Doe",
-      email: "john.doe@example.com",
-      role: "Manager",
-    },
-    {
-      id: 2,
-      firstName: "Jane",
-      lastName: "Smith",
-      email: "jane.smith@example.com",
-      role: "Employee",
-    },
-    {
-      id: 3,
-      firstName: "Emily",
-      lastName: "Johnson",
-      email: "emily.johnson@example.com",
-      role: "Manager",
-    },
-  ]);
+  const [accounts, setAccounts] = useState([]);
+  const [message, setMessage] = useState("");
 
-  // This will need to be updated to use an axios call once connected to Java API.
-  const handleDelete = (id) => {
-    // Logic to handle account deletion
-    setAccounts(accounts.filter((account) => account.id !== id));
+  const handleDeleteAccount = async accountId => {
+    try {
+      await deleteAccount(accountId);
+      setMessage("Account terminated successfully.");
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+      fetchAccounts();
+    } catch (error) {
+      setMessage("There was an error deleting the account. Please try again.");
+      setTimeout(() => {
+        setMessage("");
+      }, 1500);
+    }
+  }
+
+  useEffect(() => {
+    fetchAccounts();
+  }, []);
+
+  const fetchAccounts = async () => {
+    try {
+      const data = await getAllAccounts();
+      setAccounts(data);
+    } catch (error) {
+      setError("There was an error fetching the account data. Please try again.");
+    }
   };
 
   return (
     <>
-      <h1>ManageEmployees</h1>
       <Container className="mt-5">
-        <h1 className="text-center">Accounts</h1>
-        <Table striped bordered hover responsive>
+        <h1 className="text-center">Employee Accounts</h1>
+        <Table striped bordered hover responsive className="mt-3">
           <thead>
             <tr>
               <th>ID</th>
@@ -49,7 +48,7 @@ const ManageEmployees = () => {
               <th>Last Name</th>
               <th>Email</th>
               <th>Role</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -59,12 +58,13 @@ const ManageEmployees = () => {
                 <td>{account.firstName}</td>
                 <td>{account.lastName}</td>
                 <td>{account.email}</td>
-                <td>{account.role}</td>
+                <td>{account.manager === true ? "Manager" : "Employee"}</td>
                 <td>
-                  <UpdateAccountModal account={account} />
+                  <UpdateAccountModal account={account} />{' '} 
+                  <InvoiceHistory />{' '}
                   <Button
                     variant="outline-danger"
-                    onClick={() => handleDelete(account.id)}
+                    onClick={() => handleDeleteAccount(account.id)}
                   >
                     Terminate
                   </Button>
@@ -73,6 +73,15 @@ const ManageEmployees = () => {
             ))}
           </tbody>
         </Table>
+        {message && (
+          <div
+            className={`alert ${
+              message.includes("success") ? "alert-success" : "alert-danger"
+            } mt-2`}
+          >
+            {message}
+          </div>
+        )}
       </Container>
     </>
   );
