@@ -37,3 +37,13 @@ export const createAccount = async (e) => {
         throw error;
       }
     };
+
+    export const updateAccount = async (accountId, accountData) => {
+      try {
+        const response = await axios.patch(`${BASEAPIURL}/manage/${accountId}`, accountData);
+        return response.data;
+      } catch (error) {
+        console.error("There was an error updating the account", error);
+        throw error;
+      }
+    };
