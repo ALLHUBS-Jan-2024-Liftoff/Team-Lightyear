@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import axiosInstance from '../../services/axiosInstance';
+import { updateAccount } from '../../services/AccountService';
 
 const UpdateAccountModal = ({ account, onUpdate }) => {
   const [show, setShow] = useState(false);
@@ -22,21 +23,31 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    axiosInstance.put(`/accounts/${formData.id}`, formData)
-      .then(() => {
-        onUpdate();
+
+    const newData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      role: formData.role,
+    };
+
+    try {
+      await updateAccount(account.id, newData);
+      setMessage("Account updated successfully!");
+      getAllAccounts();
+      setTimeout(() => {
         handleClose();
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error updating account:', error);
-        setError('Failed to update account');
-        setIsLoading(false);
-      });
-  };
+      }, 1000);
+    } catch (error) {
+      setError("There was an error updating the account. Please try again.");
+    };
+
+
+  }
 
   return (
     <>
@@ -55,7 +66,6 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
           <Modal.Title>Update Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {isLoading && <p>Loading...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
@@ -107,7 +117,7 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
                 >
                   <option value="">Select...</option>
                   <option value="admin">Admin</option>
-                  <option value="user">User</option>
+                  <option value="employee">Employee</option>
                   <option value="manager">Manager</option>
                 </Form.Select>
               </Form.Group>

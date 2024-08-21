@@ -51,9 +51,9 @@ public class AccountService {
         if (accountDetails.getEmail() != null) {
             account.setEmail(accountDetails.getEmail());
         }
-        if (accountDetails.getPassword() != null) {
-            account.setPassword(accountDetails.getPassword());
-        }
+//        if (accountDetails.getPassword() != null) {
+//            account.setPassword(accountDetails.getPassword());
+//        }
         if (accountDetails.getRole() != null) {
             account.setRole(accountDetails.getRole());
         }
