@@ -18,9 +18,9 @@ const AmazonAddItem = ({ amazonItem, setMessage, error, setError }) => {
     amazonProductId: amazonItem.asin,
     image: amazonItem.product_photo,
   });
+  const [imageBase, setImageBase] = useState("");
 
   const getBase64FromUrl = async url => {
-    console.log("64 called");
     fetch(url)
       .then(response => response.blob())
       .then(blob => {
@@ -29,12 +29,9 @@ const AmazonAddItem = ({ amazonItem, setMessage, error, setError }) => {
         reader.readAsDataURL(blob);
         reader.onload = () => {
           setImageBase(reader.result);
-          // console.log(base64data);
-          // setImage(base64data);
         };
       });
   };
-  const [imageBase, setImageBase] = useState("");
 
   const fetchCategories = async () => {
     try {
@@ -98,7 +95,6 @@ const AmazonAddItem = ({ amazonItem, setMessage, error, setError }) => {
   // This function handles form submission
   const handleSubmit = async e => {
     e.preventDefault();
-    await getBase64FromUrl(formData.image);
     const itemData = {
       categoryId: formData.categoryId,
       name: formData.name,
@@ -226,7 +222,13 @@ const AmazonAddItem = ({ amazonItem, setMessage, error, setError }) => {
               </Form.Group>
 
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
-                <Image src={formData.image} style={{maxWidth: '100%'}} id="amazonImage" rounded />
+                <Image
+                  src={formData.image}
+                  style={{ maxWidth: "100%" }}
+                  onLoad={() => getBase64FromUrl(formData.image)}
+                  id="amazonImage"
+                  rounded
+                />
               </Form.Group>
             </Row>
 
