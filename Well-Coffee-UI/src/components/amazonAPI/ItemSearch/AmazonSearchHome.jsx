@@ -6,6 +6,8 @@ import AmazonSearchResults from "./AmazonSearchResults";
 const AmazonSearchHome = ({}) => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     searchTerm: "",
     page: 1,
@@ -391,16 +393,14 @@ const AmazonSearchHome = ({}) => {
       products: [
         {
           asin: "",
-          product_title:
-            "",
+          product_title: "",
           product_price: "",
           product_original_price: "$169.99",
           currency: "",
           product_star_rating: "",
           product_num_ratings: null,
           product_url: "",
-          product_photo:
-            "",
+          product_photo: "",
           product_num_offers: null,
           product_minimum_offer_price: "",
           is_best_seller: null,
@@ -410,15 +410,15 @@ const AmazonSearchHome = ({}) => {
           sales_volume: "",
           delivery: "",
           has_variations: null,
-        }
+        },
       ],
     },
   });
 
   return (
     <>
-      <Container className='mt-5'>
-      {message && (
+      <Container className="mt-5">
+        {message && (
           <div
             className={`alert ${
               !error ? "alert-success" : "alert-danger"
@@ -427,19 +427,27 @@ const AmazonSearchHome = ({}) => {
             {message}
           </div>
         )}
+        <Container className="mt-3">
+          Enter a search term below to search Amazon and add an item to the database.
+        </Container>
         <AmazonSearchForm
           formData={formData}
           setFormData={setFormData}
           setMessage={setMessage}
           setError={setError}
           setSearchResults={setSearchResults}
+          setSuccess={setSuccess}
+          loading={loading}
+          setLoading={setLoading}
         />
-        <AmazonSearchResults
-          searchResults={searchResults}
-          setMessage={setMessage}
-          error={error}
-          setError={setError}
-        />
+        {success && (
+          <AmazonSearchResults
+            searchResults={searchResults}
+            setMessage={setMessage}
+            error={error}
+            setError={setError}
+          />
+        )}
       </Container>
     </>
   );

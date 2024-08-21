@@ -121,6 +121,7 @@ export const searchAmazon = async (searchTerm, page) => {
     throw error;
   }
 };
+
 //Example Response
 // {
 //     "status": "OK",

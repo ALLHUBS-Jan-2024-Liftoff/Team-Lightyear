@@ -226,7 +226,7 @@ const AmazonAddItem = ({ amazonItem, setMessage, error, setError }) => {
               </Form.Group>
 
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
-                <Image src={formData.image} id="amazonImage" rounded />
+                <Image src={formData.image} style={{maxWidth: '100%'}} id="amazonImage" rounded />
               </Form.Group>
             </Row>
 

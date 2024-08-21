@@ -7,6 +7,7 @@ import HomePage from "./components/pages/HomePage";
 import AccountPage from "./components/pages/AccountPage";
 import OrderFormPage from "./components/orderForm/OrderFormPage";
 import ManageEmployees from "./components/pages/ManageEmployees";
+import AmazonSearchHome from "./components/amazonAPI/ItemSearch/AmazonSearchHome";
 import DailyReport from "./components/pages/DailyReport";
 import Tutorial from "./components/pages/Tutorial";
 import LoginPage from "./components/pages/LoginPage";
@@ -23,7 +24,7 @@ function App() {
     <>
     <NavigationBar authenticated={authenticated} />
     <Routes>
-      {!authenticated ? (
+      {authenticated ? (
         <>
         <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated} />} />
         <Route path="/register" element={<Register />} />
@@ -33,6 +34,7 @@ function App() {
         <>
           <Route path="/home" element={<HomePage />} />
           <Route path="/order" element={<OrderFormPage />} />
+          <Route path="/amazon" element={<AmazonSearchHome />} />
           <Route path="/manage" element={<ManageEmployees />} />
           <Route path="/report" element={<DailyReport />} />
           <Route path="/tutorial" element={<Tutorial />} />

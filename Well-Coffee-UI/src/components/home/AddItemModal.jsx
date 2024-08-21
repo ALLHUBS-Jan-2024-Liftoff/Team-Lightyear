@@ -1,7 +1,13 @@
-import { useState, useEffect } from 'react';
-import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
+import { useState, useEffect } from "react";
+import { Button, Modal, Form, Row, Col } from "react-bootstrap";
 
-const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) => {
+const AddItemModal = ({
+  onAddItem,
+  resetMessages,
+  error,
+  success,
+  categories,
+}) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -12,7 +18,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
     description: "",
     categoryId: "",
     amazonProductId: "",
-    image: ""
+    image: "",
   });
 
   const handleClose = () => {
@@ -26,7 +32,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
       description: "",
       categoryId: "",
       amazonProductId: "",
-      image: ""
+      image: "",
     });
     resetMessages();
   };
@@ -36,40 +42,40 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
   };
 
   // This function uses the spread operator to update the state of a specific field in formData
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
   // This function handles form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
-      const itemData = {
-        categoryId: formData.categoryId,
-        name: formData.name,
-        quantity: formData.quantity,
-        minQuantity: formData.minQuantity,
-        price: formData.price,
-        location: formData.location,
-        description: formData.description,
-        amazonProductId: formData.amazonProductId, 
-        image: formData.image
-      };
-      // Uses the prop function passed from 'HomePage'
-      await onAddItem(itemData);
+    const itemData = {
+      categoryId: formData.categoryId,
+      name: formData.name,
+      quantity: formData.quantity,
+      minQuantity: formData.minQuantity,
+      price: formData.price,
+      location: formData.location,
+      description: formData.description,
+      amazonProductId: formData.amazonProductId,
+      image: formData.image,
+    };
+    // Uses the prop function passed from 'HomePage'
+    await onAddItem(itemData);
   };
-  
+
   useEffect(() => {
     if (success) {
       setTimeout(() => {
         handleClose();
       }, 1000); // Closes the modal after 1 second
     }
-  }, [success]); 
+  }, [success]);
 
   function convertToBase64(e) {
     const reader = new FileReader();
@@ -77,22 +83,25 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
     reader.onload = () => {
       setFormData({
         ...formData,
-        image: reader.result
+        image: reader.result,
       });
     };
     reader.onerror = error => {
       console.log("Error converting image to base64", error);
     };
-  };
+  }
 
   return (
     <>
       <Button variant="outline-primary" onClick={handleShow}>
         New Item
+      </Button> {' '}
+      <Button variant="outline-primary" href="/amazon">
+        New Amazon Item
       </Button>
 
-      <Modal 
-        show={show} 
+      <Modal
+        show={show}
         onHide={handleClose}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
@@ -106,10 +115,10 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
             <Row className="mb-3">
               <Form.Group as={Col} controlId="itemName">
                 <Form.Label>Item Name</Form.Label>
-                <Form.Control 
+                <Form.Control
                   type="text"
-                  name="name" 
-                  placeholder="Enter name" 
+                  name="name"
+                  placeholder="Enter name"
                   value={formData.name}
                   onChange={handleChange}
                 />
@@ -117,7 +126,7 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
 
               <Form.Group as={Col} controlId="itemCategory">
                 <Form.Label>Category</Form.Label>
-                <Form.Select 
+                <Form.Select
                   name="categoryId"
                   value={formData.categoryId}
                   onChange={handleChange}
@@ -134,32 +143,32 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
             <Row className="mb-3">
               <Form.Group as={Col} controlId="itemQuantity">
                 <Form.Label>Quantity</Form.Label>
-                <Form.Control 
+                <Form.Control
                   type="text"
                   name="quantity"
                   placeholder="Enter quantity"
                   value={formData.quantity}
-                  onChange={handleChange} 
+                  onChange={handleChange}
                 />
               </Form.Group>
 
               <Form.Group as={Col} controlId="itemMinQuantity">
                 <Form.Label>Minimum Quantity</Form.Label>
-                <Form.Control 
+                <Form.Control
                   type="text"
                   name="minQuantity"
                   placeholder="Enter minimum quantity"
                   value={formData.minQuantity}
-                  onChange={handleChange} 
+                  onChange={handleChange}
                 />
               </Form.Group>
 
               <Form.Group as={Col} controlId="itemPrice">
                 <Form.Label>Price</Form.Label>
-                <Form.Control 
-                  type="text" 
+                <Form.Control
+                  type="text"
                   name="price"
-                  placeholder="Enter price" 
+                  placeholder="Enter price"
                   value={formData.price}
                   onChange={handleChange}
                 />
@@ -168,21 +177,21 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
             <Row className="mb-3">
               <Form.Group as={Col} controlId="itemLocation">
                 <Form.Label>Location</Form.Label>
-                <Form.Control 
+                <Form.Control
                   type="text"
                   name="location"
                   placeholder="Enter location"
                   value={formData.location}
-                  onChange={handleChange} 
+                  onChange={handleChange}
                 />
               </Form.Group>
-              
+
               <Form.Group as={Col} controlId="amazonProductId">
                 <Form.Label>Amazon Product ID</Form.Label>
-                <Form.Control 
-                  type="text" 
+                <Form.Control
+                  type="text"
                   name="amazonProductId"
-                  placeholder="Enter Amazon Product ID" 
+                  placeholder="Enter Amazon Product ID"
                   value={formData.amazonProductId}
                   onChange={handleChange}
                 />
@@ -190,17 +199,14 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
 
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
                 <Form.Label>Photo</Form.Label>
-                <Form.Control 
-                  type="file" 
-                  onChange={convertToBase64}
-                />
+                <Form.Control type="file" onChange={convertToBase64} />
               </Form.Group>
             </Row>
 
             <Form.Group className="mb-3" controlId="itemDescription">
               <Form.Label>Description</Form.Label>
-              <Form.Control 
-                as="textarea" 
+              <Form.Control
+                as="textarea"
                 rows={2}
                 name="description"
                 placeholder="Enter description"
@@ -208,8 +214,12 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
                 onChange={handleChange}
               />
             </Form.Group>
-            {error && <div className='alert alert-danger'>{error}</div>}
-            {success && <div className='alert alert-success'>Item created successfully!</div>}
+            {error && <div className="alert alert-danger">{error}</div>}
+            {success && (
+              <div className="alert alert-success">
+                Item created successfully!
+              </div>
+            )}
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -223,6 +233,6 @@ const AddItemModal = ({ onAddItem, resetMessages, error, success, categories }) 
       </Modal>
     </>
   );
-}
+};
 
 export default AddItemModal;
