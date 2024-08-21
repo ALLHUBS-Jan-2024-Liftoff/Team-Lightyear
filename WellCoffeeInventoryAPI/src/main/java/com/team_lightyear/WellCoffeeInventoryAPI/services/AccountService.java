@@ -1,5 +1,6 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.services;
 
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.RegisterFormDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Account;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.AccountRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -35,6 +36,30 @@ public class AccountService {
             throw new EntityNotFoundException("Account with ID " + id + " not found");
         }
         accountRepository.deleteById(id);
+    }
+
+    public Account updateAccount(int id, RegisterFormDTO accountDetails) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Account with ID " + id + " not found"));
+
+        if (accountDetails.getFirstName() != null) {
+            account.setFirstName(accountDetails.getFirstName());
+        }
+        if (accountDetails.getLastName() != null) {
+            account.setLastName(accountDetails.getLastName());
+        }
+        if (accountDetails.getEmail() != null) {
+            account.setEmail(accountDetails.getEmail());
+        }
+        if (accountDetails.getPassword() != null) {
+            account.setPassword(accountDetails.getPassword());
+        }
+        if (accountDetails.getRole() != null) {
+            account.setRole(accountDetails.getRole());
+        }
+
+        return accountRepository.save(account);
+
     }
 
 }
