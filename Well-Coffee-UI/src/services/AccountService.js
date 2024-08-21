@@ -19,6 +19,7 @@ export const createAccount = async (e) => {
       });
     }
 
+<<<<<<< HEAD
     export const updateAccount = async (accountId, accountData) => {
       try {
         const response = await axios.patch(`${BASEAPIURL}/manage/${accountId}`, accountData);
@@ -28,3 +29,7 @@ export const createAccount = async (e) => {
         throw error;
       }
     };
+=======
+    const [message, setMessage] = useState("");
+
+>>>>>>> origin/main

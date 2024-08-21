@@ -52,14 +52,7 @@ function Register() {
                     <label>Password:</label>
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
-                {/* <div>
-                    <label>Role:</label>
-                    <select value={role} onChange={(e) => setRole(e.target.value)}>
-                        <option value="">Select...</option>
-                        <option value="manager">Manager</option>
-                        <option value="employee">Employee</option>
-                    </select>
-                </div> */}
+
                 <div>
                     <button type="submit">Register</button>
                 </div>

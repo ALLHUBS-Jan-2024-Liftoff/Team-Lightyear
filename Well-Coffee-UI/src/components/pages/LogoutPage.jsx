@@ -16,17 +16,6 @@ const handleLogout = async () => {
   }
 };
 
-const handleReturn = async () => {
-  
-  try {
-    await axios.post("http://localhost:8080/api/home",
-    { withCredentials: true,
-     });
-     setAuthenticated(false);
-  } catch (error) {
-    console.error("There was an error returning home", error);
-  }
-};
 
 const navigate = useNavigate();
 const returnToHome = () => {

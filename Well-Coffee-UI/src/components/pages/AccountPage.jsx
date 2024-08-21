@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const AccountPage = () => {
 
+<<<<<<< HEAD
   function CurrentUser() {
     const [account, setAccount] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -33,6 +34,8 @@ const AccountPage = () => {
     ) : error ? (
       <div>Error: {error}</div>
     ) : account ? (
+=======
+>>>>>>> origin/main
     <table className='account-table'>
       <thead>
         <tr>

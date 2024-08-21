@@ -5,10 +5,6 @@ public class RegisterFormDTO extends LoginFormDTO {
 
     private String lastName;
 
-    private String email;
-
-    private String password;
-
     private String role;
 
 
@@ -26,26 +22,6 @@ public class RegisterFormDTO extends LoginFormDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRole() {
