@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button, Modal, Form, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const AddItemModal = ({
   onAddItem,
@@ -95,11 +96,8 @@ const AddItemModal = ({
     <>
       <Button variant="outline-primary" onClick={handleShow}>
         New Item
-      </Button> {' '}
-      <Button variant="outline-primary" href="/amazon">
-        New Amazon Item
-      </Button>
-
+      </Button>{" "}
+        <Button as={Link} to={"/amazon"} variant="outline-primary">New Amazon Item</Button>
       <Modal
         show={show}
         onHide={handleClose}
