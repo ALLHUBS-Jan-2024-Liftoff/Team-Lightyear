@@ -38,6 +38,7 @@ public class AccountService {
         accountRepository.deleteById(id);
     }
 
+
     public Account updateAccount(int id, RegisterFormDTO accountDetails) {
         Account account = accountRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Account with ID " + id + " not found"));
@@ -51,9 +52,9 @@ public class AccountService {
         if (accountDetails.getEmail() != null) {
             account.setEmail(accountDetails.getEmail());
         }
-//        if (accountDetails.getPassword() != null) {
-//            account.setPassword(accountDetails.getPassword());
-//        }
+        if (accountDetails.getPassword() != null) {
+            account.setPassword(accountDetails.getPassword());
+        }
         if (accountDetails.getRole() != null) {
             account.setRole(accountDetails.getRole());
         }
