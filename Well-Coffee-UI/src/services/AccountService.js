@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const BASEAPIURL = "http://localhost:8080";
+const BASEAPIURL = "http://localhost:8080/api";
 
 
 export const createAccount = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    axiosInstance.post(`${BASEAPIURL}/api/manage`, formData)
+    axiosInstance.post(`${BASEAPIURL}/manage`, formData)
       .then(() => {
         onAdd();
         handleClose();
@@ -18,3 +18,13 @@ export const createAccount = async (e) => {
         setIsLoading(false);
       });
     }
+
+    export const updateAccount = async (accountId, accountData) => {
+      try {
+        const response = await axios.patch(`${BASEAPIURL}/manage/${accountId}`, accountData);
+        return response.data;
+      } catch (error) {
+        console.error("There was an error updating the account", error);
+        throw error;
+      }
+    };
