@@ -19,7 +19,7 @@ const InvoiceHistory = () => {
         console.log(invoices);
         setInvoices(invoices);
       });
-  }, []);
+  }, [invoices]);
 
   return (
     <>

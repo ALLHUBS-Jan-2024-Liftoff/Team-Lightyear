@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import defaultImage from "../../assets/images/no-image.png";
 import { Button, Modal, Badge, Card, ListGroup, Form } from "react-bootstrap";
 import { updateItem } from "../../services/ItemService";
@@ -39,7 +39,7 @@ const ItemCardModal = ({ item }) => {
       await updateItem(item.id, newData);
       setMessage("Comment update success");
       setTimeout(() => {
-        window.location.reload();
+        handleClose()
       }, 1000);
     } catch (error) {
       setMessage("Error!")
