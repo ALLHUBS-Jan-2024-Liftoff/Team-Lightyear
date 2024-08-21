@@ -33,6 +33,7 @@ public class Item {
     private Double price;
     private String location;
     private String description;
+    private String comment;
     private String amazonProductId;
 
     @Lob // Specifies that the database should store this as a Large Object
@@ -64,7 +65,8 @@ public class Item {
 
     // Constructor
     public Item(String name, Integer quantity, Integer minQuantity, Double price, String location,
-                String description, Category category, String amazonProductId, String image) {
+                String description, Category category, String amazonProductId, String image, String comment) {
+
         this.name = name;
         this.quantity = quantity;
         this.minQuantity = minQuantity;
@@ -74,7 +76,9 @@ public class Item {
         this.category = category;
         this.amazonProductId = amazonProductId;
         this.image = image;
+        this.comment = comment;
     }
+
 
     // Getters and Setters
     
@@ -145,6 +149,14 @@ public class Item {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
     
     public Integer getMinQuantity() {
         return minQuantity;
@@ -170,12 +182,9 @@ public class Item {
         this.image = image;
     }
 
-    //    public List<Invoice> getInvoiceList() {
-//        return invoiceList;
-//    }
-    
     // toString() method
-    
+
+
     @Override
     public String toString() {
         return "Item{" +
@@ -186,13 +195,15 @@ public class Item {
                 ", price=" + price +
                 ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
+                ", comment=" + comment +
                 ", category=" + category +
                 ", orderedItemList=" + orderedItemList +
                 ", invoiceList=" + invoiceList +
                 ", amazonProductId=" + amazonProductId +
+                ", comment=" + comment +
                 '}';
     }
-    
+
     // equals() method
     @Override
     public boolean equals(Object o) {

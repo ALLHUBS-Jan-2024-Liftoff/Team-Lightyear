@@ -35,7 +35,7 @@ const InvoiceHistory = () => {
 
   return (
     <>
-      <Button variant="secondary" onClick={handleShow}>
+      <Button variant="outline-secondary" onClick={handleShow}>
         Invoice History
       </Button>
       <Modal show={show} onHide={handleClose}>
