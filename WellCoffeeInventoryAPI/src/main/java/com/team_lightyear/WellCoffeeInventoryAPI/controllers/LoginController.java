@@ -26,26 +26,7 @@ public class LoginController {
     @Autowired
     AccountRepository accountRepository;
 
-    private static final String accountSessionKey = "account";
 
-    public Account getAccountFromSession(HttpSession session) {
-        Integer accountId = (Integer) session.getAttribute(accountSessionKey);
-        if (accountId == null) {
-            return null;
-        }
-
-        Optional<Account> account = accountRepository.findById(accountId);
-
-        if (account.isEmpty()) {
-            return null;
-        }
-
-        return account.get();
-    }
-
-    private static void setAccountInSession(HttpSession session, Account account) {
-        session.setAttribute(accountSessionKey, account.getId());
-    }
 
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> processLoginForm(@RequestBody LoginFormDTO loginFormDTO, HttpServletRequest request) {

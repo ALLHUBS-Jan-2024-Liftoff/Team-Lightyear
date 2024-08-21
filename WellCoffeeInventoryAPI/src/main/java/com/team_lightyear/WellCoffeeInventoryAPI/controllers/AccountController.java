@@ -55,15 +55,7 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<?> updateItem(@PathVariable int id, @RequestBody ItemDTO itemDetails) {
-//        try {
-//            Item updatedItem = itemService.updateItem(id, itemDetails);
-//            return ResponseEntity.ok(updatedItem);
-//        } catch (EntityNotFoundException e) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-//        }
-//    }
+
 
 
 
