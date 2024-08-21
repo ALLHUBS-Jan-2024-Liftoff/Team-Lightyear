@@ -1,10 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import defaultImage from "../../assets/images/no-image.png";
-import { Button, Modal, Badge, Card, ListGroup, Form, ListGroupItem } from "react-bootstrap";
-import { updateItem, getAllItems } from "../../services/ItemService";
+import {
+  Button,
+  Modal,
+  Badge,
+  Card,
+  ListGroup,
+  Form,
+} from "react-bootstrap";
+import { updateItem } from "../../services/ItemService";
 import DisplayStatusIcon from "../item/ItemStatusIcon";
 
-const ItemCardModal = ({ item, fetchItems }) => {
+const ItemCardModal = ({ item, fetchCategories }) => {
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -14,7 +21,7 @@ const ItemCardModal = ({ item, fetchItems }) => {
   const handleClose = (e) => {
     setShow(false);
     setFormData({
-      comment: item.comment
+      comment: item.comment,
     });
     setMessage("");
   };
@@ -30,21 +37,20 @@ const ItemCardModal = ({ item, fetchItems }) => {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
     const newData = {
-      comment: formData.comment
+      comment: formData.comment,
     };
 
     try {
       await updateItem(item.id, newData);
-      fetchItems();
+      fetchCategories();
       setMessage("Comment update success");
       setTimeout(() => {
-        handleClose()
+        handleClose();
       }, 1000);
-
     } catch (error) {
-      setMessage("Error!")
+      setMessage("Error!");
     }
   };
 
@@ -53,7 +59,6 @@ const ItemCardModal = ({ item, fetchItems }) => {
       <Button variant="outline-success" onClick={handleShow}>
         View
       </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -87,7 +92,7 @@ const ItemCardModal = ({ item, fetchItems }) => {
               </ListGroup.Item>
               <br></br>
               <ListGroup.Item variant="info">Recent Comments: </ListGroup.Item>
-                  <ListGroup.Item>{item.comment}</ListGroup.Item>
+              <ListGroup.Item>{item.comment}</ListGroup.Item>
             </ListGroup>
             <Form onSubmit={handleSubmit} id="updateItemForm">
               <Form.Group className="mb-3" controlId="itemComment">
@@ -99,11 +104,21 @@ const ItemCardModal = ({ item, fetchItems }) => {
                   onChange={handleChange}
                 />
               </Form.Group>
-              {message && <div className={`alert ${message.includes('success') ? 'alert-success' : 'alert-danger'}`}>{message}</div>}
-              </Form>
-              <Button variant="secondary" type="submit" form="updateItemForm">
-                Submit
-              </Button>
+              {message && (
+                <div
+                  className={`alert ${
+                    message.includes("success")
+                      ? "alert-success"
+                      : "alert-danger"
+                  }`}
+                >
+                  {message}
+                </div>
+              )}
+            </Form>
+            <Button variant="secondary" type="submit" form="updateItemForm">
+              Submit
+            </Button>
           </Card>
         </Modal.Body>
         <Modal.Footer>

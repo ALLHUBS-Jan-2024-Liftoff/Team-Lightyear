@@ -2,7 +2,7 @@ import { Accordion, Container, Table, Button, Stack } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
 import { useState ,useEffect } from "react";
-import { deleteItem, getAllItems } from "../../services/ItemService";
+import { deleteItem } from "../../services/ItemService";
 import DisplayStatusIcon from "../item/ItemStatusIcon";
 import AmazonInfoButtons from "../amazonAPI/AmazonInfoButtons";
 
@@ -31,17 +31,6 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
       }, 1500);
     }
   };
-
-//fetchItems to be used for ItemCardModal
-    const fetchItems = async () => {
-      try {
-          const data = await getAllItems();
-          console.log(data);
-          setItemData(data);
-      } catch (error) {
-          setError("Error fetching item data.")
-      }
-    }
 
   return (
     <>
@@ -96,7 +85,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                             <td>
                               <ItemCardModal
                               item={item}
-                              fetchItems={fetchItems}
+                              fetchCategories={fetchCategories}
                               />{" "}
                               <UpdateItemModal
                                 categories={categories}

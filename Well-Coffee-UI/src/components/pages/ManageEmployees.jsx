@@ -2,6 +2,7 @@ import React from "react";
 import UpdateAccountModal from "../account/UpdateAccountModal";
 import { useState } from "react";
 import { Container, Table, Button } from "react-bootstrap";
+import InvoiceHistory from "/src/components/orderForm/InvoiceHistory.jsx";
 
 const ManageEmployees = () => {
   // Sample data for testing purposes:
@@ -60,8 +61,7 @@ const ManageEmployees = () => {
                 <td>{account.email}</td>
                 <td>{account.role}</td>
                 <td>
-                  <UpdateAccountModal account={account} /> 
-                  <InvoiceHistory />
+                  <UpdateAccountModal account={account} />
                   <Button
                     variant="outline-danger"
                     onClick={() => handleDelete(account.id)}
