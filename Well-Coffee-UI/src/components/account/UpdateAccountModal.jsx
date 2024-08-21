@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
-import axiosInstance from '../../services/axiosInstance';
 import { updateAccount } from '../../services/AccountService';
 
 const UpdateAccountModal = ({ account, onUpdate }) => {
@@ -8,6 +8,7 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
   const [formData, setFormData] = useState(account);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (account) {
@@ -35,16 +36,20 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
       role: formData.role,
     };
 
+    setIsLoading(true);
     try {
       await updateAccount(account.id, newData);
       setMessage("Account updated successfully!");
-      getAllAccounts();
       setTimeout(() => {
         handleClose();
+        if (onUpdate) onUpdate();
       }, 1000);
     } catch (error) {
       setError("There was an error updating the account. Please try again.");
+    } finally {
+      setIsLoading(false);
     };
+
 
 
   }

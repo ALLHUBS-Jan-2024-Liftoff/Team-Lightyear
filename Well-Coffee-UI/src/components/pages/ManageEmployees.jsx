@@ -7,6 +7,20 @@ import { deleteAccount, getAllAccounts } from "../../services/AccountService";
 const ManageEmployees = () => {
   const [accounts, setAccounts] = useState([]);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
+
+  const fetchAccounts = async () => {
+    try {
+      const data = await getAllAccounts();
+      setAccounts(data);
+    } catch (error) {
+      setError("There was an error fetching the account data. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    fetchAccounts();
+  }, []);
 
   const handleDeleteAccount = async accountId => {
     try {
@@ -24,18 +38,11 @@ const ManageEmployees = () => {
     }
   }
 
-  useEffect(() => {
+  const handleUpdateAccount = async () => {
     fetchAccounts();
-  }, []);
-
-  const fetchAccounts = async () => {
-    try {
-      const data = await getAllAccounts();
-      setAccounts(data);
-    } catch (error) {
-      setError("There was an error fetching the account data. Please try again.");
-    }
   };
+
+
 
   return (
     <>
@@ -61,7 +68,7 @@ const ManageEmployees = () => {
                 <td>{account.email}</td>
                 <td>{account.manager === true ? "Manager" : "Employee"}</td>
                 <td>
-                  <UpdateAccountModal account={account} />{' '} 
+                  <UpdateAccountModal account={account} onUpdate={handleUpdateAccount} />{' '} 
                   <InvoiceHistory />{' '}
                   <Button
                     variant="outline-danger"
