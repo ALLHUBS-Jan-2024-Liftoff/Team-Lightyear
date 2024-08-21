@@ -2,6 +2,7 @@ package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Account;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.AccountService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,6 @@ import java.util.Optional;
 /**
  * Created by Dominique Gould
  */
-
 
 @RestController
 @RequestMapping("/api/manage")
@@ -33,8 +33,6 @@ public class AccountController {
         return accountService.createAccount(account);
     }
 
-
-
     @GetMapping("/{id}")
     public ResponseEntity<?> getAccountById(@PathVariable int id) {
         Optional<Account> account = accountService.getAccountById(id);
@@ -44,9 +42,13 @@ public class AccountController {
         return ResponseEntity.ok(account);
     }
 
-
-
-
-
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAccount(@PathVariable int id) {
+        try {
+            accountService.deleteAccount(id);
+            return ResponseEntity.ok("Account with ID " + id + " deleted successfully");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
 }
