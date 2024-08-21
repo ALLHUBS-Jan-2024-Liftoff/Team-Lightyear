@@ -6,6 +6,7 @@ import DisplayStatusIcon from "../item/ItemStatusIcon";
 
 const ItemCardModal = ({ item }) => {
   const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     comment: item.comment,
   });
@@ -28,16 +29,20 @@ const ItemCardModal = ({ item }) => {
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+  e.preventDefault();
     const newData = {
       comment: formData.comment,
     };
 
     try {
       await updateItem(item.id, newData);
-      console.log("New comment");
+      setMessage("Comment update success");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch (error) {
-      console.log("Comment update error");
+      setMessage("Error!")
     }
   };
 
@@ -92,10 +97,11 @@ const ItemCardModal = ({ item }) => {
                   onChange={handleChange}
                 />
               </Form.Group>
+              {message && <div className={`alert ${message.includes('success') ? 'alert-success' : 'alert-danger'}`}>{message}</div>}</Form>
               <Button variant="secondary" type="submit" form="updateItemForm">
                 Submit
               </Button>
-            </Form>
+
           </Card>
         </Modal.Body>
         <Modal.Footer>
