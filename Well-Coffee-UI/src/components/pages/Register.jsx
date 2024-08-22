@@ -43,18 +43,22 @@ function Register() {
                     <label>First Name:</label>
                     <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
                 </div>
+                <p></p>
                 <div>
                     <label>Last Name:</label>
                     <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
                 </div>
+                <p></p>
                 <div>
                     <label>Email:</label>
                     <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </div>
+                <p></p>
                 <div>
                     <label>Password:</label>
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </div>
+                <p></p>
 
                 <div>
                     <Button variant="primary" type="submit">Register</Button>
