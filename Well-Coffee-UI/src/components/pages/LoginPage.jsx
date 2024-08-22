@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import axios from 'axios';
+import { Container, Button } from 'react-bootstrap';
 
 /* 
   Created by Dominique Gould 
@@ -39,21 +40,23 @@ function LoginPage({ setAuthenticated }) {
 
 
   return (
-    <div className='container'>
+    <Container className="mt-5">
+      
       <div className='header'>
-        <p>Welcome Back!</p>
-        <h1>Log In</h1>
+      <h1 className="text-center">Welcome Back!</h1>
       </div>
     
     {/* Login form here */}
     
-    <div className='loginForm'>
+    <div className="text-center">
       {/* Form inputs */}
       <form onSubmit={handleLogin}>
         <div className='inputContainer'>
 
           <label htmlFor='email'>Email:</label>
           <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' />
+          
+          <p></p>
 
           <label htmlFor='password'>Password:</label>
           <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
@@ -62,7 +65,7 @@ function LoginPage({ setAuthenticated }) {
         {/* Will add forgot password later */}
         
         <div className='submitContainer'>
-          <button type='submit'>Login</button>
+          <Button variant="primary" type='submit'>Login</Button>
         </div>
 
 
@@ -71,7 +74,7 @@ function LoginPage({ setAuthenticated }) {
     </div>
     
 
-    </div>
+    </Container>
   )
 }
 

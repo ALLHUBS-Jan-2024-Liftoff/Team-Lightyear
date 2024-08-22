@@ -14,8 +14,22 @@ const AddAccountModal = ({ onAdd }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  
+  
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      role: '',
+    });
+    setError(null);
+    setSuccess(false);
+  };
+
   const handleShow = () => setShow(true);
 
   const handleChange = (e) => {
@@ -25,10 +39,13 @@ const AddAccountModal = ({ onAdd }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
     try {
-      await createAccount(account);
+      await createAccount(formData);
       setSuccess(true); // Sets success state to true and displays a message to the user
+      onAdd();
       setTimeout(() => {
         handleClose();
       }, 1500); // Closes the modal after 1.5 seconds
@@ -36,7 +53,10 @@ const AddAccountModal = ({ onAdd }) => {
     } catch (error) {
       // Error message will be displayed to the user if the category cannot be created
       setError("There was an error creating the account. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
+    
   }
 
   return (
@@ -58,6 +78,7 @@ const AddAccountModal = ({ onAdd }) => {
         <Modal.Body>
           {isLoading && <p>Loading...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
+          {success && <p style={{ color: 'green' }}>Account created successfully!</p>}
           <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="account">
             <Row className="mb-3">

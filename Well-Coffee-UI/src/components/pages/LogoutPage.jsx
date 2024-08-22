@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Container, Button } from 'react-bootstrap';
 
 function Logout({ setAuthenticated }) {
 
@@ -25,11 +26,14 @@ const returnToHome = () => {
 
 
   return (
-    <div>
-    <h1>Are you sure?</h1>
-    <button onClick={returnToHome}>Return</button>
-    <button onClick={handleLogout}>Logout</button>
+    <Container className="mt-5">
+    <h1 className="text-center">Are you sure?</h1>
+    <div className="text-center">
+    <Button variant='primary' onClick={returnToHome}>Return</Button>{" "}
+    <Button variant="danger" onClick={handleLogout}>Logout</Button>
     </div>
+    </Container>
+
   )
 }
 
