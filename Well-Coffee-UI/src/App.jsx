@@ -8,8 +8,6 @@ import AccountPage from "./components/pages/AccountPage";
 import OrderFormPage from "./components/orderForm/OrderFormPage";
 import ManageEmployees from "./components/pages/ManageEmployees";
 import AmazonSearchHome from "./components/amazonAPI/ItemSearch/AmazonSearchHome";
-import DailyReport from "./components/pages/DailyReport";
-import Tutorial from "./components/pages/Tutorial";
 import LoginPage from "./components/pages/LoginPage";
 import Register from "./components/pages/Register";
 import LogoutPage from "./components/pages/LogoutPage";
@@ -36,8 +34,6 @@ function App() {
               <Route path="/order" element={<OrderFormPage />} />
               <Route path="/amazon" element={<AmazonSearchHome />} />
               <Route path="/manage" element={<ManageEmployees />} />
-              <Route path="/report" element={<DailyReport />} />
-              <Route path="/tutorial" element={<Tutorial />} />
               <Route path="/search" element={<SearchPage />} />
               <Route path="/account" element={<AccountPage />} />
               <Route path="/logout" element={<LogoutPage setAuthenticated={setAuthenticated} />} />
