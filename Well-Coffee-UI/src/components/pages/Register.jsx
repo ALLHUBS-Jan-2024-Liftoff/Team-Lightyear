@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Container, Button } from "react-bootstrap";
 
 function Register() {
     const [email, setEmail] = useState("");
@@ -33,8 +34,10 @@ function Register() {
     };
 
     return (
-        <div>
-            <h2>Register</h2>
+        <Container className="mt-5">
+            <h1 className="text-center">Register</h1>
+            
+            <div className="text-center">
             <form onSubmit={handleRegister}>
                 <div>
                     <label>First Name:</label>
@@ -54,11 +57,12 @@ function Register() {
                 </div>
 
                 <div>
-                    <button type="submit">Register</button>
+                    <Button variant="primary" type="submit">Register</Button>
                 </div>
             </form>
             {message && <p>{message}</p>}
-        </div>             
+            </div>
+        </Container>             
     )
 }
 
