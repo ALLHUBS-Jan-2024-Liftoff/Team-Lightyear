@@ -8,9 +8,9 @@ const CarouselDisplay = () => {
  return (
      <Container className="mt-5 d-flex align-items-start">
        <div className="w-50 m-3">
-         <h1>
+         <h2>
            Welcome to WellCoffee's inventory management solution! ✨
-         </h1>
+         </h2>
          <p>
            Manage your inventory with ease using our straightforward tool.
            Track stock levels, create new invoices, and stay on top of
