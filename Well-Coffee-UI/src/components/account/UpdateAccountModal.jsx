@@ -121,9 +121,9 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
                   required
                 >
                   <option value="">Select...</option>
-                  <option value="admin">Admin</option>
-                  <option value="employee">Employee</option>
-                  <option value="manager">Manager</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Employee">Employee</option>
+                  <option value="Manager">Manager</option>
                 </Form.Select>
               </Form.Group>
             </Row>

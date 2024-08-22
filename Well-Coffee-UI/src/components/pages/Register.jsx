@@ -19,7 +19,7 @@ function Register() {
                 lastName,
                 email,
                 password,
-                role: "employee"
+                role
             },
             {
                 withCredentials: true,
