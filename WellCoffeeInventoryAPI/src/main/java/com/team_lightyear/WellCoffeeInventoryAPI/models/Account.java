@@ -34,12 +34,7 @@ public class Account {
     private String role;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-
-    // Awaiting confirmation from Trevor
-    // Note from Trevor- Changed field to be a HashSet since it needs to store multiple invoices
-    // and used HasHSet rather than List because each invoice should be unique. (Invoices can
-    // have identical items on order, but invoice id and invoice number should be unique)
+    
     @OneToMany (mappedBy = "account")
     @JsonIgnore
     private final List<Invoice> invoices = new ArrayList<>();
