@@ -24,9 +24,8 @@ const NavigationBar = ({ authenticated }) => {
             ) : (
             <Nav className='ml-auto nav-links'>
               <Nav.Link as={Link} to={"/login"}>Login</Nav.Link>
-              <NavDropdown align='end'title='Account'>
-                <NavDropdown.Item as={Link} to={"/register"}>Register</NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link as={Link} to={"/register"}>Register</Nav.Link>
+
             </Nav>
             )}
           </Navbar.Collapse> 
