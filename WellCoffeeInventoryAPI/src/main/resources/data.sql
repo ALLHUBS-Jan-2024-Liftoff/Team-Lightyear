@@ -33,11 +33,11 @@ VALUES
 INSERT IGNORE INTO invoice
 VALUES
 -- Fields:
---(id, date, invNumber, vendor)
-(1, 240812, 105, "Java Time"),
-(2, 240812, 159, "The Coffee Friends"),
-(3, 240812, 250, "Beans On Demand"),
-(4, 240812, 490, "Half & Half Priced Warehouse");
+--(account_id, id, date, invNumber, vendor)
+(1, 1, 240812, 105, "Java Time"),
+(1, 2, 240812, 159, "The Coffee Friends"),
+(2, 3, 240812, 250, "Beans On Demand"),
+(3, 4, 240812, 490, "Half & Half Priced Warehouse");
 
 INSERT IGNORE INTO invoice_item
 VALUES
