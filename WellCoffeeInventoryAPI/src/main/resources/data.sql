@@ -25,10 +25,10 @@ VALUES
 
 INSERT IGNORE INTO account
 VALUES
-(1, 0, "cars", "mike@aol.com", "Mike", "Myers"),
-(2, 0, "boats", "chris@aol.com", "Chris", "Farley"),
-(3, 0, "motorcycles", "will@aol.com", "Will", "Ferrell"),
-(4, 1, "bicycles", "chevy@aol.com", "Chevy", "Chase");
+(1, "mike@aol.com", "Mike", "Myers", "cars", "Employee"),
+(2, "chris@aol.com", "Chris", "Farley", "boats", "Employee"),
+(3, "will@aol.com", "Will", "Ferrell", "motorcycles", "Employee"),
+(4, "chevy@aol.com", "Chevy", "Chase", "bicycles", "Manager");
 
 INSERT IGNORE INTO invoice
 VALUES

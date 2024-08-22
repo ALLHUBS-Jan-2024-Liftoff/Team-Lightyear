@@ -4,6 +4,7 @@ import { getAllCategories } from "../../services/CategoryService.js";
 import OrderFormTable from "./OrderFormTable.jsx";
 import Accordion from "react-bootstrap/Accordion";
 import { createInvoice } from "../../services/InvoiceService.js";
+import InvoiceHistory from "./InvoiceHistory.jsx";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -180,6 +181,7 @@ const DisplayOrderForm = () => {
             >
               Submit Order
             </Button>
+
         </Form>
       </Container>
       <Container className="mt-5">
@@ -193,6 +195,8 @@ const DisplayOrderForm = () => {
             setItemFormData={setItemFormData}
           />
         </Accordion>
+        <br></br>
+        <InvoiceHistory />
       </Container>
     </>
   );
