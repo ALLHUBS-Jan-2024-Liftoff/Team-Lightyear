@@ -1,26 +1,66 @@
 import { useState, useEffect } from "react";
-import { Button, Modal, Form, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Button, Modal, Form, Row, Col, Image } from "react-bootstrap";
+import { createItem } from "../../../services/ItemService";
+import { getAllCategories } from "../../../services/CategoryService";
 
-const AddItemModal = ({
-  onAddItem,
-  resetMessages,
-  error,
-  success,
-  categories,
-}) => {
+const AmazonAddItem = ({ amazonItem, setMessage, error, setError }) => {
   const [show, setShow] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [formData, setFormData] = useState({
-    name: "",
+    name: amazonItem.product_title?.substring(0, 49),
     quantity: "",
     minQuantity: "",
-    price: "",
+    price: amazonItem.product_price?.substring(1),
     location: "",
     description: "",
     categoryId: "",
-    amazonProductId: "",
-    image: "",
+    amazonProductId: amazonItem.asin,
+    image: amazonItem.product_photo,
   });
+  const [imageBase, setImageBase] = useState("");
+
+  const getBase64FromUrl = async url => {
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => {
+        console.log(blob);
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onload = () => {
+          setImageBase(reader.result);
+        };
+      });
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const data = await getAllCategories();
+      setCategories(data);
+    } catch (error) {
+      setError(
+        "There was an error fetching the category data. Please try again."
+      );
+    }
+  };
+
+  // This hook calls fetchCategories to retrieve and display initial data
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  //This function handles the process of adding a new item
+  const handleAddItem = async newItem => {
+    setSuccess(false);
+    setError(null);
+    try {
+      await createItem(newItem);
+      setSuccess(true);
+    } catch (error) {
+      setError("There was an error creating the item. Please try again.");
+      setSuccess(false);
+    }
+  };
 
   const handleClose = () => {
     setShow(false);
@@ -35,7 +75,8 @@ const AddItemModal = ({
       amazonProductId: "",
       image: "",
     });
-    resetMessages();
+    setMessage("");
+    setError(false);
   };
 
   const handleShow = () => {
@@ -54,7 +95,6 @@ const AddItemModal = ({
   // This function handles form submission
   const handleSubmit = async e => {
     e.preventDefault();
-
     const itemData = {
       categoryId: formData.categoryId,
       name: formData.name,
@@ -64,10 +104,10 @@ const AddItemModal = ({
       location: formData.location,
       description: formData.description,
       amazonProductId: formData.amazonProductId,
-      image: formData.image,
+      image: imageBase,
     };
     // Uses the prop function passed from 'HomePage'
-    await onAddItem(itemData);
+    await handleAddItem(itemData);
   };
 
   useEffect(() => {
@@ -78,26 +118,12 @@ const AddItemModal = ({
     }
   }, [success]);
 
-  function convertToBase64(e) {
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = () => {
-      setFormData({
-        ...formData,
-        image: reader.result,
-      });
-    };
-    reader.onerror = error => {
-      console.log("Error converting image to base64", error);
-    };
-  }
-
   return (
     <>
-      <Button variant="outline-primary" onClick={handleShow}>
-        New Item
-      </Button>{" "}
-        <Button as={Link} to={"/amazon"} variant="outline-primary">New Amazon Item</Button>
+      <Button as={Col} variant="outline-primary" onClick={handleShow}>
+        Create Item
+      </Button>
+
       <Modal
         show={show}
         onHide={handleClose}
@@ -196,8 +222,13 @@ const AddItemModal = ({
               </Form.Group>
 
               <Form.Group as={Col} controlId="itemPhoto" className="mb-3">
-                <Form.Label>Photo</Form.Label>
-                <Form.Control type="file" onChange={convertToBase64} />
+                <Image
+                  src={formData.image}
+                  style={{ maxWidth: "100%" }}
+                  onLoad={() => getBase64FromUrl(formData.image)}
+                  id="amazonImage"
+                  rounded
+                />
               </Form.Group>
             </Row>
 
@@ -233,4 +264,4 @@ const AddItemModal = ({
   );
 };
 
-export default AddItemModal;
+export default AmazonAddItem;

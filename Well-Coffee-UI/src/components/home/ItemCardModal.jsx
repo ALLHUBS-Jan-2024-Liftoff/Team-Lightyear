@@ -1,11 +1,19 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import defaultImage from "../../assets/images/no-image.png";
-import { Button, Modal, Badge, Card, ListGroup, Form } from "react-bootstrap";
+import {
+  Button,
+  Modal,
+  Badge,
+  Card,
+  ListGroup,
+  Form,
+} from "react-bootstrap";
 import { updateItem } from "../../services/ItemService";
 import DisplayStatusIcon from "../item/ItemStatusIcon";
 
-const ItemCardModal = ({ item }) => {
+const ItemCardModal = ({ item, fetchCategories }) => {
   const [show, setShow] = useState(false);
+  const [message, setMessage] = useState("");
   const [formData, setFormData] = useState({
     comment: item.comment,
   });
@@ -20,24 +28,29 @@ const ItemCardModal = ({ item }) => {
 
   const handleShow = () => setShow(true);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData((oldData) => ({
       ...oldData,
       [name]: value,
     }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const newData = {
       comment: formData.comment,
     };
 
     try {
       await updateItem(item.id, newData);
-      console.log("New comment");
+      fetchCategories();
+      setMessage("Comment update success");
+      setTimeout(() => {
+        handleClose();
+      }, 1000);
     } catch (error) {
-      console.log("Comment update error");
+      setMessage("Error!");
     }
   };
 
@@ -46,7 +59,6 @@ const ItemCardModal = ({ item }) => {
       <Button variant="outline-success" onClick={handleShow}>
         View
       </Button>
-
       <Modal
         show={show}
         onHide={handleClose}
@@ -92,10 +104,21 @@ const ItemCardModal = ({ item }) => {
                   onChange={handleChange}
                 />
               </Form.Group>
-              <Button variant="secondary" type="submit" form="updateItemForm">
-                Submit
-              </Button>
+              {message && (
+                <div
+                  className={`alert ${
+                    message.includes("success")
+                      ? "alert-success"
+                      : "alert-danger"
+                  }`}
+                >
+                  {message}
+                </div>
+              )}
             </Form>
+            <Button variant="secondary" type="submit" form="updateItemForm">
+              Submit
+            </Button>
           </Card>
         </Modal.Body>
         <Modal.Footer>

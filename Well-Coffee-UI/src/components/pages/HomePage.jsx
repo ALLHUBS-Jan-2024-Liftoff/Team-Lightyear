@@ -8,6 +8,7 @@ import { createItem } from '../../services/ItemService';
 
 const HomePage = () => {
   const [categories, setCategories] = useState([]);
+  const [itemData, setItemData] = useState([]);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 

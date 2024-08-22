@@ -1,13 +1,14 @@
 import { Accordion, Container, Table, Button, Stack } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
-import { useState } from "react";
+import { useState ,useEffect } from "react";
 import { deleteItem } from "../../services/ItemService";
 import DisplayStatusIcon from "../item/ItemStatusIcon";
-import AmazonInfoButtons from "../amazonAPI/AmazonInfoButtons";
+import AmazonInfoButtons from "../amazonAPI/ItemInfo/AmazonInfoButtons";
 
 const CategoryDisplay = ({ categories, fetchCategories }) => {
   const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
 
   const handleDeleteItem = async itemId => {
     try {
@@ -58,6 +59,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                       <thead>
                         <tr>
                           <th>Status</th>
+                          <th>Item#</th>
                           <th>Name</th>
                           <th>Description</th>
                           <th>Location</th>
@@ -73,6 +75,7 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                             <td>
                               <DisplayStatusIcon item={item} />
                             </td>
+                            <td>{item.id}</td>
                             <td>{item.name}</td>
                             <td>{item.description}</td>
                             <td>{item.location}</td>
@@ -80,7 +83,10 @@ const CategoryDisplay = ({ categories, fetchCategories }) => {
                             <td>{item.minQuantity}</td>
                             <td>${item.price}</td>
                             <td>
-                              <ItemCardModal item={item} />{" "}
+                              <ItemCardModal
+                              item={item}
+                              fetchCategories={fetchCategories}
+                              />{" "}
                               <UpdateItemModal
                                 categories={categories}
                                 item={item}
