@@ -14,6 +14,8 @@ const AddAccountModal = ({ onAdd }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  
+  
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
