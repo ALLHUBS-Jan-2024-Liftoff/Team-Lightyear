@@ -2,6 +2,7 @@ package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Account;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.AccountService;
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.RegisterFormDTO;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -51,4 +52,15 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateAccount(@PathVariable int id, @RequestBody RegisterFormDTO accountDetails) {
+        try {
+            Account updatedAccount = accountService.updateAccount(id, accountDetails);
+            return ResponseEntity.ok(updatedAccount);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
 }

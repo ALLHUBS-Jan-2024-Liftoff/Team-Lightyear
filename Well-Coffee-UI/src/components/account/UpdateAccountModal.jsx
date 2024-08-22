@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
-import axiosInstance from '../../services/axiosInstance';
+import { updateAccount } from '../../services/AccountService';
 
 const UpdateAccountModal = ({ account, onUpdate }) => {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(account);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (account) {
@@ -14,7 +16,12 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
     }
   }, [account]);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setMessage("");
+    setError(null);
+  }
+
   const handleShow = () => setShow(true);
 
   const handleChange = (e) => {
@@ -22,21 +29,37 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setError(null);
+
+    const newData = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      role: formData.role,
+    };
+
     setIsLoading(true);
-    axiosInstance.put(`/accounts/${formData.id}`, formData)
-      .then(() => {
-        onUpdate();
+    try {
+      await updateAccount(account.id, newData);
+      setMessage("Account updated successfully!");
+      setTimeout(() => {
         handleClose();
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error updating account:', error);
-        setError('Failed to update account');
-        setIsLoading(false);
-      });
-  };
+        if (onUpdate) onUpdate();
+      }, 1000);
+    } catch (error) {
+      setError("There was an error updating the account. Please try again.");
+    } finally {
+      setIsLoading(false);
+    };
+
+
+
+  }
 
   return (
     <>
@@ -55,7 +78,7 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
           <Modal.Title>Update Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {isLoading && <p>Loading...</p>}
+          {message && <p style={{ color: 'green' }}>{message}</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
@@ -106,15 +129,15 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
                   required
                 >
                   <option value="">Select...</option>
-                  <option value="admin">Admin</option>
-                  <option value="user">User</option>
-                  <option value="manager">Manager</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Employee">Employee</option>
+                  <option value="Manager">Manager</option>
                 </Form.Select>
               </Form.Group>
             </Row>
             <Button variant="secondary" onClick={handleClose} disabled={isLoading}>
               Close
-            </Button>
+            </Button>{" "}
             <Button variant="primary" type="submit" disabled={isLoading}>
               Update
             </Button>

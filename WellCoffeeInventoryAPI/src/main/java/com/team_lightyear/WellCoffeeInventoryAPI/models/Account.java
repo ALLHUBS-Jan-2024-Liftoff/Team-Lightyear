@@ -102,19 +102,11 @@ public class Account {
         this.email = email;
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return null;
-//    }
 
     public String getPassword() {
         return password;
     }
 
-//    @Override
-    public String getUsername() {
-        return null;
-    }
 
     public void setPassword(String password) {
         this.password = password;
