@@ -16,7 +16,12 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
     }
   }, [account]);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    setMessage("");
+    setError(null);
+  }
+
   const handleShow = () => setShow(true);
 
   const handleChange = (e) => {
@@ -28,6 +33,8 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
+    setError(null);
 
     const newData = {
       firstName: formData.firstName,
@@ -71,6 +78,7 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
           <Modal.Title>Update Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {message && <p style={{ color: 'green' }}>{message}</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <Form onSubmit={handleSubmit}>
             <Row className="mb-3">
@@ -129,7 +137,7 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
             </Row>
             <Button variant="secondary" onClick={handleClose} disabled={isLoading}>
               Close
-            </Button>
+            </Button>{" "}
             <Button variant="primary" type="submit" disabled={isLoading}>
               Update
             </Button>
