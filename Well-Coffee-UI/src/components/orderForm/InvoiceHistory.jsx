@@ -16,7 +16,6 @@ const InvoiceHistory = () => {
         return res.json();
       })
       .then((invoices) => {
-        console.log(invoices);
         setInvoices(invoices);
       });
   }, [invoices]);
@@ -35,36 +34,42 @@ const InvoiceHistory = () => {
         <Modal.Body>
           <div className="container">
             {invoices.map((invoice) => (
-              <Accordion defaultActiveKey="0">
-                <Accordion.Item key={invoice.id}>
+              <Accordion defaultActiveKey="0" key={invoice.id}>
+                <Accordion.Item>
                   <Accordion.Header>
                     Invoice#{invoice.invoiceNumber}
                   </Accordion.Header>
                   <Accordion.Body>
                     <Table>
+                      <thead>
                       <tr>
                         <th>Date</th>
                         <th>Vendor</th>
-                      </tr>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
                       <td>{invoice.invoiceDate}</td>
                       <td>{invoice.vendor}</td>
+                      </tr>
+                      </tbody>
                     </Table>
                     <Table striped bordered hover>
                       <thead>
-                        <tr>
+                      <tr>
                           <th>Item#</th>
                           <th>Price</th>
                           <th>Quantity</th>
                         </tr>
                       </thead>
                       {invoice.orderedItems.map((data) => (
-                        <tbody>
+                      <tbody key={data.id}>
                           <tr>
                             <td>{data.item}</td>
                             <td>{data.itemCost}</td>
                             <td>{data.quantityOrdered}</td>
-                          </tr>
-                        </tbody>
+                            </tr>
+                            </tbody>
                       ))}
                     </Table>
                   </Accordion.Body>
