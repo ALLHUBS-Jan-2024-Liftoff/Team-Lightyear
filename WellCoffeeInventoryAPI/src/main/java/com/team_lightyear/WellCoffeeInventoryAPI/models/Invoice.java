@@ -30,25 +30,25 @@ public class Invoice {
     // retrieving objects in a
     // recursive manner. If the object has already been retrieved once, it just passes a
     // reference (the id) into the JSON file and doesn't retrieve the whole object
-    @ManyToMany (cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     @JoinTable(
             name = "Invoice_Item",
-            joinColumns = { @JoinColumn(name = "invoice_id") },
-            inverseJoinColumns = { @JoinColumn(name = "item_id") }
+            joinColumns = {@JoinColumn(name = "invoice_id")},
+            inverseJoinColumns = {@JoinColumn(name = "item_id")}
     )
     //This field stores a set of the Item model to be able to retrieve item information
     private final Set<Item> itemsOrdered = new HashSet<>();
     
-    @OneToMany( cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     //This field stores a list of the OrderedItem model to be able to retrieve the cost of the
     // item on this particular invoice
     private final List<OrderedItem> orderedItems = new ArrayList<>();
     
-//    TODO - Trevor - implement once authentication/authorization service is running
-//    @ManyToOne
-//    private Account account;
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
     
     //LocalDate is stored as 2010-12-03
     private LocalDate invoiceDate;
@@ -65,15 +65,16 @@ public class Invoice {
     public Invoice() {
     }
     
-    public Invoice(LocalDate invoiceDate, String vendor, String invoiceNumber) {
+    public Invoice(LocalDate invoiceDate, String vendor, String invoiceNumber, Account account) {
         this.invoiceDate = invoiceDate;
         this.vendor = vendor;
         this.invoiceNumber = invoiceNumber;
+        this.account = account;
     }
     
     /* Custom methods */
-
-    public void addItem(Item item){
+    
+    public void addItem(Item item) {
         itemsOrdered.add(item);
     }
     
@@ -117,6 +118,14 @@ public class Invoice {
     
     public List<OrderedItem> getOrderedItemList() {
         return orderedItems;
+    }
+    
+    public Account getAccount() {
+        return account;
+    }
+    
+    public void setAccount(Account account) {
+        this.account = account;
     }
     
     /* toString */

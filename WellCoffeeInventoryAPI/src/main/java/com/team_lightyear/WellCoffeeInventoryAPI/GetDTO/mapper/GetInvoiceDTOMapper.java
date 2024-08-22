@@ -20,7 +20,8 @@ public class GetInvoiceDTOMapper implements Function<Invoice, GetInvoiceDTO> {
                 invoice.getOrderedItemList(),
                 invoice.getInvoiceDate(),
                 invoice.getVendor(),
-                invoice.getInvoiceNumber()
+                invoice.getInvoiceNumber(),
+                invoice.getAccount()
         );
     }
 }

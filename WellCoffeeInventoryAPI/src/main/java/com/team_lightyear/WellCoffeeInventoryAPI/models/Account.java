@@ -1,16 +1,11 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-//<<<<<<< HEAD
-import java.util.Collection;
-//=======
-import java.util.HashSet;
-//>>>>>>> origin/main
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -39,15 +34,10 @@ public class Account {
     private String role;
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-
-    // Awaiting confirmation from Trevor
-    // Note from Trevor- Changed field to be a HashSet since it needs to store multiple invoices
-    // and used HasHSet rather than List because each invoice should be unique. (Invoices can
-    // have identical items on order, but invoice id and invoice number should be unique)
-//    @OneToMany
-//    @JoinColumn(name = "account_id")
-//    private final HashSet<Invoice> invoices = new HashSet<>();
+    
+    @OneToMany (mappedBy = "account")
+    @JsonIgnore
+    private final List<Invoice> invoices = new ArrayList<>();
 
     public Account() {
     }
@@ -119,7 +109,15 @@ public class Account {
     public void setRole(String role) {
         this.role = role;
     }
-
+    
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+    
+    public void addInvoice(Invoice invoice) {
+        invoices.add(invoice);
+    }
+    
     // Equals and HashCode method - id and email
     @Override
     public boolean equals(Object o) {
