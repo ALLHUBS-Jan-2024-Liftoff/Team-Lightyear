@@ -1,7 +1,8 @@
 import UpdateAccountModal from "../account/UpdateAccountModal"
 import { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
-import { deleteAccount, getAllAccounts } from "../../services/AccountService";
+import { createAccount, deleteAccount, getAllAccounts } from "../../services/AccountService";
+import AddAccountModal from "../account/AddAccountModal";
 
 const ManageEmployees = () => {
   const [accounts, setAccounts] = useState([]);
@@ -47,6 +48,7 @@ const ManageEmployees = () => {
     <>
       <Container className="mt-5">
         <h1 className="text-center">Employee Accounts</h1>
+        <AddAccountModal onAdd={createAccount}/>
         <Table striped bordered hover responsive className="mt-3">
           <thead>
             <tr>

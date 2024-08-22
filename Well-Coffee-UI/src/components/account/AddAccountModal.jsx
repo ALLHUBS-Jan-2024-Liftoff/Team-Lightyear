@@ -5,6 +5,7 @@ import { createAccount } from '../../services/AccountService';
 
 const AddAccountModal = ({ onAdd }) => {
   const [show, setShow] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -48,6 +49,7 @@ const AddAccountModal = ({ onAdd }) => {
       onAdd();
       setTimeout(() => {
         handleClose();
+        if (onAdd) onAdd();
       }, 1500); // Closes the modal after 1.5 seconds
 
     } catch (error) {
