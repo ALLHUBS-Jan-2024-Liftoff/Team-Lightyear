@@ -48,7 +48,7 @@ const ManageEmployees = () => {
     <>
       <Container className="mt-5">
         <h1 className="text-center">Employee Accounts</h1>
-        <AddAccountModal onAdd={createAccount}/>
+        <AddAccountModal onAdd={handleUpdateAccount}/>
         <Table striped bordered hover responsive className="mt-3">
           <thead>
             <tr>
