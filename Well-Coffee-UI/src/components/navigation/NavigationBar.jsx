@@ -18,11 +18,8 @@ const NavigationBar = ({ authenticated }) => {
                 <Nav.Link as={Link} to={"/order"}>Make an Order</Nav.Link>
                 <Nav.Link as={Link} to={"/manage"}>Manage Employees</Nav.Link>
                 <Nav.Link as={Link} to={"/search"}>Search</Nav.Link>
-                <NavDropdown align='end' title="Account">
-                  <NavDropdown.Item as={Link} to={"/account"}>View Account</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item as={Link} to={"/logout"}>Logout</NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link as={Link} to={"/logout"}>Logout</Nav.Link>
+
               </Nav>
             ) : (
             <Nav className='ml-auto nav-links'>

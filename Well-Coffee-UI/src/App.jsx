@@ -4,7 +4,6 @@ import { Route,
   Routes, 
   Navigate } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
-import AccountPage from "./components/pages/AccountPage";
 import OrderFormPage from "./components/orderForm/OrderFormPage";
 import ManageEmployees from "./components/pages/ManageEmployees";
 import AmazonSearchHome from "./components/amazonAPI/ItemSearch/AmazonSearchHome";
@@ -35,7 +34,6 @@ function App() {
               <Route path="/amazon" element={<AmazonSearchHome />} />
               <Route path="/manage" element={<ManageEmployees />} />
               <Route path="/search" element={<SearchPage />} />
-              <Route path="/account" element={<AccountPage />} />
               <Route path="/logout" element={<LogoutPage setAuthenticated={setAuthenticated} />} />
               <Route path="*" element={<Navigate to="/home" />} />
             </>
