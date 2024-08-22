@@ -2,24 +2,11 @@ import axios from "axios";
 
 const BASEAPIURL = "http://localhost:8080";
 
-// export const createAccount = async (e) => {
-//     e.preventDefault();
-//     setIsLoading(true);
-//     axiosInstance.post(`${BASEAPIURL}/api/manage/new`, formData)
-//       .then(() => {
-//         onAdd();
-//         handleClose();
-//         setIsLoading(false);
-//       })
-//       .catch(error => {
-//         console.error('Error adding account:', error);
-//         setError('Failed to add account');
-//         setIsLoading(false);
-//       });
-//     }
 
+// Function to create a new account
 export const createAccount = async (accountData) => {
   try {
+     // POST request to create a new account
     const response = await axios.post(`${BASEAPIURL}/api/manage/new`, accountData);
     return response.data;
   } catch (error) {
@@ -28,8 +15,10 @@ export const createAccount = async (accountData) => {
   }
 };
 
+    // Function to fetch all accounts
     export const getAllAccounts = async () => {
       try {
+        // GET request to retrieve all accounts
         const response = await axios.get(`${BASEAPIURL}/api/manage/all`);
         return response.data;
       } catch (error) {
@@ -39,9 +28,10 @@ export const createAccount = async (accountData) => {
     };
 
 
-
+    // Function to delete an account
     export const deleteAccount = async (accountId) => {
       try {
+        // DELETE request to remove an account
         const response = await axios.delete(`${BASEAPIURL}/api/manage/${accountId}`);
         return response;
       } catch (error) {
@@ -50,8 +40,10 @@ export const createAccount = async (accountData) => {
       }
     };
 
+    // Function to update an account
     export const updateAccount = async (accountId, accountData) => {
       try {
+        // PATCH request to update an account
         const response = await axios.patch(`${BASEAPIURL}/api/manage/${accountId}`, accountData);
         return response.data;
       } catch (error) {

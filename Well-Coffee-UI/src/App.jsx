@@ -13,7 +13,9 @@ import LogoutPage from "./components/pages/LogoutPage";
 import SearchPage from "./components/pages/SearchPage";
 import Footer from "./components/footer/Footer";
 
+
 function App() {
+  // State to manage authentication status
   const [authenticated, setAuthenticated] = useState(false);
 
   return (
@@ -22,12 +24,15 @@ function App() {
       <main className="flex-grow-1">
         <Routes>
           {!authenticated ? (
+            // Routes for unauthenticated users
             <>
             <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated} />} />
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<Navigate to="/login" />} />
             </>
           ) : (
+            // Routes for authenticated users
+
             <>
               <Route path="/home" element={<HomePage />} />
               <Route path="/order" element={<OrderFormPage />} />

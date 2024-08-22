@@ -10,12 +10,14 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState("");
 
+  // Update formData when account details changes
   useEffect(() => {
     if (account) {
       setFormData(account);
     }
   }, [account]);
 
+  // Functions to handle modal visibility
   const handleClose = () => {
     setShow(false);
     setMessage("");
@@ -24,13 +26,14 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
 
   const handleShow = () => setShow(true);
 
+  // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
   
-  
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -45,12 +48,14 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
 
     setIsLoading(true);
     try {
+      // Call updateAccount function from AccountService
       await updateAccount(account.id, newData);
       setMessage("Account updated successfully!");
+      // Close modal and trigger onUpdate after a delay
       setTimeout(() => {
         handleClose();
         if (onUpdate) onUpdate();
-      }, 1000);
+      }, 1500); // Closes the modal after 1.5 second
     } catch (error) {
       setError("There was an error updating the account. Please try again.");
     } finally {
@@ -78,6 +83,7 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
           <Modal.Title>Update Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {/* Display success or error messages */}
           {message && <p style={{ color: 'green' }}>{message}</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <Form onSubmit={handleSubmit}>
@@ -135,6 +141,7 @@ const UpdateAccountModal = ({ account, onUpdate }) => {
                 </Form.Select>
               </Form.Group>
             </Row>
+            
             <Button variant="secondary" onClick={handleClose} disabled={isLoading}>
               Close
             </Button>{" "}

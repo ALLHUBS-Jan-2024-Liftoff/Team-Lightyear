@@ -17,7 +17,7 @@ const AddAccountModal = ({ onAdd }) => {
   const [error, setError] = useState(null);
   
   
-
+  // Functions to handle modal visibility
   const handleClose = () => {
     setShow(false);
     setFormData({
@@ -33,20 +33,24 @@ const AddAccountModal = ({ onAdd }) => {
 
   const handleShow = () => setShow(true);
 
+  // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
 
     try {
+      // Call createAccount function from AccountService
       await createAccount(formData);
       setSuccess(true); // Sets success state to true and displays a message to the user
       onAdd();
+      // Close modal and trigger onAdd after a delay
       setTimeout(() => {
         handleClose();
         if (onAdd) onAdd();
@@ -78,6 +82,7 @@ const AddAccountModal = ({ onAdd }) => {
           <Modal.Title>Add New Account</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {/* Display loading, error, or success messages */}
           {isLoading && <p>Loading...</p>}
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {success && <p style={{ color: 'green' }}>Account created successfully!</p>}

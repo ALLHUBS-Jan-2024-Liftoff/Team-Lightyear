@@ -9,37 +9,41 @@ const ManageEmployees = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
 
+  // Function to fetch accounts from the server
   const fetchAccounts = async () => {
     try {
       const data = await getAllAccounts();
-      setAccounts(data);
+      setAccounts(data); // Update state with fetched data
     } catch (error) {
       setError("There was an error fetching the account data. Please try again.");
     }
   };
 
+  // useEffect hook to fetch accounts 
   useEffect(() => {
     fetchAccounts();
   }, []);
 
+  // Function to handle account deletion
   const handleDeleteAccount = async accountId => {
     try {
-      await deleteAccount(accountId);
+      await deleteAccount(accountId); // Send request to delete account by its ID
       setMessage("Account terminated successfully.");
       setTimeout(() => {
         setMessage("");
-      }, 1500);
-      fetchAccounts();
+      }, 1500); // Clear message after 1.5 seconds
+      fetchAccounts(); // Refresh account list after change
     } catch (error) {
       setMessage("There was an error deleting the account. Please try again.");
       setTimeout(() => {
         setMessage("");
-      }, 1500);
+      }, 1500); // Clear message after 1.5 seconds
     }
   }
 
+  // Function to handle account updates
   const handleUpdateAccount = async () => {
-    fetchAccounts();
+    fetchAccounts(); // Refresh account list after update
   };
 
 
@@ -61,6 +65,7 @@ const ManageEmployees = () => {
             </tr>
           </thead>
           <tbody>
+            {/* Render each account in a table row */}
             {accounts.map((account) => (
               <tr key={account.id}>
                 <td>{account.id}</td>
@@ -69,7 +74,9 @@ const ManageEmployees = () => {
                 <td>{account.email}</td>
                 <td>{account.role}</td>
                 <td>
+                  {/* Modal for updating an account */}
                   <UpdateAccountModal account={account} onUpdate={handleUpdateAccount} />{' '} 
+                  {/* Button to delete an account */}
                   <Button
                     variant="outline-danger"
                     onClick={() => handleDeleteAccount(account.id)}
@@ -81,6 +88,7 @@ const ManageEmployees = () => {
             ))}
           </tbody>
         </Table>
+        {/* Display success or error message */}
         {message && (
           <div
             className={`alert ${

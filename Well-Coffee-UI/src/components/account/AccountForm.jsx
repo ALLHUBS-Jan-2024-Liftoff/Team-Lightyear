@@ -11,14 +11,17 @@ const AddAccountModal = () => {
     role: '',
   });
 
+  // Functions to handle modal visibility
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  // Function to handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({ ...prevData, [name]: value }));
   };
 
+  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission here
