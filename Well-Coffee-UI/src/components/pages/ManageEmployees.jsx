@@ -1,5 +1,4 @@
-import UpdateAccountModal from "../account/UpdateAccountModal";
-import InvoiceHistory from "../account/InvoiceHistory";
+import UpdateAccountModal from "../account/UpdateAccountModal"
 import { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
 import { deleteAccount, getAllAccounts } from "../../services/AccountService";
@@ -61,8 +60,7 @@ const ManageEmployees = () => {
                 <td>{account.email}</td>
                 <td>{account.manager === true ? "Manager" : "Employee"}</td>
                 <td>
-                  <UpdateAccountModal account={account} />{' '} 
-                  <InvoiceHistory />{' '}
+                  <UpdateAccountModal account={account} />{' '}
                   <Button
                     variant="outline-danger"
                     onClick={() => handleDeleteAccount(account.id)}

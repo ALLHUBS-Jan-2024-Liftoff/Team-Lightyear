@@ -11,6 +11,7 @@ const OrderFormItemRow = ({
   return (
       <tr key={item.id}>
         <td><DisplayStatusIcon item={item} /></td>
+        <td>{item.id}</td>
         <td>{item.name}</td>
         <td>{item.description}</td>
         {/* <td>{item.amid}</td> */}
