@@ -1,18 +1,23 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.controllers;
 
 import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.dto.GetInvoiceDTO;
+import com.team_lightyear.WellCoffeeInventoryAPI.models.Account;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
 import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.InvoiceService;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.ItemService;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.OrderedItemService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Trevor Gruber
@@ -34,6 +39,9 @@ public class InvoiceController {
     @Autowired
     OrderedItemService orderedItemService;
     
+    @Autowired
+    LoginController loginController;
+    
     //Get list of invoices
     @GetMapping("")
     public ResponseEntity<?> getInvoiceList(){
@@ -50,15 +58,23 @@ public class InvoiceController {
     
     //Create new invoice
     @PostMapping("/new")
-    public Invoice postInvoice(@RequestBody InvoiceDTO newInvoice) {
-        //TODO get user from session and set in newInvoice
-        
-        //Calls the invoice service to process the new invoice
-        Invoice invoice = invoiceService.processNewInvoice(newInvoice);
-        //Adds invoice to the Set<Invoice> invoiceList in OrderedItem after the invoice has been
-        // created
-        itemService.addInvoiceToItem(invoice);
-        return invoice;
+    public ResponseEntity<Map<String, String>> postInvoice(@RequestBody InvoiceDTO newInvoice, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        Account account = loginController.getAccountFromSession(session);
+        newInvoice.setAccount(account);
+        Map<String, String> responseBody = new HashMap<>();
+        if (account != null) {
+            //Calls the invoice service to process the new invoice
+            Invoice invoice = invoiceService.processNewInvoice(newInvoice);
+            //Adds invoice to the Set<Invoice> invoiceList in OrderedItem after the invoice has been
+            // created
+            itemService.addInvoiceToItem(invoice);
+            responseBody.put("message", "Invoice successfully created");
+            return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
+        } else {
+            responseBody.put("message", "User not found in session");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
+        }
     }
     
     //TODO - write method to get invoices created by a specific Account
