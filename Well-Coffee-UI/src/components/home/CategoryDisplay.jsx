@@ -1,14 +1,13 @@
 import { Accordion, Container, Table, Button, Stack } from "react-bootstrap";
 import ItemCardModal from "./ItemCardModal";
 import UpdateItemModal from "./UpdateItemModal";
-import { useState ,useEffect } from "react";
+import { useState } from "react";
 import { deleteItem } from "../../services/ItemService";
 import DisplayStatusIcon from "../item/ItemStatusIcon";
 import AmazonInfoButtons from "../amazonAPI/ItemInfo/AmazonInfoButtons";
 
 const CategoryDisplay = ({ categories, fetchCategories }) => {
   const [message, setMessage] = useState("");
-  const [error, setError] = useState(null);
 
   const handleDeleteItem = async itemId => {
     try {

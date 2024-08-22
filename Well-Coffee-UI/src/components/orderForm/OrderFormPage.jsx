@@ -129,7 +129,8 @@ const DisplayOrderForm = () => {
   return (
     <>
       <Container className="mt-5">
-        <Form onSubmit={handleSubmit} id="orderForm">
+        <h1 className="text-center">Create an Invoice</h1>
+        <Form className="mt-4" onSubmit={handleSubmit} id="orderForm">
           {error && <div className="alert alert-danger">{error}</div>}
           {success && (
             <div className="alert alert-success">
@@ -185,7 +186,7 @@ const DisplayOrderForm = () => {
         </Form>
       </Container>
       <Container className="mt-5">
-        <h1 className="text-center">Items Available to Order</h1>
+        <h2 className="text-center">Items Available to Order</h2>
         <Accordion alwaysOpen className="mt-4">
           <OrderFormTable
             categories={categories}

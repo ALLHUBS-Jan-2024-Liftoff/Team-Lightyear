@@ -1,6 +1,6 @@
 import logo from '../../assets/images/logo-transparent.png';
 import './NavigationBar.css';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const NavigationBar = ({ authenticated }) => {
@@ -11,7 +11,7 @@ const NavigationBar = ({ authenticated }) => {
             <Nav.Link as={Link} to={"/home"}><img src={logo} width='200px' height='30px' /></Nav.Link>
           </Navbar.Brand>
           <Navbar.Toggle />
-          <Navbar.Collapse className='mc-3'>
+          <Navbar.Collapse className='mx-3'>
             {authenticated ? (
               <Nav className='ml-auto text-start nav-links'>
                 <Nav.Link as={Link} to={"/home"}>Home</Nav.Link>
