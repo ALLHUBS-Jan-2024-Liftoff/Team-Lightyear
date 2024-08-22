@@ -1,4 +1,4 @@
-import UpdateAccountModal from "../account/UpdateAccountModal";
+import UpdateAccountModal from "../account/UpdateAccountModal"
 import { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
 import { deleteAccount, getAllAccounts } from "../../services/AccountService";
