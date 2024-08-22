@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import UpdateAmazonIdForm from "./UpdateAmazonIdForm";
 import AmazonInfoCard from "./AmazonInfoCard";
-import { getAmazonProductInfo } from "../../services/AmazonAPIService";
+import { getAmazonProductInfo } from "../../../services/AmazonAPIService";
 
 const AmazonInfoButtons = ({ item, fetchCategories }) => {
   const [showForm, setShowForm] = useState(false);
