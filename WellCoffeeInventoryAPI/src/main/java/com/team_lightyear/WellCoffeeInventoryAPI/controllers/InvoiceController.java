@@ -5,6 +5,7 @@ import com.team_lightyear.WellCoffeeInventoryAPI.models.Account;
 import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
 import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
+import com.team_lightyear.WellCoffeeInventoryAPI.services.AccountService;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.InvoiceService;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.ItemService;
 import com.team_lightyear.WellCoffeeInventoryAPI.services.OrderedItemService;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by Trevor Gruber
@@ -42,11 +44,35 @@ public class InvoiceController {
     @Autowired
     LoginController loginController;
     
+    @Autowired
+    AccountService accountService;
+    
     //Get list of invoices
     @GetMapping("")
-    public ResponseEntity<?> getInvoiceList(){
+    public ResponseEntity<?> getInvoiceList() {
         List<GetInvoiceDTO> invoices = invoiceService.getInvoiceDTOList();
         return new ResponseEntity<>(invoices, HttpStatus.OK);
+    }
+    
+    //Get list of invoices by Account ID
+    @GetMapping("/account/{id}")
+    public ResponseEntity<?> getInvoiceListByAccount(@PathVariable int id) {
+        Optional<Account> result = accountService.getAccountById(id);
+        
+        Map<String, Object> data = new HashMap<>();
+        
+        if (result.isPresent()) {
+            Account account = result.get();
+            List<GetInvoiceDTO> invoices = invoiceService.getInvoiceDTOListByAccount(account);
+            data.put("status", "200");
+            data.put("message", "Success");
+            data.put("data", invoices);
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } else {
+            Map<String, String> responseBody = new HashMap<>();
+            responseBody.put("message", "No user with that ID exists");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+        }
     }
     
     //Get invoice by id

@@ -1,11 +1,11 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -38,7 +38,7 @@ public class Invoice {
             inverseJoinColumns = {@JoinColumn(name = "item_id")}
     )
     //This field stores a set of the Item model to be able to retrieve item information
-    private final Set<Item> itemsOrdered = new HashSet<>();
+    private final List<Item> itemsOrdered = new ArrayList<>();
     
     @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
@@ -88,7 +88,7 @@ public class Invoice {
         return id;
     }
     
-    public Set<Item> getItemsOrdered() {
+    public List<Item> getItemsOrdered() {
         return itemsOrdered;
     }
     

@@ -12,6 +12,16 @@ export const fetchInvoices = async () => {
   }
 };
 
+export const fetchInvoicesByAccountId = async (id) => {
+  try {
+    const response = await axios.get(`${BASEAPIURL}/account/` + id);
+    return response.data;
+  } catch (error) {
+    console.error("There was an error fetching the invoices!", error);
+    throw error;
+  }
+};
+
 export const createInvoice = async invoice => {
   try {
     const response = await axios.post(`${BASEAPIURL}/new`,
