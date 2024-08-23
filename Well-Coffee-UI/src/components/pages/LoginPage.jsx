@@ -1,7 +1,7 @@
-import React from 'react'
 import { useState } from 'react';
 import axios from 'axios';
-import { Container, Button } from 'react-bootstrap';
+import { Container, Button, Row,  Col, Form, Card } from 'react-bootstrap';
+import CarouselDisplay from '../carousel/CarouselDisplay';
 
 /* 
   Created by Dominique Gould 
@@ -11,8 +11,6 @@ function LoginPage({ setAuthenticated }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-
-  // const BASEAPIURL = "http://localhost:8080/api/login";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -35,46 +33,51 @@ function LoginPage({ setAuthenticated }) {
     } catch (error) {
       setMessage(error.response?.data.message || "Login failed");
     }
-  
   };
 
-
   return (
-    <Container className="mt-5">
-      
-      <div className='header'>
-      <h1 className="text-center">Welcome Back!</h1>
-      </div>
-    
-    {/* Login form here */}
-    
-    <div className="text-center">
-      {/* Form inputs */}
-      <form onSubmit={handleLogin}>
-        <div className='inputContainer'>
+    <>
+      <Container className="mt-5">
+        <Row className="justify-content-center">
+          <Col style={{ maxWidth: '500px' }}>
+            <Card className="p-4">
+              <Card.Body>
+                <h1 className="text-center mb-4">Welcome Back!</h1>
+                <Form onSubmit={handleLogin}>
+                  <Form.Group className="mb-3" controlId="email">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="email"
+                      placeholder="Enter email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </Form.Group>
 
-          <label htmlFor='email'>Email:</label>
-          <input type='email' id='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' />
-          
-          <p></p>
+                  <Form.Group className="mb-3" controlId="password">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Enter password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </Form.Group>
 
-          <label htmlFor='password'>Password:</label>
-          <input type='password' id='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
-        </div>
-        
-        {/* Will add forgot password later */}
-        
-        <div className='submitContainer'>
-          <Button variant="primary" type='submit'>Login</Button>
-        </div>
+                  {/* Forgot password link can be added here later */}
 
-
-      </form>
-      {message && <p>{message}</p>}
-    </div>
-    
-
-    </Container>
+                  <Button variant="primary" type="submit" className="w-100">
+                    Login
+                  </Button>
+                </Form>
+                {message && <p className="text-center text-danger mt-3">{message}</p>}
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+      <CarouselDisplay />
+    </>
   )
 }
 

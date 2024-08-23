@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
-import { createCategory } from '../../services/CategoryService';
 
 const AddCategoryModal = ({ onAddCategory, resetMessages, error, success }) => {
   const [show, setShow] = useState(false);
