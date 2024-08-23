@@ -21,7 +21,7 @@ function App() {
       <NavigationBar authenticated={authenticated} />
       <main className="flex-grow-1">
         <Routes>
-          {!authenticated ? (
+          {authenticated ? (
             <>
             <Route path="/login" element={<LoginPage setAuthenticated={setAuthenticated} />} />
             <Route path="/register" element={<Register />} />
