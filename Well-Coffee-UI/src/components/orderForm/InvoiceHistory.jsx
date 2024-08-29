@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { Table, Button, Modal, Accordion } from "react-bootstrap";
+import { Table, Button, Modal, Accordion, Container } from "react-bootstrap";
 import { fetchInvoices } from "/src/services/InvoiceService.js";
+import ItemDetail from "../managerHome/ItemDetails";
 import React from "react";
 
-const InvoiceHistory = () => {
+const InvoiceHistory = ({error, setError, message, setMessage}) => {
   const [invoices, setInvoices] = useState([]);
   const [show, setShow] = useState(false);
 
@@ -32,7 +33,7 @@ const InvoiceHistory = () => {
           <Modal.Title>Invoice History</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="container">
+          <Container>
             {invoices.map((invoice) => (
               <Accordion defaultActiveKey="0" key={invoice.id}>
                 <Accordion.Item>
@@ -62,21 +63,15 @@ const InvoiceHistory = () => {
                           <th>Quantity</th>
                         </tr>
                       </thead>
-                      {invoice.orderedItems.map((data) => (
-                      <tbody key={data.id}>
-                          <tr>
-                            <td>{data.item}</td>
-                            <td>{data.itemCost}</td>
-                            <td>{data.quantityOrdered}</td>
-                            </tr>
-                            </tbody>
-                      ))}
+                      {invoice.orderedItems.map((orderedItem, index) => (
+                      <ItemDetail key={orderedItem.id} orderedItem={orderedItem} index={index} itemIdsOrdered={invoice.itemIdsOrdered} setMessage={setMessage} setError={setError} />
+                    ))}
                     </Table>
                   </Accordion.Body>
                 </Accordion.Item>
               </Accordion>
             ))}
-          </div>
+          </Container>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

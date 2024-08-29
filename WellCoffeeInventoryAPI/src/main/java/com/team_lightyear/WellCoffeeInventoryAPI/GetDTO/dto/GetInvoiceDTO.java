@@ -12,7 +12,7 @@ import java.util.Set;
  * Created by Trevor Gruber
  */
 
-public record GetInvoiceDTO(int id, Set<Item> itemsOrdered,
+public record GetInvoiceDTO(int id, List<Integer> itemIdsOrdered,
                             List<OrderedItem> orderedItems, LocalDate invoiceDate,
                             String vendor,
                             String invoiceNumber, Account account) {

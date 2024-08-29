@@ -57,7 +57,7 @@ public class Item {
     @ManyToMany (mappedBy = "itemsOrdered")
     @JsonIgnore
     //Stores the list of invoices this item is included in
-    private final Set<Invoice> invoiceList = new HashSet<>();
+    private final List<Invoice> invoiceList = new ArrayList<>();
     
     // No-argument constructor, required by JPA
     public Item() {
@@ -94,7 +94,7 @@ public class Item {
         return orderedItemList;
     }
     
-    public Set<Invoice> getInvoiceList() {
+    public List<Invoice> getInvoiceList() {
         return invoiceList;
     }
     

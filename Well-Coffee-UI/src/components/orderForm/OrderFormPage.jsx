@@ -11,6 +11,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const DisplayOrderForm = () => {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [startDate, setStartDate] = useState(
     new Date().toISOString().split("T")[0]
@@ -113,6 +114,7 @@ const DisplayOrderForm = () => {
     try {
       await createInvoice(addInvoice);
       setSuccess(true); // Sets success state to true and displays a message to the user
+      setMessage("Invoice created successfully!")
       fetchCategories();
     } catch (error) {
       // Error message will be displayed to the user if the invoice cannot be created
@@ -131,12 +133,15 @@ const DisplayOrderForm = () => {
       <Container className="mt-5">
         <h1 className="text-center">Create an Invoice</h1>
         <Form className="mt-4" onSubmit={handleSubmit} id="orderForm">
-          {error && <div className="alert alert-danger">{error}</div>}
-          {success && (
-            <div className="alert alert-success">
-              Invoice created successfully!
-            </div>
-          )}
+        {message && (
+          <div
+            className={`alert ${
+              !error ? "alert-success" : "alert-danger"
+            } mt-2`}
+          >
+            {message}
+          </div>
+        )}
           <Row className="mb-3">
             <Form.Group as={Col} className="mb-3" controlId="invoiceNumber">
               <Form.Label>Invoice Number:</Form.Label>
@@ -197,7 +202,7 @@ const DisplayOrderForm = () => {
           />
         </Accordion>
         <br></br>
-        <InvoiceHistory />
+        <InvoiceHistory error={error} setError={setError} message={message} setMessage={setMessage} />
       </Container>
     </>
   );

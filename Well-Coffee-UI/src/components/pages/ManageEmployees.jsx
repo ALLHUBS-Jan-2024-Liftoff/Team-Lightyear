@@ -2,6 +2,7 @@ import UpdateAccountModal from "../account/UpdateAccountModal"
 import { useState, useEffect } from "react";
 import { Container, Table, Button } from "react-bootstrap";
 import { deleteAccount, getAllAccounts } from "../../services/AccountService";
+import InvoiceHistoryByUser from "../managerHome/InvoiceHistoryByUser";
 
 const ManageEmployees = () => {
   const [accounts, setAccounts] = useState([]);
@@ -41,8 +42,6 @@ const ManageEmployees = () => {
     fetchAccounts();
   };
 
-
-
   return (
     <>
       <Container className="mt-5">
@@ -67,6 +66,7 @@ const ManageEmployees = () => {
                 <td>{account.email}</td>
                 <td>{account.role}</td>
                 <td>
+                  <InvoiceHistoryByUser account={account} message={message} setMessage={setMessage} error={error} setError={setError} /> {' '}
                   <UpdateAccountModal account={account} onUpdate={handleUpdateAccount} />{' '} 
                   <Button
                     variant="outline-danger"
@@ -82,7 +82,7 @@ const ManageEmployees = () => {
         {message && (
           <div
             className={`alert ${
-              message.includes("success") ? "alert-success" : "alert-danger"
+              !error ? "alert-success" : "alert-danger"
             } mt-2`}
           >
             {message}

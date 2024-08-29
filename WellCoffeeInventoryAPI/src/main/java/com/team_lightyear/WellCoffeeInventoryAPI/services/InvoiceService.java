@@ -1,10 +1,12 @@
 package com.team_lightyear.WellCoffeeInventoryAPI.services;
 
-import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
-import com.team_lightyear.WellCoffeeInventoryAPI.dto.OrderedItemDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.dto.GetInvoiceDTO;
 import com.team_lightyear.WellCoffeeInventoryAPI.GetDTO.mapper.GetInvoiceDTOMapper;
-import com.team_lightyear.WellCoffeeInventoryAPI.models.*;
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.InvoiceDTO;
+import com.team_lightyear.WellCoffeeInventoryAPI.dto.OrderedItemDTO;
+import com.team_lightyear.WellCoffeeInventoryAPI.models.Account;
+import com.team_lightyear.WellCoffeeInventoryAPI.models.Invoice;
+import com.team_lightyear.WellCoffeeInventoryAPI.models.OrderedItem;
 import com.team_lightyear.WellCoffeeInventoryAPI.repositories.InvoiceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +33,14 @@ public class InvoiceService {
     @Autowired
     private GetInvoiceDTOMapper getInvoiceDTOMapper;
     
+    
     //Retrieve list of GetInvoiceDTOs
     public List<GetInvoiceDTO> getInvoiceDTOList () {
         return invoiceRepository.findAll().stream().map(getInvoiceDTOMapper).collect(Collectors.toList());
+    }
+    
+    public List<GetInvoiceDTO> getInvoiceDTOListByAccount (Account account) {
+        return invoiceRepository.findByAccount(account).stream().map(getInvoiceDTOMapper).collect(Collectors.toList());
     }
     
     //Retrieve an invoice by its id

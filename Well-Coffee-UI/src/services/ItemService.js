@@ -22,6 +22,16 @@ export const getAllItems = async () => {
   }
 };
 
+export const getItemById = async (id) => {
+  try {
+    const response = await axios.get(`${BASEAPIURL}/` + id);
+    return response.data;
+  } catch (error) {
+    console.error("There was an error fetching the item", error);
+    throw error;
+  }
+};
+
 export const updateItem = async (itemId, itemData) => {
   try {
     const response = await axios.patch(`${BASEAPIURL}/${itemId}`, itemData);
